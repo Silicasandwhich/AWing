@@ -24,6 +24,10 @@ public class Constants {
     public static final class DriveConstants {
         public static final int kLeft = 0;
         public static final int kRight = 1;
-      } 
+
+        //By index: Enc A, Enc B, Absolute
+        public static final int[] kEncoderLeft = {0,1,2}; 
+        public static final int[] kEncoderRight = {3,4,5}; 
+    }
 }
 
