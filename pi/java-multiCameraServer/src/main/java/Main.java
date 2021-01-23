@@ -20,6 +20,7 @@ import edu.wpi.cscore.UsbCamera;
 import edu.wpi.cscore.VideoSource;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.networktables.EntryListenerFlags;
+import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.vision.VisionPipeline;
 import edu.wpi.first.vision.VisionThread;
@@ -321,19 +322,21 @@ public final class Main {
     for (SwitchedCameraConfig config : switchedCameraConfigs) {
       startSwitchedCamera(config);
     }
-
+    NetworkTable vision = ntinst.getTable("vision");
+    NetworkTableEntry lemons = vision.getEntry("lemons");
     // start image processing on camera 0 if present
     if (cameras.size() >= 1) {
       VisionThread visionThread = new VisionThread(cameras.get(0),
-              new MyPipeline(), pipeline -> {
-        // do something with pipeline results
-      });
-      /* something like this for GRIP:
-      VisionThread visionThread = new VisionThread(cameras.get(0),
               new GripPipeline(), pipeline -> {
-        ...
-      });
-       */
+                List<String> lemonList = new ArrayList<String>();
+                KeyPoint[] blobs =  pipeline.findBlobsOutput().toArray();
+                synchronized (imgLock) {
+                    for(int i = 0; i <blobs.length; i++) {
+                        lemonList.add(blobs[i].pt.x+ " "+ blobs[i].pt.y+" "+ blobs[i].size);
+                    }
+                }
+                lemons.setStringArray(lemonList.toArray());
+              });
       visionThread.start();
     }
 
