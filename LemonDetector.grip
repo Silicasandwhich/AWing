@@ -1,9 +1,6 @@
 <grip:Pipeline>
   <sources>
     <grip:Camera>
-      <property name="deviceNumber" value="1"/>
-    </grip:Camera>
-    <grip:Camera>
       <property name="deviceNumber" value="0"/>
     </grip:Camera>
   </sources>
@@ -11,10 +8,10 @@
     <grip:Step name="Resize Image">
       <grip:Input step="0" socket="0"/>
       <grip:Input step="0" socket="1">
-        <value>640</value>
+        <value>640.0</value>
       </grip:Input>
       <grip:Input step="0" socket="2">
-        <value>480</value>
+        <value>480.0</value>
       </grip:Input>
       <grip:Input step="0" socket="3">
         <value>LINEAR</value>
@@ -25,19 +22,19 @@
       <grip:Input step="1" socket="0"/>
       <grip:Input step="1" socket="1">
         <value>
-          <double>21.415816963423417</double>
-          <double>65.84245746920061</double>
+          <double>14.568345323741006</double>
+          <double>55.09160422687979</double>
         </value>
       </grip:Input>
       <grip:Input step="1" socket="2">
         <value>
-          <double>0.0</double>
-          <double>255.0</double>
+          <double>71.08812949640287</double>
+          <double>211.48464163822527</double>
         </value>
       </grip:Input>
       <grip:Input step="1" socket="3">
         <value>
-          <double>194.91906474820144</double>
+          <double>27.51798561151079</double>
           <double>254.97275236207543</double>
         </value>
       </grip:Input>
@@ -64,7 +61,7 @@
     <grip:Step name="Find Blobs">
       <grip:Input step="4" socket="0"/>
       <grip:Input step="4" socket="1">
-        <value>7.0</value>
+        <value>32.0</value>
       </grip:Input>
       <grip:Input step="4" socket="2">
         <value>
@@ -84,24 +81,20 @@
       <grip:Input step="4" socket="0"/>
     </grip:Connection>
     <grip:Connection>
-      <grip:Output step="1" socket="0" previewed="false"/>
-      <grip:Input step="2" socket="0"/>
-    </grip:Connection>
-    <grip:Connection>
-      <grip:Output step="0" socket="0" previewed="false"/>
-      <grip:Input step="1" socket="0"/>
-    </grip:Connection>
-    <grip:Connection>
-      <grip:Output step="2" socket="0" previewed="false"/>
-      <grip:Input step="3" socket="1"/>
-    </grip:Connection>
-    <grip:Connection>
-      <grip:Output source="0" socket="0" previewed="false"/>
+      <grip:Output source="0" socket="0" previewed="true"/>
       <grip:Input step="0" socket="0"/>
+    </grip:Connection>
+    <grip:Connection>
+      <grip:Output step="1" socket="0" previewed="false"/>
+      <grip:Input step="3" socket="1"/>
     </grip:Connection>
     <grip:Connection>
       <grip:Output step="0" socket="0" previewed="false"/>
       <grip:Input step="3" socket="0"/>
+    </grip:Connection>
+    <grip:Connection>
+      <grip:Output step="0" socket="0" previewed="false"/>
+      <grip:Input step="1" socket="0"/>
     </grip:Connection>
   </connections>
   <settings>
@@ -117,7 +110,7 @@
     <language>Java</language>
     <className>GripPipeline</className>
     <implementWpilibPipeline>false</implementWpilibPipeline>
-    <saveDir>C:\Users\shane\GRIP</saveDir>
+    <saveDir>C:\Users\dbrown4155\GRIP</saveDir>
     <packageName></packageName>
     <moduleName>grip</moduleName>
   </codeGenerationSettings>
