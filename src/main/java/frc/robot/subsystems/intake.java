@@ -61,8 +61,8 @@ public class Intake extends SubsystemBase {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 
-    public void pickup() {
-        motor.set(Constants.IntakeSpeed);
+    public void pickup(double speed) {
+        motor.set(speed);
     }
 
     public void stopPickup(){
