@@ -22,7 +22,7 @@ package frc.robot;
 public class Constants {
 
     // intake
-    public static double IntakeSpeed = 1;
+    public static double IntakeSpeed = 0.75;
    /**
     * public static final class DriveConstants {
     *   public static final int kLeftMotor1Port = 0;
