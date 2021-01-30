@@ -28,6 +28,9 @@ public class Constants {
         //By index: Enc A, Enc B, Absolute
         public static final int[] kEncoderLeft = {0,1,2}; 
         public static final int[] kEncoderRight = {3,4,5}; 
+
+        //TODO Find Distance per Pulse
+        public static final double distancePerPulse = 0.1;
     }
 }
 
