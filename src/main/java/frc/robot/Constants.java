@@ -32,5 +32,9 @@ public class Constants {
         //TODO Find Distance per Pulse
         public static final double distancePerPulse = 0.1;
     }
+
+    public static final class IntakeConstants {
+        public static final int kIntake = 4;
+    }
 }
 

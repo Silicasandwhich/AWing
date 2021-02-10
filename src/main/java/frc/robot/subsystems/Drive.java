@@ -51,7 +51,7 @@ public class Drive extends SubsystemBase {
     }
 
     public void simpleTank(double left, double right) {
-        robotDriveGroup.tankDrive(left, right);
+        robotDriveGroup.tankDrive(-left, -right);
     }
 
     @Override
