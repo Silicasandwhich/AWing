@@ -55,12 +55,7 @@ public class TeleopCommand extends CommandBase {
 
     @Override
     public void execute() {
-
-        if(RobotContainer.getInstance().getDriveOption() == DriveOption.Tank) {
-            tankDriveExec();
-        } else {
-            arcadeDriveExec();
-        }
+       tankDriveExec();
     }
 
     public void tankDriveExec() {
@@ -69,10 +64,7 @@ public class TeleopCommand extends CommandBase {
         m_drive.simpleTank(-leftStick.getY(), -rightStick.getY());
     }
 
-    public void arcadeDriveExec() {
-        Joystick rightStick = RobotContainer.getInstance().getRightStick();
-        m_drive.simpleArcade(rightStick.getX(), -rightStick.getY());
-    }
+
 
     // Called once the command ends or is interrupted.
     @Override
