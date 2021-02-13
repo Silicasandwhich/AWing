@@ -72,6 +72,10 @@ public class Intake extends SubsystemBase {
         motor.set(intakeWidget.getDouble(0.75));
     }
 
+    public void outtake() {
+        motor.set(-intakeWidget.getDouble(0.75))
+    }
+
     public void stopPickup(){
         motor.set(0);        
     }
