@@ -1,0 +1,42 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  SIGSEGV (0xb) at pc=0x00007facbacff1ea, pid=4904, tid=4957
+#
+# JRE version: OpenJDK Runtime Environment AdoptOpenJDK (11.0.8+10) (build 11.0.8+10)
+# Java VM: OpenJDK 64-Bit Server VM AdoptOpenJDK (11.0.8+10, mixed mode, tiered, compressed oops, g1 gc, linux-amd64)
+# Problematic frame:
+# C  [libopencv_imgcodecs.so.3.4+0x81ea]  cv::findEncoder(cv::String const&)+0xda
+#
+# Core dump will be written. Default location: Core dumps may be processed with "/usr/share/apport/apport %p %s %c %d %P %E" (or dumping to /home/silicasandwhich/projects/team3487/AWing/core.4904)
+#
+# If you would like to submit a bug report, please visit:
+#   https://github.com/AdoptOpenJDK/openjdk-support/issues
+#
+
+---------------  S U M M A R Y ------------
+
+Command Line: -agentlib:jdwp=transport=dt_socket,server=n,suspend=y,address=localhost:39785 -Djava.library.path=/home/silicasandwhich/projects/team3487/AWing/build/tmp/jniExtractDir -Dfile.encoding=UTF-8 frc.robot.Main
+
+Host: Intel(R) Core(TM) i3-5005U CPU @ 2.00GHz, 4 cores, 5G, Pop!_OS 20.10
+Time: Fri Feb 12 20:10:08 2021 EST elapsed time: 92 seconds (0d 0h 1m 32s)
+
+---------------  T H R E A D  ---------------
+
+Current thread is native thread
+
+Stack: [0x00007fac88242000,0x00007fac88a41000],  sp=0x00007fac88a3f270,  free space=8180k
+Native frames: (J=compiled Java code, A=aot compiled Java code, j=interpreted, Vv=VM code, C=native code)
+C  [libopencv_imgcodecs.so.3.4+0x81ea]  cv::findEncoder(cv::String const&)+0xda
+
+
+siginfo: si_signo: 11 (SIGSEGV), si_code: 128 (SI_KERNEL), si_addr: 0x0000000000000000
+
+Register to memory mapping:
+
+RAX=
+[error occurred during error reporting (printing register info), id 0xb, SIGSEGV (0xb) at pc=0x00007fad3badbe37]
+
+Registers:
+RAX=0x0007000700070007, RBX=0x0000000000000003, RCX=0x000000000fe00c50, RDX=0x00007fad3423b550
+RSP=0x00007fac88a3f270, RBP=0x00007fac8c6a9850
