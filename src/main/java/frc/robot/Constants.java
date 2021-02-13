@@ -21,15 +21,21 @@ package frc.robot;
  */
 public class Constants {
 
-    // intake
-    public static double IntakeSpeed = 0.75;
-   /**
-    * public static final class DriveConstants {
-    *   public static final int kLeftMotor1Port = 0;
-    *   public static final int kLeftMotor2Port = 1;
-    *   public static final int kRightMotor1Port = 2;
-    *   public static final int kRightMotor2Port = 3; 
-    * }
-    */ 
+
+    public static final class DriveConstants {
+        public static final int kLeft = 0;
+        public static final int kRight = 1;
+
+        //By index: Enc A, Enc B, Absolute
+        public static final int[] kEncoderLeft = {0,1,2}; 
+        public static final int[] kEncoderRight = {3,4,5}; 
+
+        //TODO Find Distance per Pulse
+        public static final double distancePerPulse = 0.1;
+    }
+
+    public static final class IntakeConstants {
+        public static final int kIntake = 4;
+    }
 }
 
