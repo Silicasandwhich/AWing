@@ -1,4 +1,4 @@
-package frc.robot;
+package frc.robot.subsystems.Camera;
 
 import java.io.File;
 import java.io.FileWriter;
