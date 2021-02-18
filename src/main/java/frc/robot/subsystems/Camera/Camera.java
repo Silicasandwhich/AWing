@@ -60,7 +60,6 @@ public class Camera extends SubsystemBase {
             if(cvDebug.getBoolean(false)) {
                 cvDebug.setStringArray(new String[] {""});
                 List<String> lemonList = new ArrayList<String>();
-                KeyPoint[] blobs = pipeline.findBlobsOutput().toArray();
 
                 CvSink cvSink = CameraServer.getInstance().getVideo();
                 CvSource outputStream = CameraServer.getInstance().putVideo("CV Dev", 640, 480);
@@ -71,8 +70,11 @@ public class Camera extends SubsystemBase {
                     if (cvSink.grabFrame(source) == 0) {
                         continue;
                     }
+
+                    KeyPoint[] blobs = pipeline.findBlobsOutput().toArray();
+
                     
-                    for(int i = 0; i <4; i++) {
+                    for(int i = 0; (i < 4) && (i < blobs.length); i++) {
                         String data = blobs[i].pt.x+ " /"+ blobs[i].pt.y+" "+ blobs[i].size;
                         System.out.println(data);
                         lemonList.add(data);
