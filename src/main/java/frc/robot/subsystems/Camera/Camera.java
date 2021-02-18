@@ -75,7 +75,7 @@ public class Camera extends SubsystemBase {
                     
                     for(int i = 0; (i < 4) && (i < blobs.length); i++) {
                         String data = blobs[i].pt.x+ " /"+ blobs[i].pt.y+" "+ blobs[i].size;
-                        System.out.println(data);
+                        //System.out.println(data);
                         lemonList.add(data);
                         Imgproc.circle(source, blobs[0].pt, (int) blobs[0].size, new Scalar(255,255,255));
                         Imgproc.putText(source, "X: "+ blobs[0].pt.x+"; Y:"+blobs[0].pt.y, new Point(blobs[0].pt.x, blobs[0].pt.y), Core.FONT_HERSHEY_PLAIN, 1, new Scalar(255,255,255));
