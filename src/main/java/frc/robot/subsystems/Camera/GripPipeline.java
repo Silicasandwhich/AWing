@@ -71,8 +71,6 @@ public class GripPipeline implements VisionPipeline {
 		boolean findBlobsDarkBlobs = false;
 		findBlobs(findBlobsInput, findBlobsMinArea, findBlobsCircularity, findBlobsDarkBlobs, findBlobsOutput);
 
-		System.out.println("Processed Mat");
-
 	}
 
 	/**

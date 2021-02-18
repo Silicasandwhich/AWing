@@ -50,14 +50,14 @@ public class Camera extends SubsystemBase {
     public Camera() {
 
         camera = CameraServer.getInstance().startAutomaticCapture();
-        NetworkTableInstance ntinst = NetworkTableInstance.getDefault();
-        NetworkTable vision = ntinst.getTable("Vision");
-        lemons = vision.getEntry("lemons");
         cvDebug = Shuffleboard.getTab("Vision").add("Debug Vision", true)
             .withWidget("Boolean Box").getEntry();
         
         m_visionThread = new VisionThread(camera, new GripPipeline(), pipeline -> {
             if(cvDebug.getBoolean(false)) {
+                NetworkTableInstance ntinst = NetworkTableInstance.getDefault();
+                NetworkTable visionTable = ntinst.getTable("Shuffleboard/Vision/lemonReport");
+                lemons = visionTable.getEntry("lemons");
                 cvDebug.setStringArray(new String[] {""});
                 List<String> lemonList = new ArrayList<String>();
 
