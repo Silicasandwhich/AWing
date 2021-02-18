@@ -70,9 +70,8 @@ public class Camera extends SubsystemBase {
                     if (cvSink.grabFrame(source) == 0) {
                         continue;
                     }
-
+                    pipeline.process(source);
                     KeyPoint[] blobs = pipeline.findBlobsOutput().toArray();
-
                     
                     for(int i = 0; (i < 4) && (i < blobs.length); i++) {
                         String data = blobs[i].pt.x+ " /"+ blobs[i].pt.y+" "+ blobs[i].size;
