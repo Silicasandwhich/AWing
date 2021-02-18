@@ -79,7 +79,7 @@ public class Camera extends SubsystemBase {
                         lemonList.add(data);
                         Imgproc.circle(source, blobs[0].pt, (int) blobs[0].size, new Scalar(255,255,255));
                         Imgproc.putText(source, "X: "+ blobs[0].pt.x+"; Y:"+blobs[0].pt.y, new Point(blobs[0].pt.x, blobs[0].pt.y), Core.FONT_HERSHEY_PLAIN, 1, new Scalar(255,255,255));
-                        Imgproc.putText(source, "Size: "+ blobs[0].size, new Point(blobs[0].pt.x, blobs[0].pt.y), Core.FONT_HERSHEY_PLAIN, 1, new Scalar(255,255,255));
+                        Imgproc.putText(source, "Size: "+ blobs[0].size, new Point(blobs[0].pt.x, blobs[0].pt.y-20), Core.FONT_HERSHEY_PLAIN, 1, new Scalar(255,255,255));
                     }
                     outputStream.putFrame(source);
                     lemons.setStringArray(lemonList.toArray(new String[4]));
