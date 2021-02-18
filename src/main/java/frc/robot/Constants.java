@@ -11,6 +11,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.util.Units;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants.  This class should not be used for any other purpose.  All constants should be
@@ -29,8 +31,9 @@ public class Constants {
         public static final int[] kEncoderLeft = {0,1,2}; 
         public static final int[] kEncoderRight = {3,4,5}; 
 
-        //TODO Find Distance per Pulse
-        public static final double distancePerPulse = 0.1;
+        //The hexbore encoder has 2048 cycles per revolution, since it is quadrature, it has 8192 pulses.
+        //https://www.revrobotics.com/content/docs/REV-11-1271-DS.pdf
+        public static final double distancePerPulse = Units.inchesToMeters(6)*Math.PI/(2048*4);
     }
 }
 
