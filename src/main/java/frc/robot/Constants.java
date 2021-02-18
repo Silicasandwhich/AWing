@@ -23,6 +23,7 @@ import edu.wpi.first.wpilibj.util.Units;
  */
 public class Constants {
 
+
     public static final class DriveConstants {
         public static final int kLeft = 0;
         public static final int kRight = 1;
@@ -34,6 +35,10 @@ public class Constants {
         //The hexbore encoder has 2048 cycles per revolution, since it is quadrature, it has 8192 pulses.
         //https://www.revrobotics.com/content/docs/REV-11-1271-DS.pdf
         public static final double distancePerPulse = Units.inchesToMeters(6)*Math.PI/(2048*4);
+    }
+
+    public static final class IntakeConstants {
+        public static final int kIntake = 4;
     }
 }
 
