@@ -35,6 +35,11 @@ public class Constants {
         //The hexbore encoder has 2048 cycles per revolution, since it is quadrature, it has 8192 pulses.
         //https://www.revrobotics.com/content/docs/REV-11-1271-DS.pdf
         public static final double distancePerPulse = Units.inchesToMeters(6)*Math.PI/(2048*4);
+
+        public static final double kS = 2.33;
+        public static final double kV = 2.66;
+        public static final double kA = 0.000714;
+        public static final double trackWidth = 1.2969031579940868;
     }
 
     public static final class IntakeConstants {
