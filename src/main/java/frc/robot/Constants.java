@@ -36,9 +36,14 @@ public class Constants {
         //https://www.revrobotics.com/content/docs/REV-11-1271-DS.pdf
         public static final double distancePerPulse = Units.inchesToMeters(6)*Math.PI/(2048*4);
 
-        public static final double kS = 2.33;
-        public static final double kV = 2.66;
-        public static final double kA = 0.000714;
+        public static final double kSR = 2.14;
+        public static final double kVR = 2.87;
+        public static final double kAR = 0.00181;
+
+        public static final double kSL = 2.28;
+        public static final double kVL = 2.64;
+        public static final double kAL = 0.000793;
+
         public static final double trackWidth = 1.2969031579940868;
     }
 
