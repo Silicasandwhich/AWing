@@ -50,6 +50,7 @@ public class RobotContainer {
     private final JoystickButton intakeButton = new JoystickButton(rightStick, 1);
     private final JoystickButton outtakeButton = new JoystickButton(leftStick, 1);
 
+    private final XboxController xbox = new XboxController(4);
     // A chooser for autonomous commands
     SendableChooser<Command> m_autoChooser = new SendableChooser<>();
     SendableChooser<DriveOption> m_driveChooser = new SendableChooser<>();
@@ -144,4 +145,8 @@ public class RobotContainer {
     public void startTeleop() {
         CommandScheduler.getInstance().schedule(m_teleop);
     }
+
+	public XboxController getXboxController() {
+		return xbox;
+	}
 }
