@@ -102,6 +102,10 @@ public class Drive extends SubsystemBase {
         robotDriveGroup.feed();
     }
 
+    public double getAverageRate() {
+        return Math.abs((eLeft.getRate()+eRight.getRate())*0.5);
+    }
+
     @Override
     public void periodic() {
         // This method will be called once per scheduler run
