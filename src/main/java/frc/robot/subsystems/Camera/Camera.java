@@ -23,6 +23,8 @@ import org.opencv.imgproc.Imgproc;
 import edu.wpi.cscore.CvSink;
 import edu.wpi.cscore.CvSource;
 import edu.wpi.cscore.UsbCamera;
+import edu.wpi.cscore.VideoMode;
+import edu.wpi.cscore.VideoMode.PixelFormat;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
@@ -49,6 +51,16 @@ public class Camera extends SubsystemBase {
     public Camera() {
 
         camera = CameraServer.getInstance().startAutomaticCapture();
+        VideoMode[] modes = camera.enumerateVideoModes();
+        for(int i = 0; i < modes.length; i++) {
+            System.out.println(i+ ": " + modes[i].pixelFormat + " "+ modes[i].height);
+            if ((modes[i].pixelFormat == VideoMode.PixelFormat.kMJPEG) && (modes[i].height == 480)) {
+                camera.setVideoMode(modes[i]);
+            }
+        }
+
+        
+
         cvDebug = Shuffleboard.getTab("Vision").add("Debug Vision", true)
             .withWidget("Toggle Button").getEntry();
         
@@ -61,6 +73,7 @@ public class Camera extends SubsystemBase {
         m_visionThread = new VisionThread(camera, new GripPipeline(), pipeline -> {
             //A new vision thread gets automatically restarted if the thread runs to completion.
             lemons.setStringArray(new String[0]);
+            visionTable.getEntry("Vision Test").setString("Success");
         
             List<String> lemonList = new ArrayList<String>();
 
@@ -70,9 +83,12 @@ public class Camera extends SubsystemBase {
             //Mutable Material
             Mat source = new Mat();
 
-            //Thread Loop
-            while(!Thread.interrupted() && cvDebug.getBoolean(false)) {
+            //Thread Loop/
+            while(!Thread.interrupted()) {
                 
+                if (!cvDebug.getBoolean(false)) {
+                    continue;
+                }
                 if (cvSink.grabFrame(source) == 0) {
                     continue;
                 }
