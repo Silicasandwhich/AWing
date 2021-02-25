@@ -54,7 +54,7 @@ public class TeleopCommand extends CommandBase {
 
         enablePID = Shuffleboard.getTab("Teleop").addPersistent("Enable Autocorrect", false).withWidget(BuiltInWidgets.kToggleButton).getEntry();
         pidEnabled = Shuffleboard.getTab("Teleop").add("Autocorrect Enabled", false).getEntry();
-        controllerThreshold = Shuffleboard.getTab("Teleop").addPersistent("Enable PID Threshold", 0.01).withWidget(BuiltInWidgets.kNumberSlider).getEntry();
+        controllerThreshold = Shuffleboard.getTab("Teleop").addPersistent("Enable Autocorrect Threshold", 0.01).withWidget(BuiltInWidgets.kNumberSlider).getEntry();
 
         m_drive = subsystem;
         addRequirements(m_drive);
