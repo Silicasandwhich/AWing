@@ -93,17 +93,21 @@ public class Drive extends SubsystemBase {
 
     public void pidTank(double left, double right) {
         //sLeft.setVoltage(fLeft.calculate(left)+pidLeft.calculate(eLeft.getRate(), left));
-        sLeft.setVoltage(fLeft.calculate(left*DriveConstants.Speed));//+pidLeft.calculate(eLeft.getRate(), left));
+        sLeft.setVoltage(fLeft.calculate(left*governor.getDouble(DriveConstants.Speed)));//+pidLeft.calculate(eLeft.getRate(), left));
         //sRight.setVoltage(fRight.calculate(right)+pidRight.calculate(eRight.getRate(),right));
-        sRight.setVoltage(fRight.calculate(right*DriveConstants.Speed));//+pidRight.calculate(eRight.getRate(),right));
+        sRight.setVoltage(fRight.calculate(right*governor.getDouble(DriveConstants.Speed)));//+pidRight.calculate(eRight.getRate(),right));
         
         sLeft.feed();
         sRight.feed();
         robotDriveGroup.feed();
     }
 
-    public double getAverageRate() {
-        return Math.abs((eLeft.getRate()+eRight.getRate())*0.5);
+    public double getLeftRate() {
+        return eLeft.getRate();
+    }
+
+    public double getRightRate() {
+        return eRight.getRate();
     }
 
     @Override
