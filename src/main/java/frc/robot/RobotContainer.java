@@ -56,7 +56,7 @@ public class RobotContainer {
     private final JoystickButton xOuttakeButton = new JoystickButton(xbox, Button.kBumperLeft.value);
     // A chooser for autonomous commands
     SendableChooser<Command> m_autoChooser = new SendableChooser<>();
-    SendableChooser<String> m_controlChooser = new SendableChooser<>();
+    SendableChooser<String> m_controlChooser = new SendableChooser<String>();
 
     private Command m_teleop = new TeleopCommand(m_drive);
 
