@@ -11,6 +11,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.util.Units;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants.  This class should not be used for any other purpose.  All constants should be
@@ -20,13 +22,23 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public class Constants {
-   /**
-    * public static final class DriveConstants {
-    *   public static final int kLeftMotor1Port = 0;
-    *   public static final int kLeftMotor2Port = 1;
-    *   public static final int kRightMotor1Port = 2;
-    *   public static final int kRightMotor2Port = 3; 
-    * }
-    */ 
+
+
+    public static final class DriveConstants {
+        public static final int kLeft = 0;
+        public static final int kRight = 1;
+
+        //By index: Enc A, Enc B, Absolute
+        public static final int[] kEncoderLeft = {0,1,2}; 
+        public static final int[] kEncoderRight = {3,4,5}; 
+
+        //The hexbore encoder has 2048 cycles per revolution, since it is quadrature, it has 8192 pulses.
+        //https://www.revrobotics.com/content/docs/REV-11-1271-DS.pdf
+        public static final double distancePerPulse = Units.inchesToMeters(6)*Math.PI/(2048*4);
+    }
+
+    public static final class IntakeConstants {
+        public static final int kIntake = 4;
+    }
 }
 
