@@ -66,7 +66,7 @@ public class TeleopCommand extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-
+        
     }
 
     @Override
@@ -75,16 +75,9 @@ public class TeleopCommand extends CommandBase {
     }
 
     public void tankDriveExec() {
-        double left = 0;
-        double right = 0;
-
-        if(RobotContainer.getInstance().getDriveOption() == "joysticks") {
-            left = RobotContainer.getInstance().getLeftStick().getY();
-            right = RobotContainer.getInstance().getRightStick().getY();
-        } else {
-            left = RobotContainer.getInstance().getXboxController().getY(Hand.kLeft);
-            right = RobotContainer.getInstance().getXboxController().getY(Hand.kRight);            
-        }
+        double[] sticks = RobotContainer.getInstance().getSticks();
+        double left = sticks[0];
+        double right = sticks[1];
 
         if(enablePID.getBoolean(false) && (Math.abs(left) > controllerThreshold.getDouble(0.01)) && (Math.abs(right) > controllerThreshold.getDouble(0.01))) {
             m_drive.pidTank(-left, -right);
@@ -94,8 +87,6 @@ public class TeleopCommand extends CommandBase {
             pidEnabled.setBoolean(false);
         }
     }
-
-
 
     // Called once the command ends or is interrupted.
     @Override
