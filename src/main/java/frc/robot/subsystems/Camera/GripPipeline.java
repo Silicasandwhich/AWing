@@ -10,7 +10,7 @@ import org.opencv.core.Mat;
 import org.opencv.core.MatOfKeyPoint;
 import org.opencv.core.Scalar;
 import org.opencv.core.Size;
-import org.opencv.features2d.FeatureDetector;
+import org.opencv.features2d.SimpleBlobDetector;
 import org.opencv.imgproc.Imgproc;
 
 import edu.wpi.first.vision.VisionPipeline;
@@ -230,7 +230,7 @@ public class GripPipeline implements VisionPipeline {
 	 */
 	private void findBlobs(Mat input, double minArea, double[] circularity,
 		Boolean darkBlobs, MatOfKeyPoint blobList) {
-		FeatureDetector blobDet = FeatureDetector.create(FeatureDetector.SIMPLEBLOB);
+		SimpleBlobDetector blobDet = SimpleBlobDetector.create();
 		try {
 			File tempFile = File.createTempFile("config", ".xml");
 
