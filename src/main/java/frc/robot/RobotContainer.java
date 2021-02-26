@@ -117,7 +117,6 @@ public class RobotContainer {
 
             XboxController controller = new XboxController(4);
             leftStick = controller;
-            rightStick = null;
             intakeButton = new JoystickButton(leftStick, Button.kBumperRight.value);
             outtakeButton = new JoystickButton(leftStick, Button.kBumperLeft.value);
 
