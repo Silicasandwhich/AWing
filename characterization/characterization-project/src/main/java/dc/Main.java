@@ -1,4 +1,4 @@
-package dc;
+cpackage dc;
 
 import edu.wpi.first.wpilibj.RobotBase;
 
