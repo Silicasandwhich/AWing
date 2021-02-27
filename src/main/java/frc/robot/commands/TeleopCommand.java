@@ -36,7 +36,7 @@ public class TeleopCommand extends CommandBase {
             .withWidget(BuiltInWidgets.kNumberSlider).withProperties(Map.of("Min", 0,"Max",1)).getEntry();
 
         maxSpeed = Shuffleboard.getTab("Teleop").add("Max Speed", 10.0)
-            .withWidget(BuiltInWidgets.kNumberBar).withProperties(Map.of("Min",0,"Max",1)).getEntry();
+            .withWidget(BuiltInWidgets.kNumberSlider).withProperties(Map.of("Min",0,"Max",10)).getEntry();
 
     }
 

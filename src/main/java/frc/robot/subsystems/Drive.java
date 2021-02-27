@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -84,8 +85,8 @@ public class Drive extends SubsystemBase {
 
         tab.add("Heading", m_ahrs);
 
-        b_leftInverted = tab.addPersistent("Invert Left", DriveConstants.bLeftInverted).getEntry();
-        b_rightInverted = tab.addPersistent("Invert Right", DriveConstants.bRightInverted).getEntry();
+        b_leftInverted = tab.addPersistent("Invert Left", DriveConstants.bLeftInverted).withWidget(BuiltInWidgets.kToggleButton).getEntry();
+        b_rightInverted = tab.addPersistent("Invert Right", DriveConstants.bRightInverted).withWidget(BuiltInWidgets.kToggleButton).getEntry();
 
         //Left Inverted Listener
         b_leftInverted.addListener(event -> {
