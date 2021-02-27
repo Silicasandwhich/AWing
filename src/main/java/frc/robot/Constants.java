@@ -39,6 +39,7 @@ public class Constants {
         //https://www.revrobotics.com/content/docs/REV-11-1271-DS.pdf
         public static final double kDistancePerPulse = Units.inchesToMeters(6)*Math.PI/(2048*4);
 
+        // TODO: rechacarterize
         public static final double kSR = 1.68;
         public static final double kVR = 2.85;
         public static final double kAR = 0.0046;
@@ -47,12 +48,27 @@ public class Constants {
         public static final double kVL = 2.64;
         public static final double kAL = 0.00317;
 
+        // TODO: Get actual track width
         public static final double kTrackWidth = 1.1361;
 		public static final double Speed = Units.feetToMeters(10.55);
 
 		public static final boolean bLeftInverted = false;
 		public static final boolean bRightInverted = false;
-		public static final double kAcceleration = 0;
+        public static final double kAcceleration = 0;
+
+        public static final double kP = 6; //TODO: get correct kP
+
+        // pathfinding constants
+        public static final double MaxSpeed = Units.feetToMeters(10);
+        public static final double MaxAcceleration = 9.8;
+        public static final double trackWidth = 0.8;
+        public static final double kRamseteB = 2;
+        public static final double kRamseteZeta = 0.7;
+
+        // TODO: get combined values
+		public static double kSC;
+		public static double kVC;
+		public static double kAC;
     }
 
     public static final class IntakeConstants {

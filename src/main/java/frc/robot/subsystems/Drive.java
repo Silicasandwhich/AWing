@@ -37,7 +37,7 @@ public class Drive extends SubsystemBase {
     private DifferentialDriveOdometry m_odometry;
 
     @SuppressWarnings("unused")
-    private DifferentialDriveKinematics m_kinematics;
+    private static DifferentialDriveKinematics m_kinematics;
 
     private Pose2d m_position;
 
