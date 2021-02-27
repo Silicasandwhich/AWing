@@ -11,6 +11,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.util.Units;
 
 /**
@@ -28,13 +29,15 @@ public class Constants {
         public static final int kLeft = 0;
         public static final int kRight = 1;
 
+        public static final SerialPort.Port kAHRS = SerialPort.Port.kUSB;
+
         //By index: Enc A, Enc B, Absolute
         public static final int[] kEncoderLeft = {0,1,2}; 
         public static final int[] kEncoderRight = {3,4,5}; 
 
         //The hexbore encoder has 2048 cycles per revolution, since it is quadrature, it has 8192 pulses.
         //https://www.revrobotics.com/content/docs/REV-11-1271-DS.pdf
-        public static final double distancePerPulse = Units.inchesToMeters(6)*Math.PI/(2048*4);
+        public static final double kDistancePerPulse = Units.inchesToMeters(6)*Math.PI/(2048*4);
 
         public static final double kSR = 1.68;
         public static final double kVR = 2.85;
@@ -44,8 +47,12 @@ public class Constants {
         public static final double kVL = 2.64;
         public static final double kAL = 0.00317;
 
-        public static final double trackWidth = 1.1361;
+        public static final double kTrackWidth = 1.1361;
 		public static final double Speed = Units.feetToMeters(10.55);
+
+		public static final boolean bLeftInverted = false;
+		public static final boolean bRightInverted = false;
+		public static final double kAcceleration = 0;
     }
 
     public static final class IntakeConstants {
