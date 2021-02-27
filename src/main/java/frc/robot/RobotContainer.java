@@ -102,8 +102,8 @@ public class RobotContainer {
             outtakeButton = new JoystickButton(leftStick, 1);
         } else {
             leftStick = new XboxController(4);
-            rightStick = leftStick;
-            intakeButton = new JoystickButton(rightStick, 6);
+            rightStick = null;
+            intakeButton = new JoystickButton(leftStick, 6);
             outtakeButton = new JoystickButton(leftStick, 5);
         }
         

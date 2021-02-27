@@ -102,6 +102,7 @@ public class Robot extends TimedRobot {
             m_autonomousCommand.cancel();
         }
 
+        RobotContainer.getInstance().checkControls();
         CommandScheduler.getInstance().schedule(RobotContainer.getInstance().getTeleopCommand());
     }
 
@@ -110,7 +111,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void teleopPeriodic() {
-        
+        RobotContainer.getInstance().checkControls();
     }
 
     @Override
