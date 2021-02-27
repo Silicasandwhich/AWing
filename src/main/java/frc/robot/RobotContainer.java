@@ -103,7 +103,8 @@ public class RobotContainer {
         * PathChooser.addOption("[name of path]", "[location of path]";
         */
 
-        PathChooser.setDefaultOption("Barrel Run", "Barrel racing.wpilib.json");
+        PathChooser.setDefaultOption("None", "none");
+        PathChooser.addOption("Barrel Run", "Barrel racing.wpilib.json");
         PathChooser.addOption("Bounce Path", "Bounce Path.wpilib.json");
         PathChooser.addOption("Slalom Path", "salaom.wpilib.json");
         PathChooser.addOption("Blue Path A", "Blue Path ( A).wpilib.json");
@@ -136,6 +137,9 @@ public class RobotContainer {
     public Command getAutonomousCommand() {
         // The selected command will be run in autonomous
         String PathString = PathChooser.getSelected();
+        if(PathString == "none"){
+            return new WaitCommand(1);
+        }
         Trajectory AutoTrajectory = new Trajectory();
         try {
             Path PathJSON = Filesystem.getDeployDirectory().toPath().resolve(PathString);
