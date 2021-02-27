@@ -95,12 +95,12 @@ public class RobotContainer {
 
         PathChooser = new SendableChooser<String>();
 
-        /*
-        Link to each of our paths here. Be sure to
-        put them inside the "deploy/paths/" folder.
-        ---------------------------------------------
-        FORMAT:
-        PathChooser.addOption("[name of path]", "[location of path]";
+       /**
+        * Link to each of our paths here. Be sure to
+        * put them inside the "deploy/paths/" folder.
+        * ---------------------------------------------
+        * FORMAT:
+        * PathChooser.addOption("[name of path]", "[location of path]";
         */
 
         PathChooser.setDefaultOption("Barrel Run", "Barrel racing.wpilib.json");
