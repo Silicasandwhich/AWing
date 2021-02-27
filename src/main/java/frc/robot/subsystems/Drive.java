@@ -149,14 +149,18 @@ public class Drive extends SubsystemBase {
         m_odometry.resetPosition(currentPosition, m_ahrs.getRotation2d());
     }
 
-    public void setRawVoltage(double vLeft, double vRight) {
-        s_left.setVoltage(vLeft);
-        s_right.setVoltage(vRight);
+    public void setRawVoltage(double leftVoltage, double rightVoltage){
+        s_left.setVoltage(leftVoltage);
+        s_right.setVoltage(rightVoltage);
+
+        s_left.feed();
+        s_right.feed();
+        m_driveBase.feed();
     }
 
     public DifferentialDriveWheelSpeeds getRates() {
         return new DifferentialDriveWheelSpeeds(e_left.getRate(), e_right.getRate());
-    }
+      }
 
     public double getHeading() {
         return m_ahrs.getAngle();
@@ -164,6 +168,10 @@ public class Drive extends SubsystemBase {
 
     public Pose2d getPose() {
         return m_position;
+    }
+
+    public DifferentialDriveKinematics getKinematics(){
+        return m_kinematics;
     }
 
 }
