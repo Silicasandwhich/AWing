@@ -1,0 +1,2 @@
+C:\Users\shane\OneDrive\Documents\GitHub\AWing\media\classifier data\Positive Samples\WIN_20210227_15_26_22_Pro.jpg 4 769 538 20 19 829 549 21 17 1214 591 18 20 1305 611 27 25
+C:\Users\shane\OneDrive\Documents\GitHub\AWing\media\classifier data\Positive Samples\WIN_20210227_15_26_33_Pro.jpg 0
