@@ -111,6 +111,7 @@ public class RobotContainer {
         PathChooser.addOption("Blue Path B", "Blue Path (B).wpilib.json");
         PathChooser.addOption("Red Path A", "red path (A).wpilib.json");
         PathChooser.addOption("Red Path B", "Red Path (B).wpilib.json");
+        
         Shuffleboard.getTab("Autonomous").addPersistent("Auto Path", PathChooser);
     }
 
@@ -141,33 +142,33 @@ public class RobotContainer {
             return new WaitCommand(1);
         }
         Trajectory AutoTrajectory = new Trajectory();
+        PathString = "Paths".concat(PathString);
         try {
             Path PathJSON = Filesystem.getDeployDirectory().toPath().resolve(PathString);
             AutoTrajectory = TrajectoryUtil.fromPathweaverJson(PathJSON);
-          } catch (IOException ex) {
+        } catch (IOException ex) {
             DriverStation.reportError("Unable to open trajectory: " + PathString, ex.getStackTrace());
-          }
-      
-        RamseteCommand ramseteCommand = new RamseteCommand(
-            AutoTrajectory,
-            m_drive::getPose,
-            new RamseteController(DriveConstants.kRamseteB, DriveConstants.kRamseteZeta),
-            new SimpleMotorFeedforward(DriveConstants.kSC,
-                                       DriveConstants.kVC,
-                                       DriveConstants.kAC),
-            m_drive.getKinematics(),
-            m_drive::getRates,
-            new PIDController(DriveConstants.kP, 0, 0),
-            new PIDController(DriveConstants.kP, 0, 0),
-            // RamseteCommand passes volts to the callback
-            m_drive::setRawVoltage,
-            m_drive
-        );
-        // Reset odometry to the starting pose of the trajectory.
-    m_drive.resetOdometry(AutoTrajectory.getInitialPose());
+        }
 
-    // Run path following command, then stop at the end.
-    return ramseteCommand.andThen(() -> m_drive.setRawVoltage(0, 0));
+        // this is a really long and confusing constructor, so here's basically what it wants
+        RamseteCommand ramseteCommand = new RamseteCommand(
+            AutoTrajectory, // the trajectory to follow
+            m_drive::getPose, // a function that returns the robot's pose2d
+            new RamseteController(DriveConstants.kRamseteB, DriveConstants.kRamseteZeta), // a ramsete controller (these B and Zeta values are basically universal)
+            new SimpleMotorFeedforward(DriveConstants.kSC, // a feedforward that controls both sides of the drive
+                                       DriveConstants.kVC, // (make sure you're using the combined characterization values, not individual ones)
+                                       DriveConstants.kAC),
+            m_drive.getKinematics(), // the robot's kinematics (not a function that returns the kinematics, just the kinematics itself)
+            m_drive::getRates, // a function that returns the encoder rates in the form of DifferentialDriveWheelSpeeds
+            new PIDController(DriveConstants.kP, 0, 0), // a PID controller for the left side
+            new PIDController(DriveConstants.kP, 0, 0), // a PID controller for the right side
+            m_drive::setRawVoltage, // a function that controlls the voltage of the drive (look at subsystems/drive.java so see how this should be layed out)
+            m_drive // the drive subsystem itself
+        );
+        m_drive.resetOdometry(AutoTrajectory.getInitialPose());
+
+        // Run path following command, then stop at the end.
+        return ramseteCommand.andThen(() -> m_drive.setRawVoltage(0, 0));
     }
 
     public void checkControls() {
