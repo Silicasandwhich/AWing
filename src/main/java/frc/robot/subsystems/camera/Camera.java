@@ -62,5 +62,9 @@ public class Camera extends SubsystemBase {
     public void stopCapture() {
         visionThread.interrupt();
     }
+
+    public long getFrame(Mat source) {
+        return CameraServer.getInstance().getVideo().grabFrame(source);
+    }
     
 }
