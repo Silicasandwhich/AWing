@@ -65,7 +65,7 @@ public class RobotContainer {
 
     private SendableChooser<String> controlScheme;
 
-    private SendableChooser<String>  PathChooser;
+    private SendableChooser<String>  pathChooser;
 
     private NetworkTableEntry cameraEntry;
 
@@ -76,7 +76,7 @@ public class RobotContainer {
 
     //Commands
     private Command teleopCommand = new TeleopCommand(m_drive);
-    private Command intakeForward = new IntakeCommand(m_intake, true);
+    private IntakeCommand intakeForward = new IntakeCommand(m_intake, true);
     private Command intakeOut = new IntakeCommand(m_intake, false);
 
     private RobotContainer() {
@@ -94,26 +94,27 @@ public class RobotContainer {
             }
         }, EntryListenerFlags.kNew|EntryListenerFlags.kImmediate| EntryListenerFlags.kUpdate);
 
-        PathChooser = new SendableChooser<String>();
+        pathChooser = new SendableChooser<String>();
 
        /**
         * Link to each of our paths here. Be sure to
         * put them inside the "deploy/paths/" folder.
         * ---------------------------------------------
         * FORMAT:
-        * PathChooser.addOption("[name of path]", "[location of path]";
+        * pathChooser.addOption("[name of path]", "[location of path]";
         */
 
-        PathChooser.setDefaultOption("None", "none");
-        PathChooser.addOption("Barrel Run", "Barrel racing.wpilib.json");
-        PathChooser.addOption("Bounce Path", "Bounce Path.wpilib.json");
-        PathChooser.addOption("Slalom Path", "salaom.wpilib.json");
-        PathChooser.addOption("Blue Path A", "Blue Path ( A).wpilib.json");
-        PathChooser.addOption("Blue Path B", "Blue Path (B).wpilib.json");
-        PathChooser.addOption("Red Path A", "red path (A).wpilib.json");
-        PathChooser.addOption("Red Path B", "Red Path (B).wpilib.json");
+        pathChooser.setDefaultOption("None", "none");
+        pathChooser.addOption("Galactic Search", "galaxy");
+        pathChooser.addOption("Barrel Run", "barrel.wpilib.json");
+        pathChooser.addOption("Bounce Path", "bounce.wpilib.json");
+        pathChooser.addOption("Slalom Path", "salaom.wpilib.json");
+        pathChooser.addOption("Blue Path A", "blue_path_a.wpilib.json");
+        pathChooser.addOption("Blue Path B", "blue_path_b.wpilib.json");
+        pathChooser.addOption("Red Path A", "red_path_a.wpilib.json");
+        pathChooser.addOption("Red Path B", "red_path_b.wpilib.json");
         
-        Shuffleboard.getTab("Auto").add("Auto Path", PathChooser);
+        Shuffleboard.getTab("Auto").add("Auto Path", pathChooser);
     }
 
     public static RobotContainer getInstance() {
@@ -138,9 +139,11 @@ public class RobotContainer {
      */
     public Command getAutonomousCommand() {
         // The selected command will be run in autonomous
-        String PathString = PathChooser.getSelected();
+        String PathString = pathChooser.getSelected();
         if(PathString == "none"){
             return new WaitCommand(1);
+        } else if (PathString == "galaxy") {
+            return new GalacticSearch(m_drive, intakeForward);
         }
         Trajectory AutoTrajectory = new Trajectory();
         PathString = "Paths".concat(PathString);
