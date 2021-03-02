@@ -50,7 +50,7 @@ public class Constants {
 
         
         public static final double kTrackWidth = 1.1361;
-		public static final double Speed = Units.feetToMeters(10.55); //TODO: Recalculate max speed
+		public static final double Speed = Units.feetToMeters(0.5); //TODO: Recalculate max speed
 
 		public static final boolean bLeftInverted = false;
 		public static final boolean bRightInverted = false;
@@ -59,7 +59,7 @@ public class Constants {
         public static final double kP = 6; //TODO: get correct kP
 
         // pathfinding constants
-        public static final double MaxSpeed = Units.feetToMeters(10); //TODO: Recalculate max speed
+        public static final double MaxSpeed = Units.feetToMeters(0.5); //TODO: Recalculate max speed
         public static final double MaxAcceleration = 9.8;
         public static final double kRamseteB = 2;
         public static final double kRamseteZeta = 0.7;

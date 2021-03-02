@@ -35,8 +35,8 @@ public class TeleopCommand extends CommandBase {
         m_deadzone = Shuffleboard.getTab("Teleop").add("Deadzone", 0.02)
             .withWidget(BuiltInWidgets.kNumberSlider).withProperties(Map.of("Min", 0,"Max",1)).getEntry();
 
-        maxSpeed = Shuffleboard.getTab("Teleop").add("Max Speed", 10.0)
-            .withWidget(BuiltInWidgets.kNumberSlider).withProperties(Map.of("Min",0,"Max",10)).getEntry();
+        maxSpeed = Shuffleboard.getTab("Teleop").add("Max Speed", 0.5)
+            .withWidget(BuiltInWidgets.kNumberSlider).withProperties(Map.of("Min",0,"Max",5)).getEntry();
 
     }
 
@@ -49,7 +49,7 @@ public class TeleopCommand extends CommandBase {
     public void execute() {
         double[] joys = RobotContainer.getInstance().getSticks();
         double deadzone = m_deadzone.getDouble(0.02);
-        double xSpeed = maxSpeed.getDouble(10.0);
+        double xSpeed = maxSpeed.getDouble(0.5);
         if(correctionsEnabled.getBoolean(false) && Math.abs(joys[0]) > deadzone && Math.abs(joys[1]) > deadzone) {
             correctionsEnabled.setBoolean(true);
             m_drive.feedForwardTank(joys[0] * xSpeed, joys[1] * xSpeed);
