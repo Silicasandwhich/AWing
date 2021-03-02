@@ -143,7 +143,7 @@ public class RobotContainer {
         if(PathString == "none"){
             return new WaitCommand(1);
         } else if (PathString == "galaxy") {
-            return new GalacticSearch(m_drive, intakeForward);
+            return new GalacticSearch(m_drive, intakeForward, m_camera);
         }
         Trajectory AutoTrajectory = new Trajectory();
         PathString = "Paths".concat(PathString);
