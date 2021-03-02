@@ -56,13 +56,10 @@ public class Constants {
 		public static final boolean bRightInverted = false;
         public static final double kAcceleration = 0;
 
-        public static final double kP = 6; //TODO: get correct kP
+		public static double kPL; //TODO find correct kPL and kPR
+		public static double kPR;
+        
 
-        // pathfinding constants
-        public static final double MaxSpeed = Units.feetToMeters(10); //TODO: Recalculate max speed
-        public static final double MaxAcceleration = 9.8;
-        public static final double kRamseteB = 2;
-        public static final double kRamseteZeta = 0.7;
 
         // TODO: get combined values
 		public static double kSC;
@@ -72,6 +69,14 @@ public class Constants {
 
     public static final class IntakeConstants {
         public static final int kIntake = 4;
+    }
+
+    public static final class AutoConstants {
+        public static final double kRamseteB = 2;
+        public static final double kRamseteZeta = 0.7;
+        // pathfinding constants
+        public static final double MaxSpeed = Units.feetToMeters(10); //TODO: Recalculate max speed
+        public static final double MaxAcceleration = 9.8;
     }
 }
 

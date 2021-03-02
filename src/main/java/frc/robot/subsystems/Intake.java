@@ -33,6 +33,10 @@ public class Intake extends SubsystemBase {
         }
     }
 
+    public boolean isFinished() {
+        return false;
+    }
+
     public void stop() {
         m_motor.set(0);
     }
