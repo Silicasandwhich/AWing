@@ -36,7 +36,6 @@ public class Drive extends SubsystemBase {
 
     private DifferentialDriveOdometry m_odometry;
 
-    @SuppressWarnings("unused")
     private static DifferentialDriveKinematics m_kinematics;
 
     private Pose2d m_position;
@@ -63,6 +62,7 @@ public class Drive extends SubsystemBase {
         e_right = new Encoder(DriveConstants.kEncoderRight[0], DriveConstants.kEncoderRight[1],
                 DriveConstants.kEncoderRight[2]);
         e_right.setDistancePerPulse(DriveConstants.kDistancePerPulse);
+        e_right.setReverseDirection(true);
         e_right.reset();
 
         ff_left = new SimpleMotorFeedforward(DriveConstants.kSL, DriveConstants.kVL, DriveConstants.kAL);

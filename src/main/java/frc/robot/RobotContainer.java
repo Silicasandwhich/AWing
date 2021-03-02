@@ -36,6 +36,7 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.subsystems.*;
 import frc.robot.subsystems.camera.Camera;
+import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.commands.*;
 
@@ -112,7 +113,7 @@ public class RobotContainer {
         PathChooser.addOption("Red Path A", "red path (A).wpilib.json");
         PathChooser.addOption("Red Path B", "Red Path (B).wpilib.json");
         
-        Shuffleboard.getTab("Autonomous").addPersistent("Auto Path", PathChooser);
+        Shuffleboard.getTab("Auto").add("Auto Path", PathChooser);
     }
 
     public static RobotContainer getInstance() {
@@ -154,14 +155,14 @@ public class RobotContainer {
         RamseteCommand ramseteCommand = new RamseteCommand(
             AutoTrajectory, // the trajectory to follow
             m_drive::getPose, // a function that returns the robot's pose2d
-            new RamseteController(DriveConstants.kRamseteB, DriveConstants.kRamseteZeta), // a ramsete controller (these B and Zeta values are basically universal)
+            new RamseteController(AutoConstants.kRamseteB, AutoConstants.kRamseteZeta), // a ramsete controller (these B and Zeta values are basically universal)
             new SimpleMotorFeedforward(DriveConstants.kSC, // a feedforward that controls both sides of the drive
                                        DriveConstants.kVC, // (make sure you're using the combined characterization values, not individual ones)
                                        DriveConstants.kAC),
             m_drive.getKinematics(), // the robot's kinematics (not a function that returns the kinematics, just the kinematics itself)
             m_drive::getRates, // a function that returns the encoder rates in the form of DifferentialDriveWheelSpeeds
-            new PIDController(DriveConstants.kP, 0, 0), // a PID controller for the left side
-            new PIDController(DriveConstants.kP, 0, 0), // a PID controller for the right side
+            new PIDController(DriveConstants.kPL, 0, 0), // a PID controller for the left side
+            new PIDController(DriveConstants.kPR, 0, 0), // a PID controller for the right side
             m_drive::setRawVoltage, // a function that controlls the voltage of the drive (look at subsystems/drive.java so see how this should be layed out)
             m_drive // the drive subsystem itself
         );
