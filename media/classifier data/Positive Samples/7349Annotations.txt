@@ -1,39 +1,39 @@
-C:\Users\shane\OneDrive\Documents\GitHub\AWing\media\classifier data\Positive Samples/7349\frame0.jpg 5 513 421 98 74 724 545 109 95 1070 306 72 79 1087 537 109 100 1338 411 91 103
-C:\Users\shane\OneDrive\Documents\GitHub\AWing\media\classifier data\Positive Samples/7349\frame1.jpg 5 566 423 90 76 763 548 122 102 1131 309 67 81 1128 553 114 107 1380 429 114 98
-C:\Users\shane\OneDrive\Documents\GitHub\AWing\media\classifier data\Positive Samples/7349\frame10.jpg 4 754 233 105 89 454 435 130 116 596 616 167 136 1341 603 156 149
-C:\Users\shane\OneDrive\Documents\GitHub\AWing\media\classifier data\Positive Samples/7349\frame11.jpg 4 881 240 102 92 524 429 128 139 588 602 164 157 1289 646 210 170
-C:\Users\shane\OneDrive\Documents\GitHub\AWing\media\classifier data\Positive Samples/7349\frame12.jpg 3 865 220 110 104 446 399 138 125 431 598 179 135
-C:\Users\shane\OneDrive\Documents\GitHub\AWing\media\classifier data\Positive Samples/7349\frame13.jpg 3 386 356 127 107 855 183 113 91 311 545 161 148
-C:\Users\shane\OneDrive\Documents\GitHub\AWing\media\classifier data\Positive Samples/7349\frame14.jpg 3 467 351 139 99 317 538 185 134 985 193 119 96
-C:\Users\shane\OneDrive\Documents\GitHub\AWing\media\classifier data\Positive Samples/7349\frame15.jpg 3 500 306 132 107 1050 188 117 102 278 502 148 116
-C:\Users\shane\OneDrive\Documents\GitHub\AWing\media\classifier data\Positive Samples/7349\frame16.jpg 3 651 285 117 106 384 453 154 121 1216 178 132 113
-C:\Users\shane\OneDrive\Documents\GitHub\AWing\media\classifier data\Positive Samples/7349\frame17.jpg 3 784 277 136 106 480 420 161 124 1386 215 114 114
-C:\Users\shane\OneDrive\Documents\GitHub\AWing\media\classifier data\Positive Samples/7349\frame18.jpg 3 398 409 144 122 720 274 149 116 1335 256 132 114
-C:\Users\shane\OneDrive\Documents\GitHub\AWing\media\classifier data\Positive Samples/7349\frame19.jpg 2 466 400 139 118 834 290 105 91
-C:\Users\shane\OneDrive\Documents\GitHub\AWing\media\classifier data\Positive Samples/7349\frame2.jpg 4 614 421 108 96 809 548 92 102 1172 327 108 73 1176 565 120 101
-C:\Users\shane\OneDrive\Documents\GitHub\AWing\media\classifier data\Positive Samples/7349\frame20.jpg 2 1016 303 142 137 647 413 137 96
-C:\Users\shane\OneDrive\Documents\GitHub\AWing\media\classifier data\Positive Samples/7349\frame21.jpg 3 664 288 159 121 1061 221 118 109 246 567 228 167
-C:\Users\shane\OneDrive\Documents\GitHub\AWing\media\classifier data\Positive Samples/7349\frame22.jpg 3 246 373 165 160 680 121 146 102 1088 80 155 122
-C:\Users\shane\OneDrive\Documents\GitHub\AWing\media\classifier data\Positive Samples/7349\frame23.jpg 3 332 311 185 152 837 81 125 121 1240 53 134 130
-C:\Users\shane\OneDrive\Documents\GitHub\AWing\media\classifier data\Positive Samples/7349\frame24.jpg 3 342 268 180 122 845 66 174 99 1278 56 163 125
-C:\Users\shane\OneDrive\Documents\GitHub\AWing\media\classifier data\Positive Samples/7349\frame25.jpg 3 348 212 150 131 889 56 121 119 1260 70 168 149
-C:\Users\shane\OneDrive\Documents\GitHub\AWing\media\classifier data\Positive Samples/7349\frame26.jpg 4 82 629 219 164 428 167 113 111 957 48 135 107 1350 122 113 141
-C:\Users\shane\OneDrive\Documents\GitHub\AWing\media\classifier data\Positive Samples/7349\frame27.jpg 4 4 557 236 213 442 155 175 132 1025 69 127 119 1366 161 138 139
-C:\Users\shane\OneDrive\Documents\GitHub\AWing\media\classifier data\Positive Samples/7349\frame28.jpg 3 598 177 142 114 26 568 200 149 1160 125 156 117
-C:\Users\shane\OneDrive\Documents\GitHub\AWing\media\classifier data\Positive Samples/7349\frame29.jpg 3 727 121 150 119 89 435 214 143 1288 118 169 152
-C:\Users\shane\OneDrive\Documents\GitHub\AWing\media\classifier data\Positive Samples/7349\frame3.jpg 5 557 392 123 95 717 514 148 114 1187 288 81 80 1110 525 138 129 1451 419 66 108
-C:\Users\shane\OneDrive\Documents\GitHub\AWing\media\classifier data\Positive Samples/7349\frame30.jpg 2 192 373 179 141 868 120 154 114
-C:\Users\shane\OneDrive\Documents\GitHub\AWing\media\classifier data\Positive Samples/7349\frame31.jpg 2 375 334 172 139 1114 148 130 110
-C:\Users\shane\OneDrive\Documents\GitHub\AWing\media\classifier data\Positive Samples/7349\frame32.jpg 2 429 271 214 138 1214 167 139 133
-C:\Users\shane\OneDrive\Documents\GitHub\AWing\media\classifier data\Positive Samples/7349\frame33.jpg 2 415 222 150 123 1198 170 145 145
-C:\Users\shane\OneDrive\Documents\GitHub\AWing\media\classifier data\Positive Samples/7349\frame34.jpg 2 644 189 133 123 1392 187 109 120
-C:\Users\shane\OneDrive\Documents\GitHub\AWing\media\classifier data\Positive Samples/7349\frame35.jpg 1 795 173 131 114
-C:\Users\shane\OneDrive\Documents\GitHub\AWing\media\classifier data\Positive Samples/7349\frame36.jpg 2 873 203 122 108 194 689 182 132
-C:\Users\shane\OneDrive\Documents\GitHub\AWing\media\classifier data\Positive Samples/7349\frame37.jpg 2 385 578 170 147 1092 210 121 114
-C:\Users\shane\OneDrive\Documents\GitHub\AWing\media\classifier data\Positive Samples/7349\frame38.jpg 2 473 557 166 126 1164 228 111 110
-C:\Users\shane\OneDrive\Documents\GitHub\AWing\media\classifier data\Positive Samples/7349\frame4.jpg 4 570 365 121 107 707 534 129 114 1097 549 130 115 1231 266 81 84
-C:\Users\shane\OneDrive\Documents\GitHub\AWing\media\classifier data\Positive Samples/7349\frame5.jpg 4 627 337 123 96 700 496 125 119 1074 541 164 134 1309 231 104 99
-C:\Users\shane\OneDrive\Documents\GitHub\AWing\media\classifier data\Positive Samples/7349\frame6.jpg 4 578 315 102 89 555 478 159 142 927 558 171 141 1297 223 105 102
-C:\Users\shane\OneDrive\Documents\GitHub\AWing\media\classifier data\Positive Samples/7349\frame7.jpg 5 472 518 133 122 542 307 123 107 826 607 140 128 1305 239 111 116 1411 449 115 162
-C:\Users\shane\OneDrive\Documents\GitHub\AWing\media\classifier data\Positive Samples/7349\frame8.jpg 3 681 292 114 100 529 492 131 115 821 615 149 142
-C:\Users\shane\OneDrive\Documents\GitHub\AWing\media\classifier data\Positive Samples/7349\frame9.jpg 3 765 228 105 102 533 426 128 131 760 583 146 139
+7349_frame0.jpg 5 513 421 98 74 724 545 109 95 1070 306 72 79 1087 537 109 100 1338 411 91 103
+7349_frame1.jpg 5 566 423 90 76 763 548 122 102 1131 309 67 81 1128 553 114 107 1380 429 114 98
+7349_frame10.jpg 4 754 233 105 89 454 435 130 116 596 616 167 136 1341 603 156 149
+7349_frame11.jpg 4 881 240 102 92 524 429 128 139 588 602 164 157 1289 646 210 170
+7349_frame12.jpg 3 865 220 110 104 446 399 138 125 431 598 179 135
+7349_frame13.jpg 3 386 356 127 107 855 183 113 91 311 545 161 148
+7349_frame14.jpg 3 467 351 139 99 317 538 185 134 985 193 119 96
+7349_frame15.jpg 3 500 306 132 107 1050 188 117 102 278 502 148 116
+7349_frame16.jpg 3 651 285 117 106 384 453 154 121 1216 178 132 113
+7349_frame17.jpg 3 784 277 136 106 480 420 161 124 1386 215 114 114
+7349_frame18.jpg 3 398 409 144 122 720 274 149 116 1335 256 132 114
+7349_frame19.jpg 2 466 400 139 118 834 290 105 91
+7349_frame2.jpg 4 614 421 108 96 809 548 92 102 1172 327 108 73 1176 565 120 101
+7349_frame20.jpg 2 1016 303 142 137 647 413 137 96
+7349_frame21.jpg 3 664 288 159 121 1061 221 118 109 246 567 228 167
+7349_frame22.jpg 3 246 373 165 160 680 121 146 102 1088 80 155 122
+7349_frame23.jpg 3 332 311 185 152 837 81 125 121 1240 53 134 130
+7349_frame24.jpg 3 342 268 180 122 845 66 174 99 1278 56 163 125
+7349_frame25.jpg 3 348 212 150 131 889 56 121 119 1260 70 168 149
+7349_frame26.jpg 4 82 629 219 164 428 167 113 111 957 48 135 107 1350 122 113 141
+7349_frame27.jpg 4 4 557 236 213 442 155 175 132 1025 69 127 119 1366 161 138 139
+7349_frame28.jpg 3 598 177 142 114 26 568 200 149 1160 125 156 117
+7349_frame29.jpg 3 727 121 150 119 89 435 214 143 1288 118 169 152
+7349_frame3.jpg 5 557 392 123 95 717 514 148 114 1187 288 81 80 1110 525 138 129 1451 419 66 108
+7349_frame30.jpg 2 192 373 179 141 868 120 154 114
+7349_frame31.jpg 2 375 334 172 139 1114 148 130 110
+7349_frame32.jpg 2 429 271 214 138 1214 167 139 133
+7349_frame33.jpg 2 415 222 150 123 1198 170 145 145
+7349_frame34.jpg 2 644 189 133 123 1392 187 109 120
+7349_frame35.jpg 1 795 173 131 114
+7349_frame36.jpg 2 873 203 122 108 194 689 182 132
+7349_frame37.jpg 2 385 578 170 147 1092 210 121 114
+7349_frame38.jpg 2 473 557 166 126 1164 228 111 110
+7349_frame4.jpg 4 570 365 121 107 707 534 129 114 1097 549 130 115 1231 266 81 84
+7349_frame5.jpg 4 627 337 123 96 700 496 125 119 1074 541 164 134 1309 231 104 99
+7349_frame6.jpg 4 578 315 102 89 555 478 159 142 927 558 171 141 1297 223 105 102
+7349_frame7.jpg 5 472 518 133 122 542 307 123 107 826 607 140 128 1305 239 111 116 1411 449 115 162
+7349_frame8.jpg 3 681 292 114 100 529 492 131 115 821 615 149 142
+7349_frame9.jpg 3 765 228 105 102 533 426 128 131 760 583 146 139
