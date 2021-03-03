@@ -66,7 +66,7 @@ public class Constants {
     }
 
     public static final class IntakeConstants {
-        public static final int kIntake = 4;
+        public static final int kIntake = 2;
     }
 
     public static final class AutoConstants {
