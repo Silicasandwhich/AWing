@@ -146,7 +146,7 @@ public class RobotContainer {
             return new GalacticSearch(m_drive, intakeForward, m_camera);
         }
         Trajectory AutoTrajectory = new Trajectory();
-        PathString = "Paths".concat(PathString);
+        PathString = "paths/".concat(PathString);
         try {
             Path PathJSON = Filesystem.getDeployDirectory().toPath().resolve(PathString);
             AutoTrajectory = TrajectoryUtil.fromPathweaverJson(PathJSON);

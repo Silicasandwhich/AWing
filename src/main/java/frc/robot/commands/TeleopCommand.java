@@ -50,11 +50,14 @@ public class TeleopCommand extends CommandBase {
         double[] joys = RobotContainer.getInstance().getSticks();
         double deadzone = m_deadzone.getDouble(0.02);
         double xSpeed = maxSpeed.getDouble(0.5);
-        if(correctionsEnabled.getBoolean(false) && Math.abs(joys[0]) > deadzone && Math.abs(joys[1]) > deadzone) {
+        if(enableCorrections.getBoolean(false) && (Math.abs(joys[0]) > deadzone || Math.abs(joys[1]) > deadzone)) {
             correctionsEnabled.setBoolean(true);
             m_drive.feedForwardTank(joys[0] * xSpeed, joys[1] * xSpeed);
         } else {
-            m_drive.simpleTank(joys[0], joys[1]);
+            // simple tank
+            m_drive.simpleTank(joys[0] * xSpeed/5, joys[1] * xSpeed/5);
+            // the cooler simple tank
+            // m_drive.simpleTank(joys[0] * xSpeed/5, joys[1] * xSpeed/5);
             correctionsEnabled.setBoolean(false);
         }
     }
