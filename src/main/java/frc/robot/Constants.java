@@ -49,20 +49,19 @@ public class Constants {
         public static final double kAL = 0.00317;
 
         
-        public static final double kTrackWidth = 1.1361;
-		public static final double Speed = Units.feetToMeters(0.5); //TODO: Recalculate max speed
-
+        public static final double kTrackWidth = Units.inchesToMeters(21.5);
+		public static final double Speed = 1; //TODO: Recalculate max speed
 		public static final boolean bLeftInverted = false;
 		public static final boolean bRightInverted = false;
         public static final double kAcceleration = 0;
 
-		public static double kPL; //TODO find correct kPL and kPR
-		public static double kPR;
+		public static double kPL = 0; //TODO find correct kPL and kPR
+		public static double kPR = 0;
 
         // TODO: get combined values
-		public static double kSC;
-		public static double kVC;
-		public static double kAC;
+		public static double kSC = 1.82;
+		public static double kVC = 2.75;
+		public static double kAC = 0.00137;
     }
 
     public static final class IntakeConstants {
@@ -73,8 +72,8 @@ public class Constants {
         public static final double kRamseteB = 2;
         public static final double kRamseteZeta = 0.7;
         // pathfinding constants
-        public static final double MaxSpeed = Units.feetToMeters(10); //TODO: Recalculate max speed
-        public static final double MaxAcceleration = 9.8;
+        public static final double MaxSpeed = 1; //TODO: Recalculate max speed
+        public static final double MaxAcceleration = 4.9;
     }
 }
 
