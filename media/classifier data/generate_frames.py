@@ -12,12 +12,11 @@ def extractImages(pathIn, pathOut):
     count = 0
     vidcap = cv2.VideoCapture(pathIn)
     success,image = vidcap.read()
-    success = True
     while success:
-        vidcap.set(cv2.CAP_PROP_POS_FRAMES,(count*1000/40))    # added this line 
+        vidcap.set(cv2.CAP_PROP_POS_FRAMES,(count*1000/600))    # added this line 
         success,image = vidcap.read()
         print ("Read a new frame #{}: {}".format(count, success))
-        image = cv2.rotate(image, cv2.cv2.ROTATE_180)
+        #image = cv2.rotate(image, cv2.cv2.ROTATE_180)
         cv2.imwrite( pathOut + "\\frame%d.jpg" % count, image)     # save frame as JPEG file
         count = count + 1
 
