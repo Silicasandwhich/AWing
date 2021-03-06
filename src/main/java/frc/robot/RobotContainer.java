@@ -114,6 +114,7 @@ public class RobotContainer {
         pathChooser.addOption("Blue Path B", "blue_path_b.wpilib.json");
         pathChooser.addOption("Red Path A", "red_path_a.wpilib.json");
         pathChooser.addOption("Red Path B", "red_path_b.wpilib.json");
+        pathChooser.addOption("Wonkey Donkey", "weird.wpilib.json");
         
         Shuffleboard.getTab("Auto").add("Auto Path", pathChooser);
     }
