@@ -105,6 +105,7 @@ public class RobotContainer {
         */
 
         pathChooser.setDefaultOption("None", "none");
+        pathChooser.addOption("Rectangle Yay!", "rectangle yay.wpilib.json");
         pathChooser.addOption("Galactic Search", "galaxy");
         pathChooser.addOption("Barrel Run", "barrel.wpilib.json");
         pathChooser.addOption("Bounce Path", "bounce.wpilib.json");
