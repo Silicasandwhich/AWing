@@ -108,7 +108,7 @@ public class RobotContainer {
         pathChooser.addOption("Galactic Search", "galaxy");
         pathChooser.addOption("Barrel Run", "barrel.wpilib.json");
         pathChooser.addOption("Bounce Path", "bounce.wpilib.json");
-        pathChooser.addOption("Slalom Path", "salaom.wpilib.json");
+        pathChooser.addOption("Slalom Path", "slalom.wpilib.json");
         pathChooser.addOption("Blue Path A", "blue_path_a.wpilib.json");
         pathChooser.addOption("Blue Path B", "blue_path_b.wpilib.json");
         pathChooser.addOption("Red Path A", "red_path_a.wpilib.json");

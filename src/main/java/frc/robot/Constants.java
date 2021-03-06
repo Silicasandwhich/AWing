@@ -56,7 +56,7 @@ public class Constants {
         public static final double kAcceleration = 0;
 
 		public static double kPL = 0; //TODO find correct kPL and kPR
-		public static double kPR = 0;
+		public static double kPR = 4.4*(10^(-8));
 
         // TODO: get combined values
 		public static double kSC = 1.82;
