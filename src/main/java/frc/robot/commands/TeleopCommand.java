@@ -55,7 +55,7 @@ public class TeleopCommand extends CommandBase {
             m_drive.feedForwardTank(joys[0] * xSpeed, joys[1] * xSpeed);
         } else {
             // simple tank
-            m_drive.simpleTank(joys[0] * xSpeed/5, joys[1] * xSpeed/5);
+            m_drive.simpleTank(joys[0], joys[1]);
             // the cooler simple tank
             // m_drive.simpleTank(joys[0] * xSpeed/5, joys[1] * xSpeed/5);
             correctionsEnabled.setBoolean(false);
