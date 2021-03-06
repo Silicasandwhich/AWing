@@ -32,11 +32,11 @@ public class TeleopCommand extends CommandBase {
         correctionsEnabled = Shuffleboard.getTab("Teleop").add("Corrections Enabled", false)
             .withWidget(BuiltInWidgets.kBooleanBox).getEntry();
 
-        m_deadzone = Shuffleboard.getTab("Teleop").add("Deadzone", 0.02)
+        m_deadzone = Shuffleboard.getTab("Teleop").add("Deadzone", 0.04)
             .withWidget(BuiltInWidgets.kNumberSlider).withProperties(Map.of("Min", 0,"Max",1)).getEntry();
 
-        maxSpeed = Shuffleboard.getTab("Teleop").add("Max Speed", 0.5)
-            .withWidget(BuiltInWidgets.kNumberSlider).withProperties(Map.of("Min",0,"Max",5)).getEntry();
+        maxSpeed = Shuffleboard.getTab("Teleop").add("Max Speed", 2.0)
+            .withWidget(BuiltInWidgets.kNumberSlider).withProperties(Map.of("Min",0.5,"Max",2.75)).getEntry();
 
     }
 

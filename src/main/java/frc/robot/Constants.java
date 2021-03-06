@@ -39,7 +39,6 @@ public class Constants {
         //https://www.revrobotics.com/content/docs/REV-11-1271-DS.pdf
         public static final double kDistancePerPulse = Units.inchesToMeters(6)*Math.PI/(2048*4);
 
-        // TODO: rechacarterize
         public static final double kSR = 1.68;
         public static final double kVR = 2.85;
         public static final double kAR = 0.0046;
@@ -50,7 +49,6 @@ public class Constants {
 
         
         public static final double kTrackWidth = Units.inchesToMeters(21.5);
-		public static final double Speed = 1; //TODO: Recalculate max speed
 		public static final boolean bLeftInverted = false;
 		public static final boolean bRightInverted = false;
         public static final double kAcceleration = 0;
