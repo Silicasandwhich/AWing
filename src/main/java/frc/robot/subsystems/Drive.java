@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.simulation.EncoderSim;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.Constants.DriveConstants;
@@ -30,6 +31,9 @@ public class Drive extends SubsystemBase {
 
     private Encoder e_left;
     private Encoder e_right;
+
+    private EncoderSim eSim_left;
+    private EncoderSim eSim_right;
 
     private SimpleMotorFeedforward ff_left;
     private SimpleMotorFeedforward ff_right;
@@ -58,12 +62,14 @@ public class Drive extends SubsystemBase {
                 DriveConstants.kEncoderLeft[2]);
         e_left.setDistancePerPulse(DriveConstants.kDistancePerPulse);
         e_left.reset();
+        eSim_left = new EncoderSim(e_left);
 
         e_right = new Encoder(DriveConstants.kEncoderRight[0], DriveConstants.kEncoderRight[1],
                 DriveConstants.kEncoderRight[2]);
         e_right.setDistancePerPulse(DriveConstants.kDistancePerPulse);
         e_right.setReverseDirection(true);
         e_right.reset();
+        eSim_right = new EncoderSim(e_right);
 
         ff_left = new SimpleMotorFeedforward(DriveConstants.kSL, DriveConstants.kVL, DriveConstants.kAL);
         ff_right = new SimpleMotorFeedforward(DriveConstants.kSR, DriveConstants.kVR, DriveConstants.kAR);
