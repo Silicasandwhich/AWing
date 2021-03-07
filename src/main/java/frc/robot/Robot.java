@@ -14,6 +14,7 @@ package frc.robot;
 import edu.wpi.first.hal.FRCNetComm.tInstances;
 import edu.wpi.first.hal.FRCNetComm.tResourceType;
 import edu.wpi.first.hal.HAL;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -77,7 +78,9 @@ public class Robot extends TimedRobot {
     */
     @Override
     public void autonomousInit() {
+        m_robotContainer.setAutoStatus(0);
         m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+        m_robotContainer.setAutoStatus(20);
 
         // schedule the autonomous command (example)
         if (m_autonomousCommand != null) {
