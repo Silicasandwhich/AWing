@@ -23,6 +23,7 @@ import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.controller.RamseteController;
 import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
+import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
@@ -117,6 +118,8 @@ public class RobotContainer {
         pathChooser.addOption("Red Path A", "red_path_a.wpilib.json");
         pathChooser.addOption("Red Path B", "red_path_b.wpilib.json");
         pathChooser.addOption("Wonkey Donkey", "weird.wpilib.json");
+        pathChooser.addOption("Please just work", "Unnamed.wpilib.json");
+        
 
         Shuffleboard.getTab("Auto").add("Auto Path", pathChooser);
     }
@@ -142,6 +145,7 @@ public class RobotContainer {
      * @return the command to run in autonomous
      */
     public Command getAutonomousCommand() {
+        m_drive.resetOdometry(new Pose2d());
         // The selected command will be run in autonomous
         String pathString = pathChooser.getSelected();
         if (pathString == "none") {
