@@ -295,10 +295,7 @@ public class RobotContainer {
                 break;
             //ERRORS
             case 1900:
-                autoStatusString.setString("Could not get camera.");
-                break;
-            case 1901:
-                autoStatusString.setString("No lemons found.");
+                autoStatusString.setString("Could not get camera/lemons.");
                 break;
             case 1902:
                 autoStatusString.setString("Could not open trajectory");

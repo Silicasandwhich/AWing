@@ -28,14 +28,14 @@ public class GalacticSearch extends ParallelRaceGroup {
 
     public GalacticSearch(Drive drive, IntakeCommand intake, Camera camera) {
         setAutoStatus(0);
-        Mat image = new Mat();
-        if (camera.getFrame(image) == 0) {
-            System.out.println("Failed to grab frame.");
+        Rect[] lemons = camera.processFrame();
+        if (lemons.length == 0) {
+            System.out.println("Failed to get lemons.");
             setAutoStatus(900);
             return;
         }
 
-        String selection = selectPathFromImage(image);
+        String selection = selectPathFromRects(lemons);
         RobotContainer.getInstance().setPath(selection);
         Trajectory trajectory = getTrajectory(selection);
 
@@ -69,26 +69,15 @@ public class GalacticSearch extends ParallelRaceGroup {
         return trajectory;
     }
 
-    private void setAutoStatus(int status) {
-        RobotContainer.getInstance().setAutoStatus(1000+status);
-    }
-
-    public String selectPathFromImage(Mat image) {
+    public String selectPathFromRects(Rect[] lemons) {
         setAutoStatus(1);
-        Rect[] classLemons = {}; //TODO Process images with Grip/Classifier
-        KeyPoint[] gripLemons = {};
 
         String selection = "";
-
-        if(classLemons.length > 0) {
-
-        } else if (gripLemons.length > 0) {
-
-        } else {
-            setAutoStatus(901);
-        }
 
         return selection;
     }
 
+    private void setAutoStatus(int status) {
+        RobotContainer.getInstance().setAutoStatus(1000+status);
+    }
 }
