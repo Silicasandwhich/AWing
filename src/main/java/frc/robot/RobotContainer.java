@@ -72,6 +72,11 @@ public class RobotContainer {
     private SendableChooser<String> pathChooser;
 
     private NetworkTableEntry cameraEntry;
+    private NetworkTableEntry autoStatusEntry;
+    private NetworkTableEntry autoStatusString;
+    private static int autoStatus = -1;
+
+    private NetworkTableEntry galacticPathString;
 
     // Subsystems
     private Drive m_drive = new Drive();
@@ -121,7 +126,11 @@ public class RobotContainer {
         pathChooser.addOption("Please just work", "Unnamed.wpilib.json");
         
 
-        Shuffleboard.getTab("Auto").add("Auto Path", pathChooser);
+        Shuffleboard.getTab("Auto").add("Auto Command", pathChooser);
+        autoStatusEntry = Shuffleboard.getTab("Auto").add("Status", autoStatus).withWidget(BuiltInWidgets.kGraph).getEntry();
+        autoStatusString = Shuffleboard.getTab("Auto").add("Info", "Constructing").getEntry();
+        
+        galacticPathString = Shuffleboard.getTab("Auto").add("Galactic Path","Not Set").getEntry();
     }
 
     public static RobotContainer getInstance() {
@@ -147,18 +156,22 @@ public class RobotContainer {
     public Command getAutonomousCommand() {
         m_drive.resetOdometry(new Pose2d());
         // The selected command will be run in autonomous
+        setAutoStatus(1);
         String pathString = pathChooser.getSelected();
         if (pathString == "none") {
+            setAutoStatus(9999);
             return new WaitCommand(1);
         } else if (pathString == "galaxy") {
+            //TODO GALACTIC SEARCH: 1000s
             return new GalacticSearch(m_drive, intakeForward, m_camera);
         }
         try {
+            setAutoStatus(2000); //Started Path Only
             Trajectory autoTrajectory = new Trajectory();
             pathString = "paths/".concat(pathString);
             Path PathJSON = Filesystem.getDeployDirectory().toPath().resolve(pathString);
             autoTrajectory = TrajectoryUtil.fromPathweaverJson(PathJSON);
-
+            setAutoStatus(2002); //Trajectory Aquired
             //Auto Command
             // this is a really long and confusing constructor, so here's basically what it wants
             RamseteCommand ramseteCommand = new RamseteCommand(
@@ -175,13 +188,16 @@ public class RobotContainer {
                 m_drive::setRawVoltage, // a function that controlls the voltage of the drive (look at subsystems/drive.java so see how this should be layed out)
                 m_drive // the drive subsystem itself
             );
+            setAutoStatus(2003); //Ramsete Constructed
             m_drive.resetOdometry(autoTrajectory.getInitialPose());
+            setAutoStatus(2004); //Reset Odometry
 
             // Run path following command, then stop at the end.
             return ramseteCommand.andThen(() -> m_drive.setRawVoltage(0, 0), m_drive);
         } catch (IOException ex) {
             DriverStation.reportError("Unable to open trajectory: " + pathString, ex.getStackTrace());
-            return new CommandBase(){};
+            setAutoStatus(2900);
+            return new WaitCommand(1);
         }
     }
 
@@ -218,6 +234,108 @@ public class RobotContainer {
         } else {
             return new double[] {-leftStick.getY(Hand.kLeft), -leftStick.getY(Hand.kRight)};
         }
+    }
+
+    /**Sets the Auto Status Debug Intger:
+     * Reasons for use: Graph easy to see what is happening on a time interval, not possible with just a string.
+     * Code references:
+     * -1: Autonomous not selected
+     * ~0000: Global Statuses
+     * 0: Initializing Autonomous
+     * 1: Getting Command
+     * 2: Command Aquired
+     * ~ 1000's: Galactic Search Statuses
+     * 0: Constructing Galactic Search
+     * 1: Getting Path from Image
+     * 2: Trajectory Set
+     * 3: Reset odometry
+     * 4: Ramsete Constructed
+     * 5: ParallelRaceGroup satisfied.
+     * ~900s Errors:
+     * 0: Could not get Camera
+     * 1: No Lemons Found
+     * 2: Could not open trajectory.
+     * ~ 2000's: Path Only Statuses
+     * 0: Path Only Selected
+     * 2: Trajectory Aquired
+     * 3: Ramsete Constructed
+     * 4: Reset Odometry
+     * ~ 900s Errors:
+     * 0: Could not open selected trajectory.
+     * 1: Could not find any lemons. 🚫🍋
+     */
+    public void setAutoStatus(int status) {
+        switch(status) {
+            case -1:
+                autoStatusString.setString("Not Started");
+                break;
+            case 0:
+                autoStatusString.setString("Initializing");
+                break;
+            case 1:
+                autoStatusString.setString("Getting Command");
+                break;
+            case 2:
+                autoStatusString.setString("Command Aquired");
+                break;
+            
+            //Galactic Search Statuses
+            case 1000:
+                autoStatusString.setString("Galactic Search");
+                break;
+            case 1001:
+                autoStatusString.setString("Getting Path from Image");
+            case 1002:
+                autoStatusString.setString("Trajectory Set");
+                break;
+            case 1003:
+                autoStatusString.setString("Reset Odometry");
+                break;
+            case 1004:
+                autoStatusString.setString("Ramsete Constructed");
+                break;
+            case 1005:
+                autoStatusString.setString("Parallel Race Group Satsified");
+                break;
+            //ERRORS
+            case 1900:
+                autoStatusString.setString("Could not get camera/lemons.");
+                break;
+            case 1902:
+                autoStatusString.setString("Could not open trajectory");
+                break;
+
+            //PATH ONLY STATUSES
+            case 2000:
+                autoStatusString.setString("Only Path Selected");
+                break;
+            case 2002:
+                autoStatusString.setString("Trajectory Aquired");
+                break;
+            case 2003:
+                autoStatusString.setString("Ramsete Constructed");
+                break;
+            case 2004:
+                autoStatusString.setString("Only Path Selected");
+                break;
+            case 2900:
+                autoStatusString.setString("Could not open trajectory.");
+            
+            //UNKOWN This is bad if this happens
+            default:
+                autoStatusString.setString("Unkown");
+                break;
+        }
+        autoStatus = status;
+        autoStatusEntry.setNumber(autoStatus);
+    }
+
+    public int getAutoStatus() {
+        return autoStatus;
+    }
+
+    public void setPath(String path) {
+        galacticPathString.setString(path);
     }
 
 }

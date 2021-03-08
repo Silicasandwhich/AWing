@@ -58,14 +58,12 @@ public class Drive extends SubsystemBase {
 
         m_driveBase = new DifferentialDrive(s_left, s_right);
 
-        e_left = new Encoder(DriveConstants.kEncoderLeft[0], DriveConstants.kEncoderLeft[1],
-                DriveConstants.kEncoderLeft[2]);
+        e_left = new Encoder(DriveConstants.kEncoderLeft[0], DriveConstants.kEncoderLeft[1]);
         e_left.setDistancePerPulse(DriveConstants.kDistancePerPulse);
         e_left.reset();
         eSim_left = new EncoderSim(e_left);
 
-        e_right = new Encoder(DriveConstants.kEncoderRight[0], DriveConstants.kEncoderRight[1],
-                DriveConstants.kEncoderRight[2]);
+        e_right = new Encoder(DriveConstants.kEncoderRight[0], DriveConstants.kEncoderRight[1]);
         e_right.setDistancePerPulse(DriveConstants.kDistancePerPulse);
         e_right.setReverseDirection(true);
         e_right.reset();

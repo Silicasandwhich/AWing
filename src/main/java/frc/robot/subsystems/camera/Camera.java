@@ -1,31 +1,40 @@
 package frc.robot.subsystems.camera;
 
+import java.nio.file.InvalidPathException;
+
 import org.opencv.core.Core;
 import org.opencv.core.KeyPoint;
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
+import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
+import org.opencv.objdetect.CascadeClassifier;
 
 import edu.wpi.cscore.CvSink;
 import edu.wpi.cscore.CvSource;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Camera extends SubsystemBase {
 
     private Thread visionThread;
-    UsbCamera camera;
+    private ExMachina cascade;
+    private UsbCamera camera;
 
     public Camera() {
         camera = CameraServer.getInstance().startAutomaticCapture();
+        cascade = new ExMachina();
 
+        /**
         visionThread = new Thread(() -> {
             camera.setResolution(640,480);
 
             CvSink cvDebug = CameraServer.getInstance().getVideo();
-            CvSource cvDebugOut = CameraServer.getInstance().putVideo("CV Debug", 640, 480);
 
             Mat source = new Mat();
 
@@ -36,18 +45,11 @@ public class Camera extends SubsystemBase {
                     System.out.println(cvDebug.getError());
                     continue;
                 }
-
-                pipeline.process(source);
-                KeyPoint[] blobs = pipeline.findBlobsOutput().toArray();
                 
-                for(int i = 0; (i < 4) && (i < blobs.length); i++) {
-                    Imgproc.circle(source, blobs[0].pt, (int) blobs[0].size, new Scalar(255,255,255));
-                    Imgproc.putText(source, "X: "+ blobs[0].pt.x+"; Y:"+blobs[0].pt.y, new Point(blobs[0].pt.x, blobs[0].pt.y), Core.FONT_HERSHEY_PLAIN, 1, new Scalar(255,255,255));
-                    Imgproc.putText(source, "Size: "+ blobs[0].size, new Point(blobs[0].pt.x, blobs[0].pt.y-20), Core.FONT_HERSHEY_PLAIN, 1, new Scalar(255,255,255));
-                }
-                cvDebugOut.putFrame(source);
+                
             }
         });
+        **/
     }
 
     public void startCapture() {
@@ -65,6 +67,19 @@ public class Camera extends SubsystemBase {
 
     public long getFrame(Mat source) {
         return CameraServer.getInstance().getVideo().grabFrame(source);
+    }
+
+    public Rect[] processFrame() {
+        Mat source = new Mat();
+        getFrame(source);
+        try {
+            cascade.process(source, new CascadeClassifier(Filesystem.getDeployDirectory().toPath().resolve("ExMachina.xml").toString()));
+            return cascade.cascadeClassifierOutput().toArray();
+            
+        } catch (InvalidPathException e) {
+            DriverStation.reportError("Could not open path", e.getStackTrace());
+        }
+        return new Rect[]{};
     }
     
 }
