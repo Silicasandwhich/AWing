@@ -100,6 +100,7 @@ public class Drive extends SubsystemBase {
         //Right Inverted Listener
         b_rightInverted.addListener(event -> {
             s_right.setInverted(b_rightInverted.getBoolean(DriveConstants.bRightInverted));
+            m_driveBase.setRightSideInverted(b_rightInverted.getBoolean(DriveConstants.bRightInverted));
         },EntryListenerFlags.kNew | EntryListenerFlags.kImmediate | EntryListenerFlags.kUpdate | EntryListenerFlags.kLocal);
     }
 

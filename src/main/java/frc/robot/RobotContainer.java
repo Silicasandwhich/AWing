@@ -123,7 +123,9 @@ public class RobotContainer {
         pathChooser.addOption("Red Path A", "red_path_a.wpilib.json");
         pathChooser.addOption("Red Path B", "red_path_b.wpilib.json");
         pathChooser.addOption("Wonkey Donkey", "weird.wpilib.json");
+        pathChooser.addOption("Big Wonkey Donkey", "output/Big Wonkey.wpilib.json");
         pathChooser.addOption("Please just work", "Unnamed.wpilib.json");
+        pathChooser.addOption("Please just work 2", "output/Difinitive.wpilib.json");
         
 
         Shuffleboard.getTab("Auto").add("Auto Command", pathChooser);
@@ -170,6 +172,7 @@ public class RobotContainer {
             Trajectory autoTrajectory = new Trajectory();
             pathString = "paths/".concat(pathString);
             Path PathJSON = Filesystem.getDeployDirectory().toPath().resolve(pathString);
+            System.out.println("Auto | "+ PathJSON);
             autoTrajectory = TrajectoryUtil.fromPathweaverJson(PathJSON);
             setAutoStatus(2002); //Trajectory Aquired
             //Auto Command
@@ -193,7 +196,7 @@ public class RobotContainer {
             setAutoStatus(2004); //Reset Odometry
 
             // Run path following command, then stop at the end.
-            return ramseteCommand.andThen(() -> m_drive.setRawVoltage(0, 0), m_drive);
+            return ramseteCommand.andThen(() -> m_drive.setRawVoltage(0, 0), m_drive).andThen(new WaitCommand(4));
         } catch (IOException ex) {
             DriverStation.reportError("Unable to open trajectory: " + pathString, ex.getStackTrace());
             setAutoStatus(2900);
@@ -323,7 +326,7 @@ public class RobotContainer {
             
             //UNKOWN This is bad if this happens
             default:
-                autoStatusString.setString("Unkown");
+                autoStatusString.setString("Unknown");
                 break;
         }
         autoStatus = status;
