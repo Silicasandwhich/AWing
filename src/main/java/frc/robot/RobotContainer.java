@@ -115,13 +115,13 @@ public class RobotContainer {
         pathChooser.setDefaultOption("None", "none");
         pathChooser.addOption("Rectangle Yay!", "rectangle yay.wpilib.json");
         pathChooser.addOption("Galactic Search", "galaxy");
-        pathChooser.addOption("Barrel Run", "barrel.wpilib.json");
-        pathChooser.addOption("Bounce Path", "bounce.wpilib.json");
-        pathChooser.addOption("Slalom Path", "slalom.wpilib.json");
-        pathChooser.addOption("Blue Path A", "blue_path_a.wpilib.json");
-        pathChooser.addOption("Blue Path B", "blue_path_b.wpilib.json");
-        pathChooser.addOption("Red Path A", "red_path_a.wpilib.json");
-        pathChooser.addOption("Red Path B", "red_path_b.wpilib.json");
+        pathChooser.addOption("Barrel Run", "proper/output/barrel.wpilib.json");
+        pathChooser.addOption("Bounce Path", "proper/output/bounce.wpilib.json");
+        pathChooser.addOption("Slalom Path", "proper/output/slalom.wpilib.json");
+        pathChooser.addOption("Blue Path A", "proper/output/blue_a.wpilib.json");
+        pathChooser.addOption("Blue Path B", "proper/output/blue_b.wpilib.json");
+        pathChooser.addOption("Red Path A", "proper/red_a.wpilib.json");
+        pathChooser.addOption("Red Path B", "proper/red_b.wpilib.json");
         pathChooser.addOption("Wonkey Donkey", "weird.wpilib.json");
         pathChooser.addOption("Please just work", "Unnamed.wpilib.json");
         
