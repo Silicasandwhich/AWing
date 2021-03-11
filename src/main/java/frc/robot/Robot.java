@@ -124,6 +124,15 @@ public class Robot extends TimedRobot {
         m_robotContainer.setAutoStatus(-1);
         // Cancels all running commands at the start of test mode.
         CommandScheduler.getInstance().cancelAll();
+
+        m_robotContainer.setAutoStatus(0);
+        m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+        m_robotContainer.setAutoStatus(20);
+
+        // schedule the autonomous command (example)
+        if (m_autonomousCommand != null) {
+            m_autonomousCommand.schedule();
+        }
     }
 
     /**
@@ -131,6 +140,12 @@ public class Robot extends TimedRobot {
     */
     @Override
     public void testPeriodic() {
+        CommandScheduler.getInstance().cancelAll();
+        if(!m_robotContainer.getDeadman()){
+            //Deadman stop
+            m_robotContainer.setAutoStatus(90);
+            m_robotContainer.stopRobot();
+        }
     }
 
 }

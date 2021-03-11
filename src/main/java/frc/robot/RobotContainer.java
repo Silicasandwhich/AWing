@@ -16,6 +16,7 @@ import java.util.Set;
 
 import edu.wpi.first.networktables.EntryListenerFlags;
 import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.GenericHID;
@@ -75,6 +76,8 @@ public class RobotContainer {
     private NetworkTableEntry cameraEntry;
     private NetworkTableEntry autoStatusEntry;
     private NetworkTableEntry autoStatusString;
+    private NetworkTableEntry deadman;
+
     private static int autoStatus = -1;
 
     private NetworkTableEntry galacticPathString;
@@ -90,6 +93,8 @@ public class RobotContainer {
     private Command intakeOut = new IntakeCommand(m_intake, false);
 
     private RobotContainer() {
+        deadman = NetworkTableInstance.getDefault().getTable("Safety").getEntry("deadman");
+
         controlScheme = new SendableChooser<String>();
         controlScheme.setDefaultOption(controlJoystick, controlJoystick);
         controlScheme.addOption(controlXbox, controlXbox);
@@ -249,6 +254,7 @@ public class RobotContainer {
      * 0: Initializing Autonomous
      * 1: Getting Command
      * 2: Command Aquired
+     * 90: Deadman Stop
      * ~ 1000's: Galactic Search Statuses
      * 0: Constructing Galactic Search
      * 1: Getting Path from Image
@@ -343,4 +349,12 @@ public class RobotContainer {
         galacticPathString.setString(path);
     }
 
+}
+
+public boolean getDeadman() {
+    return deadman.getBoolean(false)
+}
+
+public void stopRobot() {
+    (new StopRobot(m_drive, m_intake)).schedule();
 }
