@@ -349,12 +349,14 @@ public class RobotContainer {
         galacticPathString.setString(path);
     }
 
+    public boolean getDeadman() {
+        return deadman.getBoolean(false);
+    }
+    
+    public void stopRobot() {
+        Command stop = new StopRobot(m_drive, m_intake);
+        stop.schedule();
+    }
+
 }
 
-public boolean getDeadman() {
-    return deadman.getBoolean(false)
-}
-
-public void stopRobot() {
-    (new StopRobot(m_drive, m_intake)).schedule();
-}
