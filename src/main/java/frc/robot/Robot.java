@@ -129,13 +129,6 @@ public class Robot extends TimedRobot {
         m_robotContainer.setAutoStatus(20);
 
         System.out.println("Waiting for deadman.");
-        while(!m_robotContainer.getDeadman()) {}
-        System.out.println("Deadman Ready.");
-
-        // schedule the autonomous command (example)
-        if (m_autonomousCommand != null) {
-            m_autonomousCommand.schedule();
-        }
     }
 
     /**
@@ -143,7 +136,16 @@ public class Robot extends TimedRobot {
     */
     @Override
     public void testPeriodic() {
-        CommandScheduler.getInstance().cancelAll();
+        if(m_robotContainer.getDeadman() && m_robotContainer.testStarted() == false) {
+            m_robotContainer.startTest();
+            System.out.println("Deadman Ready.");
+            // schedule the autonomous command (example)
+            if (m_autonomousCommand != null) {
+                m_autonomousCommand.schedule();
+            }
+
+        }
+
         if(!m_robotContainer.getDeadman()){
             //Deadman stop
             m_robotContainer.setAutoStatus(90);

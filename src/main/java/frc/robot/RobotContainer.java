@@ -202,7 +202,7 @@ public class RobotContainer {
             m_drive.resetOdometry(autoTrajectory.getInitialPose());
             setAutoStatus(2004); //Reset Odometry
 
-            return (new ParallelRaceGroup(ramseteCommand, intakeForward).andThen(new StopRobot(m_drive, m_intake)));
+            return (new ParallelRaceGroup(ramseteCommand, new IntakeCommand(m_intake, true)).andThen(new StopRobot(m_drive, m_intake)));
             // Run path following command, then stop at the end.
             //return ramseteCommand.andThen(() -> m_drive.setRawVoltage(0, 0), m_drive).andThen(new WaitCommand(4));
         } catch (IOException ex) {
@@ -358,6 +358,18 @@ public class RobotContainer {
         Command stop = new StopRobot(m_drive, m_intake);
         stop.schedule();
     }
+
+	public void startTest() {
+        m_test_started = true;
+    }
+    
+    public void stoptest() {
+        m_testStarted
+    }
+
+	public boolean testStarted() {
+		return false;
+	}
 
 }
 
