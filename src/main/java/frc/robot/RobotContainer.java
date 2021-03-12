@@ -124,7 +124,7 @@ public class RobotContainer {
         pathChooser.addOption("Red Path A", "proper/red_a.wpilib.json");
         pathChooser.addOption("Red Path B", "proper/red_b.wpilib.json");
         pathChooser.addOption("Wonkey Donkey", "weird.wpilib.json");
-        pathChooser.addOption("Big Wonkey Donkey", "output/Big Wonkey.wpilib.json");
+        pathChooser.addOption("Big Wonkey Donkey", "output/red_a.wpilib.json");
         pathChooser.addOption("Please just work", "Unnamed.wpilib.json");
         pathChooser.addOption("Please just work 2", "output/Difinitive.wpilib.json");
         
