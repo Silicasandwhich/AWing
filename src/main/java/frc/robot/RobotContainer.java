@@ -92,6 +92,7 @@ public class RobotContainer {
     private Command teleopCommand = new TeleopCommand(m_drive);
     private IntakeCommand intakeForward = new IntakeCommand(m_intake, true);
     private Command intakeOut = new IntakeCommand(m_intake, false);
+    private boolean m_testStarted;
 
     private RobotContainer() {
         deadman = NetworkTableInstance.getDefault().getTable("Safety").getEntry("deadman");
@@ -360,15 +361,16 @@ public class RobotContainer {
     }
 
 	public void startTest() {
-        m_test_started = true;
+        m_testStarted = true;
     }
     
-    public void stoptest() {
-        m_testStarted
+    public void stopTest() {
+        m_testStarted = false;
     }
 
 	public boolean testStarted() {
-		return false;
+        m_robotContainer.stopTest();
+		return m_testStarted;
 	}
 
 }
