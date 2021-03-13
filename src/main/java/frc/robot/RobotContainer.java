@@ -92,7 +92,7 @@ public class RobotContainer {
     private Command teleopCommand = new TeleopCommand(m_drive);
     private IntakeCommand intakeForward = new IntakeCommand(m_intake, true);
     private Command intakeOut = new IntakeCommand(m_intake, false);
-    private boolean m_testStarted;
+    private boolean m_testStarted = false;
 
     private RobotContainer() {
         deadman = NetworkTableInstance.getDefault().getTable("Safety").getEntry("deadman");
@@ -291,7 +291,8 @@ public class RobotContainer {
             case 2:
                 autoStatusString.setString("Command Aquired");
                 break;
-            
+            case 90:
+                autoStatusString.setString("Deadman Check Failed");
             //Galactic Search Statuses
             case 1000:
                 autoStatusString.setString("Galactic Search");
@@ -331,6 +332,12 @@ public class RobotContainer {
             case 2004:
                 autoStatusString.setString("Only Path Selected");
                 break;
+            case 2005:
+                autoStatusString.setString("Awaiting Deadman");
+                break;
+            case 2006:
+                autoStatusString.setString("Running Path");
+                break;
             case 2900:
                 autoStatusString.setString("Could not open trajectory.");
             
@@ -369,7 +376,6 @@ public class RobotContainer {
     }
 
 	public boolean testStarted() {
-        m_robotContainer.stopTest();
 		return m_testStarted;
 	}
 
