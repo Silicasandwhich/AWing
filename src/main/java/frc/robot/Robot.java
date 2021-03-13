@@ -140,10 +140,13 @@ public class Robot extends TimedRobot {
             System.out.println("Deadman Ready. " + m_robotContainer.testStarted());
             // schedule the autonomous command (example)
             if (m_autonomousCommand != null) {
-                m_robotContainer.setAutoStatus(2006);
                 m_autonomousCommand.schedule();
             }
 
+        }
+
+        if(m_robotContainer.getDeadman() && m_robotContainer.testStarted()) {
+            m_robotContainer.setAutoStatus(2006);
         }
 
         if(!m_robotContainer.getDeadman() && m_robotContainer.testStarted()){
