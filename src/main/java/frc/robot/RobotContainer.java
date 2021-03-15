@@ -129,9 +129,7 @@ public class RobotContainer {
         pathChooser.addOption("Blue Path B", "stupid/blue_b.wpilib.json");
         pathChooser.addOption("Red Path A", "stupid/red_a.wpilib.json");
         pathChooser.addOption("Red Path B", "stupid/red_b.wpilib.json");
-         pathChooser.addOption("Blue Path a", "stupid/blue_a.wpilib.json");
-        pathChooser.addOption("Lil' Wonkey", "test/output/lil_wonkey.wpilib.json");
-        
+        pathChooser.addOption("Blue Path a", "stupid/blue_a.wpilib.json");        
         
 
         Shuffleboard.getTab("Auto").add("Auto Command", pathChooser);
@@ -177,9 +175,9 @@ public class RobotContainer {
             setAutoStatus(2000); //Started Path Only
             Trajectory autoTrajectory = new Trajectory();
             pathString = "paths/".concat(pathString);
-            Path PathJSON = Filesystem.getDeployDirectory().toPath().resolve(pathString);
-            System.out.println("Auto | "+ PathJSON);
-            autoTrajectory = TrajectoryUtil.fromPathweaverJson(PathJSON);
+            Path pathJSON = Filesystem.getDeployDirectory().toPath().resolve(pathString);
+            System.out.println("Auto | "+ pathJSON);
+            autoTrajectory = TrajectoryUtil.fromPathweaverJson(pathJSON);
             setAutoStatus(2002); //Trajectory Aquired
             //Auto Command
             // this is a really long and confusing constructor, so here's basically what it wants
