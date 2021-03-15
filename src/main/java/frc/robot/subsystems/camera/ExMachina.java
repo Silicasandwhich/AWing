@@ -25,7 +25,11 @@ public class ExMachina {
 	private MatOfRect cascadeClassifierOutput = new MatOfRect();
 
 	static {
-		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+		try{
+			System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+		} catch (UnsatisfiedLinkError e) {
+			System.load("C:\\Program Files\\opencv\\build\\java\\x64\\opencv_java343.dll");
+		}
 	}
 
 	/**
