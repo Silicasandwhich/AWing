@@ -56,7 +56,7 @@ public class GalacticSearch extends ParallelRaceGroup {
     private Trajectory getTrajectory(String selection) {
         Trajectory trajectory = new Trajectory();
         try {
-            Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve("paths/" + selection);
+            Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve("paths/stupid/output/" + selection);
             trajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
         } catch (InvalidPathException ex) {
             DriverStation.reportError("Unable to open trajectory: " + selection, ex.getStackTrace());
@@ -76,7 +76,10 @@ public class GalacticSearch extends ParallelRaceGroup {
         }
 
         String selection = "";
-
+        //blue_a.wpilib.json
+        //blue_b.wpilib.json
+        //red_a.wpilib.json
+        //red_b.wpilib.json
         return selection;
     }
 
