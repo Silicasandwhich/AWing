@@ -123,13 +123,14 @@ public class RobotContainer {
         pathChooser.setDefaultOption("None", "none");
         pathChooser.addOption("Rectangle Yay!", "rectangle yay.wpilib.json");
         pathChooser.addOption("Galactic Search", "galaxy");
-        pathChooser.addOption("Barrel Run", "stupid/barrel.wpilib.json");
-        pathChooser.addOption("Bounce Path", "stupid/bounce.wpilib.json");
-        pathChooser.addOption("Slalom Path", "stupid/slalom.wpilib.json");
-        pathChooser.addOption("Blue Path B", "stupid/blue_b.wpilib.json");
-        pathChooser.addOption("Red Path A", "stupid/red_a.wpilib.json");
-        pathChooser.addOption("Red Path B", "stupid/red_b.wpilib.json");
-        pathChooser.addOption("Blue Path a", "stupid/blue_a.wpilib.json");        
+        pathChooser.addOption("Barrel Run", "stupid/output/barrel.wpilib.json");
+        pathChooser.addOption("Bounce Path", "stupid/output/bounce.wpilib.json");
+        pathChooser.addOption("Slalom Path", "stupid/output/slalom.wpilib.json");
+        pathChooser.addOption("Blue Path B", "stupid/output/blue_b.wpilib.json");
+        pathChooser.addOption("Red Path A", "stupid/output/red_a.wpilib.json");
+        pathChooser.addOption("Red Path B", "stupid/output/red_b.wpilib.json");
+        pathChooser.addOption("Blue Path a", "stupid/output/blue_a.wpilib.json");
+        
         
 
         Shuffleboard.getTab("Auto").add("Auto Command", pathChooser);
