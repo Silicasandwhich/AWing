@@ -3,6 +3,7 @@ package frc.robot.commands;
 import java.io.IOException;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
+import java.util.ArrayList;
 
 import org.opencv.core.Rect;
 
@@ -32,7 +33,8 @@ public class GalacticSearch extends ParallelRaceGroup {
             setAutoStatus(900);
             return;
         }
-
+        
+        setAutoStatus(1);
         String selection = selectPathFromRects(lemons);
         RobotContainer.getInstance().setPath(selection);
         Trajectory trajectory = getTrajectory(selection);
@@ -67,8 +69,11 @@ public class GalacticSearch extends ParallelRaceGroup {
         return trajectory;
     }
 
-    public String selectPathFromRects(Rect[] lemons) {
-        setAutoStatus(1);
+    public static String selectPathFromRects(Rect[] lemons) {
+        ArrayList<Rect[]> tris  = new ArrayList<Rect[]>();
+        for(int r = 0; r < lemons.length-2; r++) {
+            tris.add(new Rect[] {lemons[r], lemons[r+1], lemons[r+2]});
+        }
 
         String selection = "";
 
