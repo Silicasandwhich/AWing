@@ -88,6 +88,10 @@ public class VisionTests {
         CascadeClassifier classifier = new CascadeClassifier(cXML.getAbsolutePath());
 
         ml.process(image, classifier);
-        return ml.cascadeClassifierOutput().toArray();
+        Rect[] lemons = ml.cascadeClassifierOutput().toArray();
+        for (int i = 0; i < lemons.length; i++) {
+            System.out.println("Path: "+ traj + "; Rect: "+i+"; x:"+lemons[i].x + " y: "+lemons[i].y+ " size:"+lemons[i].size());
+        }
+        return lemons;
     }
 }
