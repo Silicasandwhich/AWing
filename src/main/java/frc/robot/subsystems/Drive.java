@@ -65,7 +65,6 @@ public class Drive extends SubsystemBase {
 
         e_right = new Encoder(DriveConstants.kEncoderRight[0], DriveConstants.kEncoderRight[1]);
         e_right.setDistancePerPulse(DriveConstants.kDistancePerPulse);
-        e_right.setReverseDirection(true);
         e_right.reset();
         eSim_right = new EncoderSim(e_right);
 
@@ -120,12 +119,12 @@ public class Drive extends SubsystemBase {
         double calcLeft = ff_left.calculate(speedLeft, DriveConstants.kAcceleration);
         double calcRight = ff_right.calculate(speedRight, DriveConstants.kAcceleration);
 
-        if(DriveConstants.bLeftInverted) {
+        if(b_leftInverted.getBoolean(DriveConstants.bLeftInverted)) {
             s_left.setVoltage(-calcLeft);
         } else {
             s_left.setVoltage(calcLeft);
         }
-        if(DriveConstants.bRightInverted) {
+        if(b_rightInverted.getBoolean(DriveConstants.bRightInverted)) {
             s_right.setVoltage(-calcRight);
         } else {
             s_right.setVoltage(calcRight);
@@ -156,7 +155,11 @@ public class Drive extends SubsystemBase {
 
     public void setRawVoltage(double leftVoltage, double rightVoltage){
         s_left.setVoltage(leftVoltage);
-        s_right.setVoltage(rightVoltage);
+        if(b_rightInverted.getBoolean(DriveConstants.bRightInverted)){
+            s_right.setVoltage(-rightVoltage);
+        } else {
+            s_right.setVoltage(rightVoltage);
+        }
 
         s_left.feed();
         s_right.feed();
@@ -172,7 +175,7 @@ public class Drive extends SubsystemBase {
     }
 
     public Pose2d getPose() {
-        return m_position;
+        return m_odometry.getPoseMeters();
     }
 
     public DifferentialDriveKinematics getKinematics(){

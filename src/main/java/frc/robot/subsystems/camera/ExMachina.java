@@ -1,5 +1,9 @@
 package frc.robot.subsystems.camera;
 
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
+import java.util.Map;
+
 import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
@@ -28,7 +32,13 @@ public class ExMachina {
 		try{
 			System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 		} catch (UnsatisfiedLinkError e) {
-			System.load("C:\\Program Files\\opencv\\build\\java\\x64\\opencv_java343.dll");
+			Map<String, String> env = System.getenv();
+			if(!env.containsKey("OPENCV_DIR")) {
+				throw new IllegalArgumentException();
+			}
+			Path path = FileSystems.getDefault().getPath(env.get("OPENCV_DIR"));
+			path = path.getParent().getParent();
+			System.load(path.toAbsolutePath()+"\\java\\x64\\opencv_java343.dll");
 		}
 	}
 

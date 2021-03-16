@@ -21,7 +21,6 @@ public class Camera extends SubsystemBase {
     public Camera() {
         camera = CameraServer.getInstance().startAutomaticCapture();
         cascade = new ExMachina();
-
         /**
         visionThread = new Thread(() -> {
             camera.setResolution(640,480);

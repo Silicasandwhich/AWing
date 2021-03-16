@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 
 import org.opencv.core.Rect;
 
@@ -19,6 +21,7 @@ import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.camera.Camera;
@@ -75,12 +78,53 @@ public class GalacticSearch extends ParallelRaceGroup {
             tris.add(new Rect[] {lemons[r], lemons[r+1], lemons[r+2]});
         }
 
-        String selection = "";
-        //blue_a.wpilib.json
-        //blue_b.wpilib.json
-        //red_a.wpilib.json
-        //red_b.wpilib.json
-        return selection;
+        for(int i = 0; i < tris.size(); i++) {
+            for(int r = 0; r < 3; r++) {
+                //For each reference triangle, see if it is within tolerance
+                boolean correctPath = triangleWithinTolerance(tris.get(i), Constants.Vision.realTris[r], 1.01);
+                if(!correctPath) {
+                    continue;
+                }
+                if(r == 0) {
+                    return "blue_a.wpilib.json";
+                } else if(r==1) {
+                    return "blue_b.wpilib.json";
+                } else if(r==2) {
+                    return "red_a.wpilib.json";
+                } else if(r==3) {
+                    return "red_b.wpilib.json";
+                }
+            }
+            
+        }
+        return "";
+    }
+
+    public static boolean triangleWithinTolerance(Rect[] tri, Rect[] reference, double scale) {
+
+        //Sort triangles
+        Arrays.sort(tri, Comparator.comparingDouble(Rect::area));
+        Arrays.sort(reference, Comparator.comparingDouble(Rect::area));
+
+
+        //Make sure scaling is correct, otherwise its a different path.
+        for(int i = 0; i < 3; i++) {
+            if(tri[i].area() > reference[i].area()*scale || tri[i].area() < (reference[i].area()*scale)-reference[i].area()) {
+                return false;
+            }
+
+            if (i < 2) {
+                //find the difference between the tri[0].x and tri[1].x and ref[0].x and ref[1].x
+                int tri_dif = Math.abs(tri[i].x - tri[i+1].x);
+                int ref_dif = Math.abs(reference[i].x - reference[i+1].x);
+
+                if(tri_dif > ref_dif*scale || tri_dif < ref_dif-((ref_dif*scale)-ref_dif)) {
+                    return false;
+                }
+            }
+        }
+        
+        return true;
     }
 
     private void setAutoStatus(int status) {
