@@ -98,8 +98,8 @@ public class RobotContainer {
         deadman = NetworkTableInstance.getDefault().getTable("Safety").getEntry("deadman");
 
         controlScheme = new SendableChooser<String>();
-        controlScheme.setDefaultOption(controlJoystick, controlJoystick);
-        controlScheme.addOption(controlXbox, controlXbox);
+        controlScheme.addOption(controlJoystick, controlJoystick);
+        controlScheme.setDefaultOption(controlXbox, controlXbox);
         Shuffleboard.getTab("Teleop").add("Control Scheme", controlScheme);
 
         cameraEntry = Shuffleboard.getTab("Vision").add("Vision Debug", false).withWidget(BuiltInWidgets.kToggleButton)
