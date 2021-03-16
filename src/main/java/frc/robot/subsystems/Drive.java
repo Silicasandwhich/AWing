@@ -155,7 +155,11 @@ public class Drive extends SubsystemBase {
 
     public void setRawVoltage(double leftVoltage, double rightVoltage){
         s_left.setVoltage(leftVoltage);
-        s_right.setVoltage(rightVoltage);
+        if(b_rightInverted.getBoolean(DriveConstants.bRightInverted)){
+            s_right.setVoltage(-rightVoltage);
+        } else {
+            s_right.setVoltage(rightVoltage);
+        }
 
         s_left.feed();
         s_right.feed();
