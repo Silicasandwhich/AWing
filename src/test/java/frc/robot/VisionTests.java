@@ -40,21 +40,21 @@ public class VisionTests {
     public void testRedPathA() throws Exception {
         Rect[] lemons = getLemons(2);
         String path = GalacticSearch.selectPathFromRects(lemons);
-        assertEquals("Red Path A Expected","blue_a.wpilib.json", path);
+        assertEquals("Red Path A Expected","red_a.wpilib.json", path);
     }
 
     @Test
     public void testBluePathB() throws Exception {
         Rect[] lemons = getLemons(1);
         String path = GalacticSearch.selectPathFromRects(lemons);
-        assertEquals("Blue Path B Expected","blue_a.wpilib.json", path);
+        assertEquals("Blue Path B Expected","blue_b.wpilib.json", path);
     }
 
     @Test
     public void testRedPathB() throws Exception {
         Rect[] lemons = getLemons(3);
         String path = GalacticSearch.selectPathFromRects(lemons);
-        assertEquals("Red Path B Expected","blue_a.wpilib.json", path);
+        assertEquals("Red Path B Expected","red_b.wpilib.json", path);
     }
 
     private Rect[] getLemons(int traj) {

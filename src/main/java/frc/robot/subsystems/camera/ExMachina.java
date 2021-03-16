@@ -1,6 +1,5 @@
 package frc.robot.subsystems.camera;
 
-import java.io.File;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.util.Map;
@@ -13,8 +12,6 @@ import org.opencv.core.Scalar;
 import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.objdetect.CascadeClassifier;
-
-import edu.wpi.first.wpilibj.Filesystem;
 
 /**
 * ExMachina class.
