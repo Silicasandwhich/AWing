@@ -33,7 +33,7 @@ public class Constants {
 
         //By index: Enc A, Enc B, Absolute
         public static final int[] kEncoderLeft = {0,1,2}; 
-        public static final int[] kEncoderRight = {3,4,5}; 
+        public static final int[] kEncoderRight = {6,7,8}; 
 
         //The hexbore encoder has 2048 cycles per revolution, since it is quadrature, it has 8192 pulses.
         //https://www.revrobotics.com/content/docs/REV-11-1271-DS.pdf
