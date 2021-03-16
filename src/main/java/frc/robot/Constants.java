@@ -38,12 +38,12 @@ public class Constants {
 
         //Characterization Values for the individual sides.
         //Right
-        public static final double kSR = 1.68;
+        public static final double kSR = 1.63;
         public static final double kVR = 2.85;
         public static final double kAR = 0.0046;
         //Left
         public static final double kSL = 1.77;
-        public static final double kVL = 2.64;
+        public static final double kVL = 2.76;
         public static final double kAL = 0.00317;
 
         //The hexbore encoder has 2048 cycles per revolution, since it is quadrature, it has 8192 pulses.

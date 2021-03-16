@@ -129,7 +129,8 @@ public class RobotContainer {
         pathChooser.addOption("Blue Path B", "stupid/output/blue_b.wpilib.json");
         pathChooser.addOption("Red Path A", "stupid/output/red_a.wpilib.json");
         pathChooser.addOption("Red Path B", "stupid/output/red_b.wpilib.json");
-        pathChooser.addOption("Blue Path a", "stupid/output/blue_a.wpilib.json");        
+        pathChooser.addOption("Blue Path a", "stupid/output/blue_a.wpilib.json");
+        pathChooser.addOption("Straight line", "please-just-work.wpilib.json");        
 
         Shuffleboard.getTab("Auto").add("Auto Command", pathChooser);
         autoStatusEntry = Shuffleboard.getTab("Auto").add("Status", autoStatus).withWidget(BuiltInWidgets.kGraph).getEntry();
