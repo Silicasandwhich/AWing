@@ -46,6 +46,13 @@ public class VisionTests {
     }
 
     @Test
+    public void testBluePathAImage2() throws Exception {
+        Rect[] lemons = getLemons(0,2);
+        String path = GalacticSearch.selectPathFromRects(lemons);
+        assertEquals("Blue Path A Expected 2","blue_a", path);
+    }
+
+    @Test
     public void testRedPathA() throws Exception {
         Rect[] lemons = getLemons(2,0);
         String path = GalacticSearch.selectPathFromRects(lemons);
