@@ -35,23 +35,27 @@ public class Constants {
         public static final int[] kEncoderLeft = {0,1,2}; 
         public static final int[] kEncoderRight = {3,4,5}; 
 
-        //The hexbore encoder has 2048 cycles per revolution, since it is quadrature, it has 8192 pulses.
-        //https://www.revrobotics.com/content/docs/REV-11-1271-DS.pdf
-        public static final double kDistancePerPulse = Units.inchesToMeters(6)*Math.PI/(2048*4);
 
+        //Characterization Values for the individual sides.
+        //Right
         public static final double kSR = 1.68;
         public static final double kVR = 2.85;
         public static final double kAR = 0.0046;
-
+        //Left
         public static final double kSL = 1.77;
         public static final double kVL = 2.64;
         public static final double kAL = 0.00317;
 
-        
-        public static final double kTrackWidth = Units.inchesToMeters(21.5);
+        //The hexbore encoder has 2048 cycles per revolution, since it is quadrature, it has 8192 pulses.
+        //https://www.revrobotics.com/content/docs/REV-11-1271-DS.pdf
+        public static final double kDistancePerPulse = (Units.inchesToMeters(6)*Math.PI)/(2048*4);
+        //TrackWidth: The horizontal distance between wheels.
+        //https://docs.wpilib.org/en/stable/docs/software/examples-tutorials/trajectory-tutorial/entering-constants.html#differentialdrivekinematics
+        public static final double kTrackWidth = Units.inchesToMeters(12);
 		public static final boolean bLeftInverted = false;
 		public static final boolean bRightInverted = false;
-        public static final double kAcceleration = 0;
+        public static final double kAcceleration = 1;
+        public static final double kMaxSpeed = 2.5;
 
 		public static double kPL = 3.48; //TODO find correct kPL and kPR
 		public static double kPR = 3.64;
