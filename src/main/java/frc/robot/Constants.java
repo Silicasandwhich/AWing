@@ -50,7 +50,7 @@ public class Constants {
 
         //The hexbore encoder has 2048 cycles per revolution, since it is quadrature, it has 8192 pulses.
         //https://www.revrobotics.com/content/docs/REV-11-1271-DS.pdf
-        public static final double kDistancePerPulse = (Units.inchesToMeters(6)*Math.PI)/(2048*4);
+        public static final double kDistancePerPulse = 3*(Units.inchesToMeters(6)*Math.PI)/(2048*4);
         //TrackWidth: The horizontal distance between wheels.
         //https://docs.wpilib.org/en/stable/docs/software/examples-tutorials/trajectory-tutorial/entering-constants.html#differentialdrivekinematics
         public static final double kTrackWidth = Units.inchesToMeters(12);
