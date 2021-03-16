@@ -79,20 +79,20 @@ public class GalacticSearch extends ParallelRaceGroup {
         }
 
         for(int i = 0; i < tris.size(); i++) {
-            for(int r = 0; r < 3; r++) {
+            for(int r = 0; r < 4; r++) {
                 //For each reference triangle, see if it is within tolerance
-                boolean correctPath = triangleWithinTolerance(tris.get(i), Constants.Vision.realTris[r], 1.01);
+                boolean correctPath = triangleWithinTolerance(tris.get(i), Constants.Vision.realTris[r], 1.50);
                 if(!correctPath) {
                     continue;
                 }
                 if(r == 0) {
-                    return "blue_a.wpilib.json";
+                    return "blue_a";
                 } else if(r==1) {
-                    return "blue_b.wpilib.json";
+                    return "blue_b";
                 } else if(r==2) {
-                    return "red_a.wpilib.json";
+                    return "red_a";
                 } else if(r==3) {
-                    return "red_b.wpilib.json";
+                    return "red_b";
                 }
             }
             
@@ -109,7 +109,8 @@ public class GalacticSearch extends ParallelRaceGroup {
 
         //Make sure scaling is correct, otherwise its a different path.
         for(int i = 0; i < 3; i++) {
-            if(tri[i].area() > reference[i].area()*scale || tri[i].area() < (reference[i].area()*scale)-reference[i].area()) {
+            //Checks the height of the biggest rect
+            if(tri[i].height > reference[i].height*scale || tri[i].height < reference[i].height-((reference[i].height*scale)-reference[i].height)) {
                 return false;
             }
 
