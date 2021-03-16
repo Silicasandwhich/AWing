@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 
 import org.opencv.core.Rect;
 
@@ -70,17 +72,39 @@ public class GalacticSearch extends ParallelRaceGroup {
     }
 
     public static String selectPathFromRects(Rect[] lemons) {
+        String selection = "";
+
         ArrayList<Rect[]> tris  = new ArrayList<Rect[]>();
         for(int r = 0; r < lemons.length-2; r++) {
             tris.add(new Rect[] {lemons[r], lemons[r+1], lemons[r+2]});
         }
 
-        String selection = "";
+        for(int i = 0; i < tris.size(); i++) {
+            Rect[] rects = tris.get(i);
+            
+        }
         //blue_a.wpilib.json
         //blue_b.wpilib.json
         //red_a.wpilib.json
         //red_b.wpilib.json
         return selection;
+    }
+
+    public static boolean triangleWithinTolerance(Rect[] tri, Rect[] reference, double scale) {
+
+        //Sort triangles
+        Arrays.sort(tri, Comparator.comparingDouble(Rect::area));
+        Arrays.sort(reference, Comparator.comparingDouble(Rect::area));
+
+
+        //Make sure scaling is correct, otherwise its a different path.
+        for(int i = 0; i < 3; i++) {
+            if(tri[i].area() > reference[i].area()*scale || tri[i].area() < (reference[i].area()*scale)-reference[i].area()) {
+                return false;
+            }
+        }
+        
+        return false;
     }
 
     private void setAutoStatus(int status) {
