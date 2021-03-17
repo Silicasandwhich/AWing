@@ -209,7 +209,7 @@ public class RobotContainer {
             setAutoStatus(2003); //Ramsete Constructed
             m_drive.resetOdometry(autoTrajectory.getInitialPose());
             setAutoStatus(2004); //Reset Odometry
-            return ramseteCommand;
+            return ramseteCommand.andThen(new StopRobot(m_drive,m_intake));
         }
         try {
             setAutoStatus(2000); //Started Path Only
