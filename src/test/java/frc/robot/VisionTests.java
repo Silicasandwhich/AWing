@@ -16,12 +16,6 @@ import frc.robot.subsystems.camera.ExMachina;
 
 public class VisionTests {
 
-    /**
-     *
-     */
-
-    public VisionTests() {}
-
     @Test
     public void testNoPath() throws Exception {
         Rect[] lemons = {};
