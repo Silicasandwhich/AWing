@@ -133,6 +133,7 @@ public class RobotContainer {
         pathChooser.addOption("b1 to b6", "working/b1 to b6.wpilib.json");
         pathChooser.addOption("slalom", "working/slalom.wpilib.json");
         pathChooser.addOption("barrel", "working/barrel.wpilib.json");
+        pathChooser.addOption("Bounce", "stupid/output/bounce.wpilib.json");
       
 
         Shuffleboard.getTab("Auto").add("Auto Command", pathChooser);
