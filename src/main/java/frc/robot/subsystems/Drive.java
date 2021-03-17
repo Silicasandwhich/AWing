@@ -1,3 +1,4 @@
+
 package frc.robot.subsystems;
 
 import com.kauailabs.navx.frc.AHRS;
@@ -64,6 +65,7 @@ public class Drive extends SubsystemBase {
         eSim_left = new EncoderSim(e_left);
 
         e_right = new Encoder(DriveConstants.kEncoderRight[0], DriveConstants.kEncoderRight[1]);
+        e_right.setReverseDirection(true);
         e_right.setDistancePerPulse(DriveConstants.kDistancePerPulse);
         e_right.reset();
         eSim_right = new EncoderSim(e_right);

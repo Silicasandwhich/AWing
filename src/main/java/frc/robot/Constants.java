@@ -44,13 +44,13 @@ public class Constants {
         public static final double kVR = 2.85;
         public static final double kAR = 0.0046;
         //Left
-        public static final double kSL = 1.77;
+        public static final double kSL = 1.9;
         public static final double kVL = 2.76;
         public static final double kAL = 0.00317;
 
         //The hexbore encoder has 2048 cycles per revolution, since it is quadrature, it has 8192 pulses.
         //https://www.revrobotics.com/content/docs/REV-11-1271-DS.pdf
-        public static final double kDistancePerPulse = 3*(Units.inchesToMeters(6)*Math.PI)/(2048*4);
+        public static final double kDistancePerPulse = (Units.inchesToMeters(6)*Math.PI)/(2048*4);
         //TrackWidth: The horizontal distance between wheels.
         //https://docs.wpilib.org/en/stable/docs/software/examples-tutorials/trajectory-tutorial/entering-constants.html#differentialdrivekinematics
         public static final double kTrackWidth = Units.inchesToMeters(12);

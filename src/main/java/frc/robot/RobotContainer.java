@@ -200,6 +200,7 @@ public class RobotContainer {
             setAutoStatus(2004); //Reset Odometry
             return ramseteCommand.andThen(new StopRobot(m_drive,m_intake));
         } else if (pathString == "slalom") {
+            System.out.println("==========Slalom===========");
             //Slalom Trajectory
             Trajectory autoTrajectory = TrajectoryGenerator.generateTrajectory(
                 List.of(
