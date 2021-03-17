@@ -10,10 +10,8 @@
 
 package frc.robot;
 
-import java.io.IOError;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 import edu.wpi.first.networktables.EntryListenerFlags;
 import edu.wpi.first.networktables.NetworkTableEntry;
