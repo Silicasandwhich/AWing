@@ -117,23 +117,15 @@ public class RobotContainer {
         /**
          * Link to each of our paths here. Be sure to put them inside the
          * "deploy/paths/" folder. --------------------------------------------- FORMAT:
-         * pathChooser.addOption("[name of path]", "[location of path]";
+         * pathChooser.addOption("[name of path]", "[location of path]");
          */
 
         pathChooser.setDefaultOption("None", "none");
-        pathChooser.addOption("Rectangle Yay!", "rectangle yay.wpilib.json");
-        pathChooser.addOption("Galactic Search", "galaxy");
-        pathChooser.addOption("Barrel Run", "proper/output/barrel.wpilib.json");
-        pathChooser.addOption("Bounce Path", "proper/output/bounce.wpilib.json");
-        pathChooser.addOption("Slalom Path", "proper/output/slalom.wpilib.json");
-        pathChooser.addOption("Blue Path A", "proper/output/blue_a.wpilib.json");
-        pathChooser.addOption("Blue Path B", "proper/output/blue_b.wpilib.json");
-        pathChooser.addOption("Red Path A", "proper/red_a.wpilib.json");
-        pathChooser.addOption("Red Path B", "proper/red_b.wpilib.json");
-        pathChooser.addOption("Wonkey Donkey", "weird.wpilib.json");
-        pathChooser.addOption("Big Wonkey Donkey", "output/red_a.wpilib.json");
-        pathChooser.addOption("Please just work", "Unnamed.wpilib.json");
-        pathChooser.addOption("Please just work 2", "output/Difinitive.wpilib.json");
+
+        pathChooser.addOption("b1 to b6", "working/b1 to b6.wpilib.json");
+        pathChooser.addOption("slalom", "working/slalom.wpilib.json");
+        pathChooser.addOption("barrel", "working/barrel.wpilib.json");
+        
         
 
         Shuffleboard.getTab("Auto").add("Auto Command", pathChooser);
