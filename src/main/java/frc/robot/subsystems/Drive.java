@@ -41,8 +41,6 @@ public class Drive extends SubsystemBase {
 
     private DifferentialDriveOdometry m_odometry;
 
-    private static DifferentialDriveKinematics m_kinematics = new DifferentialDriveKinematics(DriveConstants.kTrackWidth);
-
     private Pose2d m_position;
 
     private NetworkTableEntry b_leftInverted;
@@ -182,10 +180,6 @@ public class Drive extends SubsystemBase {
 
     public Pose2d getPose() {
         return m_odometry.getPoseMeters();
-    }
-
-    public static DifferentialDriveKinematics getKinematics(){
-        return m_kinematics;
     }
 
 }
