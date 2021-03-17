@@ -28,7 +28,7 @@ import frc.robot.subsystems.camera.Camera;
 
 public class GalacticSearch extends ParallelRaceGroup {
 
-    public GalacticSearch(Drive drive, IntakeCommand intake, Camera camera) {
+    public GalacticSearch(Drive drive, Camera camera) {
         setAutoStatus(0);
         Rect[] lemons = camera.processFrame();
         if (lemons.length == 0) {
@@ -48,11 +48,11 @@ public class GalacticSearch extends ParallelRaceGroup {
         RamseteCommand follower = new RamseteCommand(trajectory, drive::getPose,
                 new RamseteController(AutoConstants.kRamseteB, AutoConstants.kRamseteZeta),
                 new SimpleMotorFeedforward(DriveConstants.kSC, DriveConstants.kVC, DriveConstants.kAC),
-                drive.getKinematics(), drive::getRates, new PIDController(DriveConstants.kPL, 0, 0),
+                Drive.getKinematics(), drive::getRates, new PIDController(DriveConstants.kPL, 0, 0),
                 new PIDController(DriveConstants.kPR, 0, 0), drive::setRawVoltage, drive);
         setAutoStatus(4);
 
-        addCommands(follower, intake);
+        addCommands(follower);
         setAutoStatus(5);
     }
 

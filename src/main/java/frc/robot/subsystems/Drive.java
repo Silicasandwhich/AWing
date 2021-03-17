@@ -40,7 +40,7 @@ public class Drive extends SubsystemBase {
 
     private DifferentialDriveOdometry m_odometry;
 
-    private static DifferentialDriveKinematics m_kinematics;
+    private static DifferentialDriveKinematics m_kinematics = new DifferentialDriveKinematics(DriveConstants.kTrackWidth);
 
     private Pose2d m_position;
 
@@ -72,7 +72,6 @@ public class Drive extends SubsystemBase {
         ff_right = new SimpleMotorFeedforward(DriveConstants.kSR, DriveConstants.kVR, DriveConstants.kAR);
 
         m_odometry = new DifferentialDriveOdometry(new Rotation2d());
-        m_kinematics = new DifferentialDriveKinematics(DriveConstants.kTrackWidth);
 
         setupNetworkTables();
     }
@@ -170,15 +169,20 @@ public class Drive extends SubsystemBase {
         return new DifferentialDriveWheelSpeeds(e_left.getRate(), e_right.getRate());
       }
 
+    //Return between -180 and 180
     public double getHeading() {
-        return m_ahrs.getAngle();
+        double heading = m_ahrs.getAngle()%360;
+        if(heading > 180) {
+            return heading-360;
+        }
+        return heading;
     }
 
     public Pose2d getPose() {
         return m_odometry.getPoseMeters();
     }
 
-    public DifferentialDriveKinematics getKinematics(){
+    public static DifferentialDriveKinematics getKinematics(){
         return m_kinematics;
     }
 
