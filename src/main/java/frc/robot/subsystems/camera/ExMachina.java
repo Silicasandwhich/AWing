@@ -1,5 +1,9 @@
 package frc.robot.subsystems.camera;
 
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
+import java.util.Map;
+
 import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
@@ -25,7 +29,17 @@ public class ExMachina {
 	private MatOfRect cascadeClassifierOutput = new MatOfRect();
 
 	static {
-		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+		try{
+			System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+		} catch (UnsatisfiedLinkError e) {
+			Map<String, String> env = System.getenv();
+			if(!env.containsKey("OPENCV_DIR")) {
+				throw new IllegalArgumentException();
+			}
+			Path path = FileSystems.getDefault().getPath(env.get("OPENCV_DIR"));
+			path = path.getParent().getParent();
+			System.load(path.toAbsolutePath()+"\\java\\x64\\opencv_java343.dll");
+		}
 	}
 
 	/**

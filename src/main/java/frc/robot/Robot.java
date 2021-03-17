@@ -41,6 +41,7 @@ public class Robot extends TimedRobot {
         // autonomous chooser on the dashboard.
         m_robotContainer = RobotContainer.getInstance();
         HAL.report(tResourceType.kResourceType_Framework, tInstances.kFramework_RobotBuilder);
+        m_robotContainer.stopTest();
     }
 
     /**
@@ -81,7 +82,7 @@ public class Robot extends TimedRobot {
     public void autonomousInit() {
         m_robotContainer.setAutoStatus(0);
         m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-        m_robotContainer.setAutoStatus(20);
+        m_robotContainer.setAutoStatus(2006);
 
         // schedule the autonomous command (example)
         if (m_autonomousCommand != null) {
@@ -125,9 +126,7 @@ public class Robot extends TimedRobot {
 
         m_robotContainer.setAutoStatus(0);
         m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-        m_robotContainer.setAutoStatus(20);
-        m_robotContainer.startTest();
-
+        m_robotContainer.setAutoStatus(2005);
         System.out.println("Waiting for deadman.");
     }
 
@@ -136,9 +135,9 @@ public class Robot extends TimedRobot {
     */
     @Override
     public void testPeriodic() {
-        if(m_robotContainer.getDeadman() && m_robotContainer.testStarted() == false) {
+        if(m_robotContainer.getDeadman() && (m_robotContainer.testStarted() == false)) {
             m_robotContainer.startTest();
-            System.out.println("Deadman Ready.");
+            System.out.println("Deadman Ready. " + m_robotContainer.testStarted());
             // schedule the autonomous command (example)
             if (m_autonomousCommand != null) {
                 m_autonomousCommand.schedule();
@@ -146,7 +145,11 @@ public class Robot extends TimedRobot {
 
         }
 
-        if(!m_robotContainer.getDeadman()){
+        if(m_robotContainer.getDeadman() && m_robotContainer.testStarted()) {
+            m_robotContainer.setAutoStatus(2006);
+        }
+
+        if(!m_robotContainer.getDeadman() && m_robotContainer.testStarted()){
             //Deadman stop
             m_robotContainer.setAutoStatus(90);
             m_robotContainer.stopRobot();

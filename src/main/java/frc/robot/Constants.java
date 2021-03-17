@@ -11,6 +11,8 @@
 
 package frc.robot;
 
+import org.opencv.core.Rect;
+
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.util.Units;
 
@@ -33,25 +35,29 @@ public class Constants {
 
         //By index: Enc A, Enc B, Absolute
         public static final int[] kEncoderLeft = {0,1,2}; 
-        public static final int[] kEncoderRight = {3,4,5}; 
+        public static final int[] kEncoderRight = {6,7,8}; 
+
+
+        //Characterization Values for the individual sides.
+        //Right
+        public static final double kSR = 1.63;
+        public static final double kVR = 2.85;
+        public static final double kAR = 0.0046;
+        //Left
+        public static final double kSL = 1.9;
+        public static final double kVL = 2.76;
+        public static final double kAL = 0.00317;
 
         //The hexbore encoder has 2048 cycles per revolution, since it is quadrature, it has 8192 pulses.
         //https://www.revrobotics.com/content/docs/REV-11-1271-DS.pdf
-        public static final double kDistancePerPulse = Units.inchesToMeters(6)*Math.PI/(2048*4);
-
-        public static final double kSR = 1.68;
-        public static final double kVR = 2.85;
-        public static final double kAR = 0.0046;
-
-        public static final double kSL = 1.77;
-        public static final double kVL = 2.64;
-        public static final double kAL = 0.00317;
-
-        
-        public static final double kTrackWidth = Units.inchesToMeters(21.5);
+        public static final double kDistancePerPulse = (Units.inchesToMeters(6)*Math.PI)/(2048*4);
+        //TrackWidth: The horizontal distance between wheels.
+        //https://docs.wpilib.org/en/stable/docs/software/examples-tutorials/trajectory-tutorial/entering-constants.html#differentialdrivekinematics
+        public static final double kTrackWidth = Units.inchesToMeters(12);
 		public static final boolean bLeftInverted = false;
 		public static final boolean bRightInverted = false;
-        public static final double kAcceleration = 0;
+        public static final double kAcceleration = 1;
+        public static final double kMaxSpeed = 2.5;
 
 		public static double kPL = 3.48; //TODO find correct kPL and kPR
 		public static double kPR = 3.64;
@@ -70,8 +76,37 @@ public class Constants {
         public static final double kRamseteB = 2;
         public static final double kRamseteZeta = 0.7;
         // pathfinding constants
-        public static final double MaxSpeed = 1; //TODO: Recalculate max speed
-        public static final double MaxAcceleration = 4.9;
+        public static final double kMaxSpeed = 1; //TODO: Recalculate max speed
+        public static final double kMaxAcceleration = 4.9;
+    }
+
+    public static final class Vision {
+        public static final Rect[][] realTris = {
+            //Path Blue A
+            {
+                new Rect(969,377,37,37),
+                new Rect(762,414, 55,55),
+                new Rect(1456,428, 63,63),
+            },
+            //Path Blue B
+            {
+                new Rect(1172, 364,34,34),
+                new Rect(843, 389,49,49),
+                new Rect(1293,428,63,63)
+            },
+            //path Red A
+            {
+                new Rect(912,633,124,124),
+                new Rect(464,452,62,62),
+                new Rect(1242,466,77,77)
+            },
+            //path Red B
+            {
+                new Rect(537,642,102,102),
+                new Rect(884,416,49,49),
+                new Rect(1362,470,68,68)
+            }
+        };
     }
 }
 

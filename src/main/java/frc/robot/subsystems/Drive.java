@@ -1,3 +1,4 @@
+
 package frc.robot.subsystems;
 
 import com.kauailabs.navx.frc.AHRS;
@@ -40,7 +41,7 @@ public class Drive extends SubsystemBase {
 
     private DifferentialDriveOdometry m_odometry;
 
-    private static DifferentialDriveKinematics m_kinematics;
+    private static DifferentialDriveKinematics m_kinematics = new DifferentialDriveKinematics(DriveConstants.kTrackWidth);
 
     private Pose2d m_position;
 
@@ -64,8 +65,8 @@ public class Drive extends SubsystemBase {
         eSim_left = new EncoderSim(e_left);
 
         e_right = new Encoder(DriveConstants.kEncoderRight[0], DriveConstants.kEncoderRight[1]);
-        e_right.setDistancePerPulse(DriveConstants.kDistancePerPulse);
         e_right.setReverseDirection(true);
+        e_right.setDistancePerPulse(DriveConstants.kDistancePerPulse);
         e_right.reset();
         eSim_right = new EncoderSim(e_right);
 
@@ -73,7 +74,6 @@ public class Drive extends SubsystemBase {
         ff_right = new SimpleMotorFeedforward(DriveConstants.kSR, DriveConstants.kVR, DriveConstants.kAR);
 
         m_odometry = new DifferentialDriveOdometry(new Rotation2d());
-        m_kinematics = new DifferentialDriveKinematics(DriveConstants.kTrackWidth);
 
         setupNetworkTables();
     }
@@ -120,15 +120,15 @@ public class Drive extends SubsystemBase {
         double calcLeft = ff_left.calculate(speedLeft, DriveConstants.kAcceleration);
         double calcRight = ff_right.calculate(speedRight, DriveConstants.kAcceleration);
 
-        if(DriveConstants.bLeftInverted) {
+        if(b_leftInverted.getBoolean(DriveConstants.bLeftInverted)) {
             s_left.setVoltage(-calcLeft);
         } else {
             s_left.setVoltage(calcLeft);
         }
-        if(DriveConstants.bRightInverted) {
-            s_right.setVoltage(-calcRight);
-        } else {
+        if(b_rightInverted.getBoolean(DriveConstants.bRightInverted)) {
             s_right.setVoltage(calcRight);
+        } else {
+            s_right.setVoltage(-calcRight);
         }
 
         m_driveBase.feed();
@@ -156,7 +156,11 @@ public class Drive extends SubsystemBase {
 
     public void setRawVoltage(double leftVoltage, double rightVoltage){
         s_left.setVoltage(leftVoltage);
-        s_right.setVoltage(rightVoltage);
+        if(b_rightInverted.getBoolean(DriveConstants.bRightInverted)){
+            s_right.setVoltage(rightVoltage);
+        } else {
+            s_right.setVoltage(-rightVoltage);
+        }
 
         s_left.feed();
         s_right.feed();
@@ -167,15 +171,20 @@ public class Drive extends SubsystemBase {
         return new DifferentialDriveWheelSpeeds(e_left.getRate(), e_right.getRate());
       }
 
+    //Return between -180 and 180
     public double getHeading() {
-        return m_ahrs.getAngle();
+        double heading = m_ahrs.getAngle()%360;
+        if(heading > 180) {
+            return heading-360;
+        }
+        return heading;
     }
 
     public Pose2d getPose() {
-        return m_position;
+        return m_odometry.getPoseMeters();
     }
 
-    public DifferentialDriveKinematics getKinematics(){
+    public static DifferentialDriveKinematics getKinematics(){
         return m_kinematics;
     }
 

@@ -3,6 +3,9 @@ package frc.robot.commands;
 import java.io.IOException;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 
 import org.opencv.core.Rect;
 
@@ -18,13 +21,14 @@ import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.camera.Camera;
 
 public class GalacticSearch extends ParallelRaceGroup {
 
-    public GalacticSearch(Drive drive, IntakeCommand intake, Camera camera) {
+    public GalacticSearch(Drive drive, Camera camera) {
         setAutoStatus(0);
         Rect[] lemons = camera.processFrame();
         if (lemons.length == 0) {
@@ -32,7 +36,8 @@ public class GalacticSearch extends ParallelRaceGroup {
             setAutoStatus(900);
             return;
         }
-
+        
+        setAutoStatus(1);
         String selection = selectPathFromRects(lemons);
         RobotContainer.getInstance().setPath(selection);
         Trajectory trajectory = getTrajectory(selection);
@@ -43,18 +48,18 @@ public class GalacticSearch extends ParallelRaceGroup {
         RamseteCommand follower = new RamseteCommand(trajectory, drive::getPose,
                 new RamseteController(AutoConstants.kRamseteB, AutoConstants.kRamseteZeta),
                 new SimpleMotorFeedforward(DriveConstants.kSC, DriveConstants.kVC, DriveConstants.kAC),
-                drive.getKinematics(), drive::getRates, new PIDController(DriveConstants.kPL, 0, 0),
+                Drive.getKinematics(), drive::getRates, new PIDController(DriveConstants.kPL, 0, 0),
                 new PIDController(DriveConstants.kPR, 0, 0), drive::setRawVoltage, drive);
         setAutoStatus(4);
 
-        addCommands(follower, intake);
+        addCommands(follower);
         setAutoStatus(5);
     }
 
     private Trajectory getTrajectory(String selection) {
         Trajectory trajectory = new Trajectory();
         try {
-            Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve("paths/" + selection);
+            Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve("paths/stupid/output/" + selection);
             trajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
         } catch (InvalidPathException ex) {
             DriverStation.reportError("Unable to open trajectory: " + selection, ex.getStackTrace());
@@ -67,12 +72,60 @@ public class GalacticSearch extends ParallelRaceGroup {
         return trajectory;
     }
 
-    public String selectPathFromRects(Rect[] lemons) {
-        setAutoStatus(1);
+    public static String selectPathFromRects(Rect[] lemons) {
+        ArrayList<Rect[]> tris  = new ArrayList<Rect[]>();
+        for(int r = 0; r < lemons.length-2; r++) {
+            tris.add(new Rect[] {lemons[r], lemons[r+1], lemons[r+2]});
+        }
 
-        String selection = "";
+        for(int i = 0; i < tris.size(); i++) {
+            for(int r = 0; r < 4; r++) {
+                //For each reference triangle, see if it is within tolerance
+                boolean correctPath = triangleWithinTolerance(tris.get(i), Constants.Vision.realTris[r], 1.50);
+                if(!correctPath) {
+                    continue;
+                }
+                if(r == 0) {
+                    return "blue_a";
+                } else if(r==1) {
+                    return "blue_b";
+                } else if(r==2) {
+                    return "red_a";
+                } else if(r==3) {
+                    return "red_b";
+                }
+            }
+            
+        }
+        return "";
+    }
 
-        return selection;
+    public static boolean triangleWithinTolerance(Rect[] tri, Rect[] reference, double scale) {
+
+        //Sort triangles
+        Arrays.sort(tri, Comparator.comparingDouble(Rect::area));
+        Arrays.sort(reference, Comparator.comparingDouble(Rect::area));
+
+
+        //Make sure scaling is correct, otherwise its a different path.
+        for(int i = 0; i < 3; i++) {
+            //Checks the height of the biggest rect
+            if(tri[i].height > reference[i].height*scale || tri[i].height < reference[i].height-((reference[i].height*scale)-reference[i].height)) {
+                return false;
+            }
+
+            if (i < 2) {
+                //find the difference between the tri[0].x and tri[1].x and ref[0].x and ref[1].x
+                int tri_dif = Math.abs(tri[i].x - tri[i+1].x);
+                int ref_dif = Math.abs(reference[i].x - reference[i+1].x);
+
+                if(tri_dif > ref_dif*scale || tri_dif < ref_dif-((ref_dif*scale)-ref_dif)) {
+                    return false;
+                }
+            }
+        }
+        
+        return true;
     }
 
     private void setAutoStatus(int status) {

@@ -26,8 +26,7 @@ public class TeleopCommand extends CommandBase {
 
         this.m_drive = drive;
         addRequirements(drive);
-
-        enableCorrections = Shuffleboard.getTab("Teleop").add("Enable Corrections", false)
+        enableCorrections = Shuffleboard.getTab("Teleop").addPersistent("Enable Corrections", true)
             .withWidget(BuiltInWidgets.kToggleButton).getEntry();
         correctionsEnabled = Shuffleboard.getTab("Teleop").add("Corrections Enabled", false)
             .withWidget(BuiltInWidgets.kBooleanBox).getEntry();

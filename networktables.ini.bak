@@ -2,4 +2,3 @@
 boolean "/Shuffleboard/Drive/Invert Left"=false
 boolean "/Shuffleboard/Drive/Invert Right"=false
 double "/Shuffleboard/Intake/Intake Speed"=1
-boolean "/Shuffleboard/Teleop/Enable Corrections"=false
