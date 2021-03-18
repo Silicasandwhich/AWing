@@ -3,6 +3,9 @@ package frc.robot.subsystems;
 
 import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.first.hal.SimDevice;
+import edu.wpi.first.hal.SimDouble;
+import edu.wpi.first.hal.simulation.SimDeviceDataJNI;
 import edu.wpi.first.networktables.EntryListenerFlags;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.Encoder;
@@ -25,6 +28,7 @@ import frc.robot.Constants.DriveConstants;
 public class Drive extends SubsystemBase {
 
     private AHRS m_ahrs;
+    private SimDouble m_gyroAngle;
 
     private Spark s_left;
     private Spark s_right;
@@ -49,6 +53,8 @@ public class Drive extends SubsystemBase {
     public Drive() {
 
         m_ahrs = new AHRS(DriveConstants.kAHRS);
+        int dev = SimDeviceDataJNI.getSimDeviceHandle("navX-Sensor[0]");
+        m_gyroAngle = new SimDouble(SimDeviceDataJNI.getSimValueHandle(dev, "Yaw"));
 
         s_left = new Spark(DriveConstants.kLeft);
         s_left.setInverted(DriveConstants.bLeftInverted);
