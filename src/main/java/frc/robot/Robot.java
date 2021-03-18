@@ -15,6 +15,9 @@ import edu.wpi.first.hal.FRCNetComm.tInstances;
 import edu.wpi.first.hal.FRCNetComm.tResourceType;
 import edu.wpi.first.hal.HAL;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.simulation.DifferentialDrivetrainSim;
+import edu.wpi.first.wpilibj.system.plant.DCMotor;
+import edu.wpi.first.wpilibj.util.Units;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
@@ -28,9 +31,9 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 public class Robot extends TimedRobot {
 
     private Command m_autonomousCommand;
-
     private RobotContainer m_robotContainer;
 
+    DifferentialDrivetrainSim differentialDriveSim;
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -41,7 +44,6 @@ public class Robot extends TimedRobot {
         // autonomous chooser on the dashboard.
         m_robotContainer = RobotContainer.getInstance();
         HAL.report(tResourceType.kResourceType_Framework, tInstances.kFramework_RobotBuilder);
-        m_robotContainer.stopTest();
     }
 
     /**
@@ -67,8 +69,6 @@ public class Robot extends TimedRobot {
     */
     @Override
     public void disabledInit() {
-        m_robotContainer.setAutoStatus(-1);
-        m_robotContainer.stopTest();
     }
 
     @Override
@@ -80,9 +80,7 @@ public class Robot extends TimedRobot {
     */
     @Override
     public void autonomousInit() {
-        m_robotContainer.setAutoStatus(0);
         m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-        m_robotContainer.setAutoStatus(2006);
 
         // schedule the autonomous command (example)
         if (m_autonomousCommand != null) {
@@ -106,9 +104,9 @@ public class Robot extends TimedRobot {
         if (m_autonomousCommand != null) {
             m_autonomousCommand.cancel();
         }
-
+        
         RobotContainer.getInstance().checkControls();
-        CommandScheduler.getInstance().schedule(RobotContainer.getInstance().getTeleopCommand());
+        RobotContainer.getInstance().getTeleopCommand().schedule();
     }
 
     /**
@@ -116,7 +114,6 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void teleopPeriodic() {
-        RobotContainer.getInstance().checkControls();
     }
 
     @Override
@@ -124,10 +121,6 @@ public class Robot extends TimedRobot {
         // Cancels all running commands at the start of test mode.
         CommandScheduler.getInstance().cancelAll();
 
-        m_robotContainer.setAutoStatus(0);
-        m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-        m_robotContainer.setAutoStatus(2005);
-        System.out.println("Waiting for deadman.");
     }
 
     /**
@@ -135,25 +128,22 @@ public class Robot extends TimedRobot {
     */
     @Override
     public void testPeriodic() {
-        if(m_robotContainer.getDeadman() && (m_robotContainer.testStarted() == false)) {
-            m_robotContainer.startTest();
-            System.out.println("Deadman Ready. " + m_robotContainer.testStarted());
-            // schedule the autonomous command (example)
-            if (m_autonomousCommand != null) {
-                m_autonomousCommand.schedule();
-            }
-
-        }
-
-        if(m_robotContainer.getDeadman() && m_robotContainer.testStarted()) {
-            m_robotContainer.setAutoStatus(2006);
-        }
-
-        if(!m_robotContainer.getDeadman() && m_robotContainer.testStarted()){
-            //Deadman stop
-            m_robotContainer.setAutoStatus(90);
-            m_robotContainer.stopRobot();
-        }
+    }
+    
+    @Override
+    public void simulationInit() {
+        differentialDriveSim = new DifferentialDrivetrainSim(
+            new DCMotor(12, 2.4249, 133, 2.7, Units.rotationsPerMinuteToRadiansPerSecond(5310), 1),
+            1/10.75,
+            5,//TODO get this moment of inertia thing about the center of the robot
+            22.68,
+            Units.inchesToMeters(3),
+            Units.inchesToMeters(21.5),
+            null);//TODO get std deviations
     }
 
+    @Override
+    public void simulationPeriodic() {
+
+    }
 }
