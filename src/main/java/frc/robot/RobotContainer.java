@@ -118,10 +118,19 @@ public class RobotContainer {
 
         pathChooser.setDefaultOption("None", "none");
 
-        pathChooser.addOption("b1 to b6", "working/b1 to b6.wpilib.json");
-        pathChooser.addOption("slalom", "working/slalom.wpilib.json");
-        pathChooser.addOption("barrel", "working/barrel.wpilib.json");
-        pathChooser.addOption("Bounce", "stupid/output/bounce.wpilib.json");
+        pathChooser.addOption("working/b1 to b6", "working/b1 to b6.wpilib.json");
+        pathChooser.addOption("working/slalom", "working/slalom.wpilib.json");
+        pathChooser.addOption("working/barrel", "working/barrel.wpilib.json");
+        pathChooser.addOption("stupid/Bounce", "stupid/output/bounce.wpilib.json");
+
+        pathChooser.addOption("1.5mps/barrel", "onepointfivemps/b1 to b6.wpilib.json");
+        pathChooser.addOption("1.5mps/bounce", "onepointfivemps/bounce.wpilib.json");
+        pathChooser.addOption("1.5mps/slalom", "onepointfivemps/slalom.wpilib.json");
+        pathChooser.addOption("1.5mps/blue a", "onepointfivemps/blue_path_a.wpilib.json");
+        pathChooser.addOption("1.5mps/blue b", "onepointfivemps/blue_path_b.wpilib.json");
+        pathChooser.addOption("1.5mps/red a", "onepointfivemps/red_path_a.wpilib.json");
+        pathChooser.addOption("1.5mps/red b", "onepointfivemps/red_path_b.wpilib.json");
+        
       
 
         Shuffleboard.getTab("Auto").add("Auto Command", pathChooser);
