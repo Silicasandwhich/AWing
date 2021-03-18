@@ -134,7 +134,7 @@ public class Robot extends TimedRobot {
     public void simulationInit() {
         differentialDriveSim = new DifferentialDrivetrainSim(
             new DCMotor(12, 2.4249, 133, 2.7, Units.rotationsPerMinuteToRadiansPerSecond(5310), 1),
-            3.0/72.0,
+            1/10.75,
             5,//TODO get this moment of inertia thing about the center of the robot
             22.68,
             Units.inchesToMeters(3),
