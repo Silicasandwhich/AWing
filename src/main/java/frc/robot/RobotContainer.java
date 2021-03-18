@@ -152,8 +152,10 @@ public class RobotContainer {
         m_drive.resetOdometry(new Pose2d());
 
         try {
+            System.out.println("=== Loading auto path. ===");
             Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(pathChooser.getSelected());
             Trajectory autoTrajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
+            System.out.println("=== Auto using path "+pathChooser.getSelected()+ " ===");
 
             return generateRamseteCommand(autoTrajectory).andThen(new StopRobot(m_drive,m_intake));
 
