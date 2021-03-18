@@ -137,9 +137,7 @@ public class RobotContainer {
         pathChooser.addOption("1.5mps/blue b", "onepointfivemps/blue_path_b.wpilib.json");
         pathChooser.addOption("1.5mps/red a", "onepointfivemps/red_path_a.wpilib.json");
         pathChooser.addOption("1.5mps/red b", "onepointfivemps/red_path_b.wpilib.json");
-        
       
-
         Shuffleboard.getTab("Auto").add("Auto Command", pathChooser);
         
     }
