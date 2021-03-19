@@ -104,6 +104,19 @@ public class Robot extends TimedRobot {
         if (m_autonomousCommand != null) {
             m_autonomousCommand.cancel();
         }
+
+        System.out.println("");
+        System.out.println("         _            _            _             _                   _            _      ");
+        System.out.println("       /\\ \\         /\\ \\         _\\ \\          /\\ \\                /\\ \\         /\\ \\    ");
+        System.out.println("       \\_\\ \\       /  \\ \\       /\\__ \\        /  \\ \\              /  \\ \\       /  \\ \\   ");
+        System.out.println("       /\\__ \\     / /\\ \\ \\     / /_ \\_\\      / /\\ \\ \\            / /\\ \\ \\     / /\\ \\ \\  ");
+        System.out.println("      / /_ \\ \\   / / /\\ \\_\\   / / /\\/_/     / / /\\ \\_\\  ____    / / /\\ \\ \\   / / /\\ \\_\\ ");
+        System.out.println("     / / /\\ \\ \\ / /_/_ \\/_/  / / /         / /_/_ \\/_//\\____/\\ / / /  \\ \\_\\ / / /_/ / / ");
+        System.out.println("    / / /  \\/_// /____/\\    / / /         / /____/\\   \\/____\\// / /   / / // / /__\\/ /  ");
+        System.out.println("   / / /      / /\\____\\/   / / / ____    / /\\____\\/          / / /   / / // / /_____/   ");
+        System.out.println("  / / /      / / /______  / /_/_/ ___/\\ / / /______         / / /___/ / // / /          ");
+        System.out.println(" /_/ /      / / /_______\\/_______/\\__\\// / /_______\\       / / /____\\/ // / /           ");
+        System.out.println(" \\_\\/       \\/__________/\\_______\\/    \\/__________/       \\/_________/ \\/_/            \n");
         
         RobotContainer.getInstance().checkControls();
         RobotContainer.getInstance().getTeleopCommand().schedule();

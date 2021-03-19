@@ -36,6 +36,7 @@ import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.commands.GalacticSearch;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.StopRobot;
 import frc.robot.commands.TeleopCommand;
@@ -118,6 +119,8 @@ public class RobotContainer {
 
         pathChooser.setDefaultOption("None", "none");
 
+        pathChooser.addOption("Galactic Search", "galaxy");
+
         pathChooser.addOption("working/b1 to b6", "working/b1 to b6.wpilib.json");
         pathChooser.addOption("working/slalom", "working/slalom.wpilib.json");
         pathChooser.addOption("working/barrel", "working/barrel.wpilib.json");
@@ -164,6 +167,21 @@ public class RobotContainer {
      */
     public Command getAutonomousCommand() {
         m_drive.resetOdometry(new Pose2d());
+
+        if(pathChooser.getSelected().equals("galaxy")) {
+            //Return a galactic search to run with intake command, then stop robot.
+            return (new GalacticSearch(m_drive, m_camera).raceWith(new IntakeCommand(m_intake, true))).andThen(new StopRobot(m_drive, m_intake));
+        }
+        System.out.println("=======================================================================");
+        System.out.println("");
+        System.out.println(" ██████╗ ██╗   ██╗███████╗██████╗ ██████╗ ██████╗ ██╗██╗   ██╗███████╗");
+        System.out.println("██╔═══██╗██║   ██║██╔════╝██╔══██╗██╔══██╗██╔══██╗██║██║   ██║██╔════╝");
+        System.out.println("██║   ██║██║   ██║█████╗  ██████╔╝██║  ██║██████╔╝██║██║   ██║█████╗  ");
+        System.out.println("██║   ██║╚██╗ ██╔╝██╔══╝  ██╔══██╗██║  ██║██╔══██╗██║╚██╗ ██╔╝██╔══╝  ");
+        System.out.println("╚██████╔╝ ╚████╔╝ ███████╗██║  ██║██████╔╝██║  ██║██║ ╚████╔╝ ███████╗");
+        System.out.println(" ╚═════╝   ╚═══╝  ╚══════╝╚═╝  ╚═╝╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═══╝  ╚══════╝");
+        System.out.println("");
+        System.out.println("=======================================================================");      
 
         try {
             System.out.println("=== Loading auto path. ===");

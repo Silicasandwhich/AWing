@@ -28,6 +28,15 @@ import frc.robot.subsystems.camera.Camera;
 public class GalacticSearch extends ParallelRaceGroup {
 
     public GalacticSearch(Drive drive, Camera camera) {
+        
+        System.out.println("");
+        System.out.println(" ▄▄ •  ▄▄▄· ▄▄▌   ▄▄▄·  ▄▄· ▄▄▄▄▄▪   ▄▄·     .▄▄ · ▄▄▄ . ▄▄▄· ▄▄▄   ▄▄·  ▄ .▄");
+        System.out.println("▐█ ▀ ▪▐█ ▀█ ██•  ▐█ ▀█ ▐█ ▌▪•██  ██ ▐█ ▌▪    ▐█ ▀. ▀▄.▀·▐█ ▀█ ▀▄ █·▐█ ▌▪██▪▐█");
+        System.out.println("▄█ ▀█▄▄█▀▀█ ██▪  ▄█▀▀█ ██ ▄▄ ▐█.▪▐█·██ ▄▄    ▄▀▀▀█▄▐▀▀▪▄▄█▀▀█ ▐▀▀▄ ██ ▄▄██▀▐█");
+        System.out.println("▐█▄▪▐█▐█ ▪▐▌▐█▌▐▌▐█ ▪▐▌▐███▌ ▐█▌·▐█▌▐███▌    ▐█▄▪▐█▐█▄▄▌▐█ ▪▐▌▐█•█▌▐███▌██▌▐▀");
+        System.out.println("·▀▀▀▀  ▀  ▀ .▀▀▀  ▀  ▀ ·▀▀▀  ▀▀▀ ▀▀▀·▀▀▀      ▀▀▀▀  ▀▀▀  ▀  ▀ .▀  ▀·▀▀▀ ▀▀▀ ·");
+        System.out.println("");
+
         Rect[] lemons = camera.processFrame();
         if (lemons.length == 0) {
             System.out.println("Failed to get lemons.");
@@ -51,7 +60,7 @@ public class GalacticSearch extends ParallelRaceGroup {
     private Trajectory getTrajectory(String selection) {
         Trajectory trajectory = new Trajectory();
         try {
-            Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve("paths/stupid/output/" + selection);
+            Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve("paths/working/" + selection+".wpilib.json");
             trajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
         } catch (InvalidPathException ex) {
             DriverStation.reportError("Unable to open trajectory: " + selection, ex.getStackTrace());
