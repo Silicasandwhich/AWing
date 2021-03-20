@@ -125,7 +125,7 @@ public class RobotContainer {
         pathChooser.addOption("working/slalom", "working/slalom.wpilib.json");
         pathChooser.addOption("working/barrel", "working/barrel.wpilib.json");
 
-        pathChooser.addOption("stupid/barrel", "stupid/output/b1 to b6.wpilib.json");
+        pathChooser.addOption("stupid/barrel", "stupid/output/barrel.wpilib.json");
         pathChooser.addOption("stupid/bounce", "stupid/output/bounce.wpilib.json");
         pathChooser.addOption("stupid/slalom", "stupid/output/slalom.wpilib.json");
         pathChooser.addOption("stupid/blue a", "stupid/output/blue_path_a.wpilib.json");
