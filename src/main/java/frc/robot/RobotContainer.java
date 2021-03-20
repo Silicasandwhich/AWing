@@ -133,7 +133,7 @@ public class RobotContainer {
         pathChooser.addOption("stupid/red a", "stupid/output/red_path_a.wpilib.json");
         pathChooser.addOption("stupid/red b", "stupid/output/red_path_b.wpilib.json");
 
-        pathChooser.addOption("1.5mps/barrel", "onepointfivemps/barrel.wpilib.json");
+        pathChooser.addOption("1.5mps/barrel", "onepointfivemps/b1 to b6.wpilib.json");
         pathChooser.addOption("1.5mps/bounce", "onepointfivemps/bounce.wpilib.json");
         pathChooser.addOption("1.5mps/slalom", "onepointfivemps/slalom.wpilib.json");
         pathChooser.addOption("1.5mps/blue a", "onepointfivemps/blue_path_a.wpilib.json");
@@ -187,7 +187,7 @@ public class RobotContainer {
 
         try {
             System.out.println("=== Loading auto path. ===");
-            Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve("paths/"+pathChooser.getSelected());
+            Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(pathChooser.getSelected());
             Trajectory autoTrajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
             System.out.println("=== Auto using path "+pathChooser.getSelected()+ " ===");
 
