@@ -142,6 +142,15 @@ public class RobotContainer {
         pathChooser.addOption("1.5mps/red b", "onepointfivemps/red_path_b.wpilib.json");
         pathChooser.addOption("1.5mps/wonkey", "onepointfivemps/wonkey.wpilib.json");
 
+        pathChooser.addOption("metermeter/barrel", "metermeter/output/Barrel Path.wpilib.json");
+        pathChooser.addOption("metermeter/bounce", "metermeter/output/Bounce Path.wpilib.json");
+        pathChooser.addOption("metermeter/slalom", "metermeter/output/Slalom Path.wpilib.json");
+        pathChooser.addOption("metermeter/blue a", "none");
+        pathChooser.addOption("metermeter/blue b", "metermeter/output/Galactic Search Blue.wpilib.json");
+        pathChooser.addOption("metermeter/red a",  "none");
+        pathChooser.addOption("metermeter/red b",  "metermeter/output/Galactic Search Red.wpilib.json");
+        pathChooser.addOption("metermeter/wonkey", "metermeter/output/wonkey.wpilib.json");
+
       
         Shuffleboard.getTab("Auto").add("Auto Command", pathChooser);
         
