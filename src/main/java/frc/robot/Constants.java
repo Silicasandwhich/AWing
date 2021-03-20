@@ -14,6 +14,7 @@ package frc.robot;
 import org.opencv.core.Rect;
 
 import edu.wpi.first.wpilibj.SerialPort;
+import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.util.Units;
 
 /**
@@ -50,22 +51,27 @@ public class Constants {
 
         //The hexbore encoder has 2048 cycles per revolution, since it is quadrature, it has 8192 pulses.
         //https://www.revrobotics.com/content/docs/REV-11-1271-DS.pdf
-        public static final double kDistancePerPulse = (Units.inchesToMeters(6)*Math.PI)/(2048*4);
-        //TrackWidth: The horizontal distance between wheels.
-        //https://docs.wpilib.org/en/stable/docs/software/examples-tutorials/trajectory-tutorial/entering-constants.html#differentialdrivekinematics
-        public static final double kTrackWidth = Units.inchesToMeters(12);
+        public static final double kDistancePerPulse = (Units.inchesToMeters(6)*Math.PI)/(2048);
+        
 		public static final boolean bLeftInverted = false;
 		public static final boolean bRightInverted = false;
         public static final double kAcceleration = 1;
-        public static final double kMaxSpeed = 2.5;
+
+        
 
 		public static double kPL = 3.48; //TODO find correct kPL and kPR
 		public static double kPR = 3.64;
 
         // TODO: get combined values
-		public static double kSC = 1.82;
-		public static double kVC = 2.75;
-		public static double kAC = 0.00137;
+		public static double kSC = 1.97;
+		public static double kVC = 2.89;
+		public static double kAC = 0.00176;
+
+        //TrackWidth: The horizontal distance between wheels.
+        //As defined by WPILIB, the distance between the left and right wheels.
+        //https://docs.wpilib.org/en/stable/docs/software/examples-tutorials/trajectory-tutorial/entering-constants.html#differentialdrivekinematics
+        public static final double kTrackWidth = Units.inchesToMeters(21.5);
+        public static DifferentialDriveKinematics kKinematics = new DifferentialDriveKinematics(kTrackWidth);
     }
 
     public static final class IntakeConstants {
@@ -76,8 +82,11 @@ public class Constants {
         public static final double kRamseteB = 2;
         public static final double kRamseteZeta = 0.7;
         // pathfinding constants
-        public static final double kMaxSpeed = 1; //TODO: Recalculate max speed
-        public static final double kMaxAcceleration = 4.9;
+        
+        //Meters Per Second Squared
+        public static final double kMaxAcceleration = 1;
+        //Meters Per Second
+        public static final double kMaxSpeed = 1.5;
     }
 
     public static final class Vision {

@@ -16,10 +16,9 @@ public class Camera extends SubsystemBase {
 
     private Thread visionThread;
     private ExMachina cascade;
-    private UsbCamera camera;
 
     public Camera() {
-        camera = CameraServer.getInstance().startAutomaticCapture();
+        CameraServer.getInstance().startAutomaticCapture();
         cascade = new ExMachina();
         /**
         visionThread = new Thread(() -> {
