@@ -63,9 +63,9 @@ public class Constants {
 		public static double kPR = 3.64;
 
         // TODO: get combined values
-		public static double kSC = 1.82;
-		public static double kVC = 2.75;
-		public static double kAC = 0.00137;
+		public static double kSC = 1.97;
+		public static double kVC = 2.89;
+		public static double kAC = 0.00176;
 
         //TrackWidth: The horizontal distance between wheels.
         //As defined by WPILIB, the distance between the left and right wheels.
