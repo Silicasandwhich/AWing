@@ -1,22 +1,27 @@
 package frc.robot.commands;
 
+import java.io.IOException;
+import java.nio.file.InvalidPathException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 
 import org.opencv.core.Rect;
 
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.controller.RamseteController;
 import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.trajectory.Trajectory;
+import edu.wpi.first.wpilibj.trajectory.TrajectoryUtil;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import frc.robot.Constants;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
-import frc.robot.RobotContainer;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.camera.Camera;
 
@@ -39,7 +44,7 @@ public class GalacticSearch extends ParallelRaceGroup {
         }
         
         String selection = selectPathFromRects(lemons);
-        Trajectory trajectory = RobotContainer.getInstance().getTrajectories().get(selection);
+        Trajectory trajectory = getTrajectory(selection);
 
         drive.resetOdometry(new Pose2d());
 
@@ -50,6 +55,19 @@ public class GalacticSearch extends ParallelRaceGroup {
                 new PIDController(DriveConstants.kPR, 0, 0), drive::setRawVoltage, drive);
 
         addCommands(follower);
+    }
+
+    private Trajectory getTrajectory(String selection) {
+        Trajectory trajectory = new Trajectory();
+        try {
+            Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve("paths/working/" + selection+".wpilib.json");
+            trajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
+        } catch (InvalidPathException ex) {
+            DriverStation.reportError("Unable to open trajectory: " + selection, ex.getStackTrace());
+        } catch (IOException ex) {
+            DriverStation.reportError("Unable to open trajectory: " + selection, ex.getStackTrace());
+        }
+        return trajectory;
     }
 
     public static String selectPathFromRects(Rect[] lemons) {

@@ -13,9 +13,6 @@ import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.objdetect.CascadeClassifier;
 
-import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-
 /**
 * ExMachina class.
 *
@@ -24,7 +21,6 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 * @author GRIP
 */
 public class ExMachina {
-	NetworkTableEntry pathDebugEntry = Shuffleboard.getTab("Auto").add("Ex Machina Path", "None").getEntry();
 
 	//Outputs
 	private Mat rgbThresholdOutput = new Mat();
