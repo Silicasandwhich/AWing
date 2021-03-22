@@ -60,7 +60,7 @@ public class GalacticSearch extends ParallelRaceGroup {
     private Trajectory getTrajectory(String selection) {
         Trajectory trajectory = new Trajectory();
         try {
-            Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve("paths/working/" + selection+".wpilib.json");
+            Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve("paths/metermeter/output" + selection+".wpilib.json");
             trajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
         } catch (InvalidPathException ex) {
             DriverStation.reportError("Unable to open trajectory: " + selection, ex.getStackTrace());
@@ -84,18 +84,18 @@ public class GalacticSearch extends ParallelRaceGroup {
                     continue;
                 }
                 if(r == 0) {
-                    return "blue_a";
+                    return "Galactic Search Blue A";
                 } else if(r==1) {
-                    return "blue_b";
+                    return "Galactic Search Blue B";
                 } else if(r==2) {
-                    return "red_a";
+                    return "Galactic Search Red A";
                 } else if(r==3) {
-                    return "red_b";
+                    return "Galactic Search Red B";
                 }
             }
             
         }
-        return "";
+        return "none";
     }
 
     public static boolean triangleWithinTolerance(Rect[] tri, Rect[] reference, double scale) {

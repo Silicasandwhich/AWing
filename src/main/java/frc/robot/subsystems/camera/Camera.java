@@ -41,8 +41,9 @@ public class Camera extends SubsystemBase {
 
     public Rect[] processFrame() {
         Mat source = new Mat();
-        getFrame(source);
+        long success = getFrame(source);
         try {
+            System.out.println("Trying to find lemons: " + success);
             cascade.process(source, new CascadeClassifier(Filesystem.getDeployDirectory().toPath().resolve("ExMachina.xml").toString()));
             return cascade.cascadeClassifierOutput().toArray();
             
