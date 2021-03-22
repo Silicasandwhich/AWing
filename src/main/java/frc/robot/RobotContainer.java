@@ -152,7 +152,7 @@ public class RobotContainer {
 
         paths.keySet().forEach(key -> {
             String path = paths.get(key.toLowerCase());
-            loaders.put(key, new TrajectoryLoader(path));
+            loaders.put(key, new TrajectoryLoader("paths/"+path));
         });
 
         System.out.println("Loading Trajectories");
