@@ -151,7 +151,7 @@ public class RobotContainer {
         Map<String, TrajectoryLoader> loaders = new HashMap<String, TrajectoryLoader>();
 
         paths.keySet().forEach(key -> {
-            String path = paths.get(key.toLowerCase());
+            String path = paths.get(key);
             loaders.put(key, new TrajectoryLoader(path));
         });
 
