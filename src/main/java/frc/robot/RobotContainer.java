@@ -12,6 +12,8 @@ package frc.robot;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.opencv.core.Rect;
 
@@ -45,6 +47,7 @@ import frc.robot.commands.TeleopCommand;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.camera.Camera;
+import frc.robot.util.TrajectoryLoader;
 
 
 /**
@@ -72,7 +75,6 @@ public class RobotContainer {
 
     private SendableChooser<String> pathChooser;
     private NetworkTableEntry controlEntry;
-    private NetworkTableEntry pathDebugEntry;
 
     private NetworkTableEntry cameraEntry;
 
@@ -85,6 +87,19 @@ public class RobotContainer {
     private Command teleopCommand = new TeleopCommand(m_drive);
     private IntakeCommand intakeForward = new IntakeCommand(m_intake, true);
     private Command intakeOut = new IntakeCommand(m_intake, false);
+
+    private Map<String, String> paths = Map.of(
+            "barrel", "metermeter/output/Barrel Path.wpilib.json",
+            "bounce", "metermeter/output/Bounce Path.wpilib.json",
+            "slalom","metermeter/output/Slalom Path.wpilib.json",
+            "blue a","metermeter/output/Galactic Search Blue A.wpilib.json",
+            "blue b","metermeter/output/Galactic Search Blue B.wpilib.json",
+            "red a","metermeter/output/Galactic Search Red A.wpilib.json",
+            "red b","metermeter/output/Galactic Search Red B.wpilib.json",
+            "wonkey", "metermeter/output/wonkey.wpilib.json"
+        );
+
+    private Map<String, Trajectory> trajectories = new HashMap<String, Trajectory>();
 
     private RobotContainer() {
 
@@ -124,36 +139,33 @@ public class RobotContainer {
 
         pathChooser.addOption("Galactic Search", "galaxy");
 
-        pathChooser.addOption("working/b1 to b6", "working/b1 to b6.wpilib.json");
-        pathChooser.addOption("working/slalom", "working/slalom.wpilib.json");
-        pathChooser.addOption("working/barrel", "working/barrel.wpilib.json");
+        pathChooser.addOption("Barrel", "barrel");
+        pathChooser.addOption("Bounce", "bounce");
+        pathChooser.addOption("Slalom", "slalom");
+        pathChooser.addOption("Blue A", "blue a");
+        pathChooser.addOption("Blue B", "blue b");
+        pathChooser.addOption("Red A",  "red a");
+        pathChooser.addOption("Red B",  "red b");
+        pathChooser.addOption("Wonkey", "wonkey");
 
-        pathChooser.addOption("stupid/barrel", "stupid/output/barrel.wpilib.json");
-        pathChooser.addOption("stupid/bounce", "stupid/output/bounce.wpilib.json");
-        pathChooser.addOption("stupid/slalom", "stupid/output/slalom.wpilib.json");
-        pathChooser.addOption("stupid/blue a", "stupid/output/blue_path_a.wpilib.json");
-        pathChooser.addOption("stupid/blue b", "stupid/output/blue_path_b.wpilib.json");
-        pathChooser.addOption("stupid/red a", "stupid/output/red_path_a.wpilib.json");
-        pathChooser.addOption("stupid/red b", "stupid/output/red_path_b.wpilib.json");
+        Map<String, TrajectoryLoader> loaders = new HashMap<String, TrajectoryLoader>();
 
-        pathChooser.addOption("1.5mps/barrel", "onepointfivemps/b1 to b6.wpilib.json");
-        pathChooser.addOption("1.5mps/bounce", "onepointfivemps/bounce.wpilib.json");
-        pathChooser.addOption("1.5mps/slalom", "onepointfivemps/slalom.wpilib.json");
-        pathChooser.addOption("1.5mps/blue a", "onepointfivemps/blue_path_a.wpilib.json");
-        pathChooser.addOption("1.5mps/blue b", "onepointfivemps/blue_path_b.wpilib.json");
-        pathChooser.addOption("1.5mps/red a", "onepointfivemps/red_path_a.wpilib.json");
-        pathChooser.addOption("1.5mps/red b", "onepointfivemps/red_path_b.wpilib.json");
-        pathChooser.addOption("1.5mps/wonkey", "onepointfivemps/wonkey.wpilib.json");
+        paths.keySet().forEach(key -> {
+            String path = paths.get(key.toLowerCase());
+            loaders.put(key, new TrajectoryLoader(path));
+        });
 
-        pathChooser.addOption("metermeter/barrel", "metermeter/output/Barrel Path.wpilib.json");
-        pathChooser.addOption("metermeter/bounce", "metermeter/output/Bounce Path.wpilib.json");
-        pathChooser.addOption("metermeter/slalom", "metermeter/output/Slalom Path.wpilib.json");
-        pathChooser.addOption("metermeter/blue a", "none");
-        pathChooser.addOption("metermeter/blue b", "metermeter/output/Galactic Search Blue.wpilib.json");
-        pathChooser.addOption("metermeter/red a",  "none");
-        pathChooser.addOption("metermeter/red b",  "metermeter/output/Galactic Search Red.wpilib.json");
-        pathChooser.addOption("metermeter/wonkey", "metermeter/output/wonkey.wpilib.json");
-
+        System.out.println("Loading Trajectories");
+        do {
+            loaders.keySet().forEach(loaderKey -> {
+                try {
+                    System.out.println("Loading Trajectory: "+ loaderKey);
+                    trajectories.put(loaderKey, loaders.get(loaderKey).getTrajectory());
+                } catch (InterruptedException e) {
+                    trajectories.clear();
+                }
+            }); 
+        } while (trajectories.size() == 0);
       
         Shuffleboard.getTab("Auto").add("Auto Command", pathChooser);
         
@@ -274,6 +286,14 @@ public class RobotContainer {
     public void testExMachina() {
         Rect[] rectangles = m_camera.processFrame();
         System.out.println(GalacticSearch.selectPathFromRects(rectangles));
+    }
+
+    public Map<String, String> getPaths() {
+        return this.paths;
+    }
+
+    public Map<String, Trajectory> getTrajectories() {
+        return this.trajectories;
     }
 
 }
