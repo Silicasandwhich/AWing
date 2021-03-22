@@ -153,7 +153,6 @@ public class RobotContainer {
         pathChooser.addOption("metermeter/red a",  "none");
         pathChooser.addOption("metermeter/red b",  "metermeter/output/Galactic Search Red.wpilib.json");
         pathChooser.addOption("metermeter/wonkey", "metermeter/output/wonkey.wpilib.json");
-
       
         Shuffleboard.getTab("Auto").add("Auto Command", pathChooser);
         
