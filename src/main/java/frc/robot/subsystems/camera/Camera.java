@@ -20,26 +20,6 @@ public class Camera extends SubsystemBase {
     public Camera() {
         CameraServer.getInstance().startAutomaticCapture();
         cascade = new ExMachina();
-        /**
-        visionThread = new Thread(() -> {
-            camera.setResolution(640,480);
-
-            CvSink cvDebug = CameraServer.getInstance().getVideo();
-
-            Mat source = new Mat();
-
-            LemonDetector pipeline = new LemonDetector();
-
-            while(!Thread.interrupted()) {
-                if(cvDebug.grabFrame(source) == 0){
-                    System.out.println(cvDebug.getError());
-                    continue;
-                }
-                
-                
-            }
-        });
-        **/
     }
 
     public void startCapture() {

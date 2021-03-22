@@ -13,6 +13,8 @@ package frc.robot;
 import java.io.IOException;
 import java.nio.file.Path;
 
+import org.opencv.core.Rect;
+
 import edu.wpi.first.networktables.EntryListenerFlags;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -70,6 +72,7 @@ public class RobotContainer {
 
     private SendableChooser<String> pathChooser;
     private NetworkTableEntry controlEntry;
+    private NetworkTableEntry pathDebugEntry;
 
     private NetworkTableEntry cameraEntry;
 
@@ -183,6 +186,7 @@ public class RobotContainer {
             //Return a galactic search to run with intake command, then stop robot.
             return (new GalacticSearch(m_drive, m_camera).raceWith(new IntakeCommand(m_intake, true))).andThen(new StopRobot(m_drive, m_intake));
         }
+
         System.out.println("=======================================================================");
         System.out.println("");
         System.out.println(" ██████╗ ██╗   ██╗███████╗██████╗ ██████╗ ██████╗ ██╗██╗   ██╗███████╗");
@@ -265,6 +269,11 @@ public class RobotContainer {
     public void stopRobot() {
         Command stop = new StopRobot(m_drive, m_intake);
         stop.schedule();
+    }
+
+    public void testExMachina() {
+        Rect[] rectangles = m_camera.processFrame();
+        System.out.println(GalacticSearch.selectPathFromRects(rectangles));
     }
 
 }
