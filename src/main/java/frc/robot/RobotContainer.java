@@ -123,28 +123,7 @@ public class RobotContainer {
         pathChooser.setDefaultOption("None", "none");
 
         pathChooser.addOption("Galactic Search", "galaxy");
-
-        pathChooser.addOption("working/b1 to b6", "working/b1 to b6.wpilib.json");
-        pathChooser.addOption("working/slalom", "working/slalom.wpilib.json");
-        pathChooser.addOption("working/barrel", "working/barrel.wpilib.json");
-
-        pathChooser.addOption("stupid/barrel", "stupid/output/barrel.wpilib.json");
-        pathChooser.addOption("stupid/bounce", "stupid/output/bounce.wpilib.json");
-        pathChooser.addOption("stupid/slalom", "stupid/output/slalom.wpilib.json");
-        pathChooser.addOption("stupid/blue a", "stupid/output/blue_path_a.wpilib.json");
-        pathChooser.addOption("stupid/blue b", "stupid/output/blue_path_b.wpilib.json");
-        pathChooser.addOption("stupid/red a", "stupid/output/red_path_a.wpilib.json");
-        pathChooser.addOption("stupid/red b", "stupid/output/red_path_b.wpilib.json");
-
-        pathChooser.addOption("1.5mps/barrel", "onepointfivemps/b1 to b6.wpilib.json");
-        pathChooser.addOption("1.5mps/bounce", "onepointfivemps/bounce.wpilib.json");
-        pathChooser.addOption("1.5mps/slalom", "onepointfivemps/slalom.wpilib.json");
-        pathChooser.addOption("1.5mps/blue a", "onepointfivemps/blue_path_a.wpilib.json");
-        pathChooser.addOption("1.5mps/blue b", "onepointfivemps/blue_path_b.wpilib.json");
-        pathChooser.addOption("1.5mps/red a", "onepointfivemps/red_path_a.wpilib.json");
-        pathChooser.addOption("1.5mps/red b", "onepointfivemps/red_path_b.wpilib.json");
-        pathChooser.addOption("1.5mps/wonkey", "onepointfivemps/wonkey.wpilib.json");
-
+        
         pathChooser.addOption("metermeter/barrel", "metermeter/output/Barrel Path.wpilib.json");
         pathChooser.addOption("metermeter/bounce", "metermeter/output/Bounce Path.wpilib.json");
         pathChooser.addOption("metermeter/slalom", "metermeter/output/Slalom Path.wpilib.json");
