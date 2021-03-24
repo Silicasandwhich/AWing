@@ -21,7 +21,7 @@ public class Rotate extends CommandBase {
 
     @Override
     public void execute() {
-        m_drive.feedForwardTank(0.5,-0.5);
+        m_drive.feedForwardTank(0.75,-0.75);
     }
 
     @Override

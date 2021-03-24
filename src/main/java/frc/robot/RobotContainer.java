@@ -33,6 +33,7 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryUtil;
+import edu.wpi.first.wpilibj.util.Units;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -40,7 +41,9 @@ import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.commands.GalacticSearch;
 import frc.robot.commands.IntakeCommand;
+import frc.robot.commands.Rotate;
 import frc.robot.commands.StopRobot;
+import frc.robot.commands.Straight;
 import frc.robot.commands.TeleopCommand;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Intake;
@@ -166,8 +169,18 @@ public class RobotContainer {
      */
     public Command getAutonomousCommand() {
         m_drive.resetOdometry(new Pose2d());
-        
-
+        if(pathChooser.getSelected().equals("metermeter/blue a")) {
+            return (new Straight(m_drive, Units.feetToMeters(15-2.5)).andThen(new Rotate(m_drive, 90).andThen(new Straight(m_drive, 1)))
+            //First lemon collected
+            .andThen(new Rotate(m_drive,90)).andThen(new Rotate(m_drive,90))
+            .andThen(new Straight(m_drive, 2)).andThen(new Rotate(m_drive,90))
+            .andThen(new Straight(m_drive, 1))
+            //second lemon collected
+            .andThen(new Rotate(m_drive,90)).andThen(new Rotate(m_drive,90)).andThen(new Straight(m_drive,1))
+            .andThen(new Rotate(m_drive, -90)).andThen(new Straight(m_drive,1)).andThen(new Rotate(m_drive, -90))
+            .andThen(new Straight(m_drive, Units.feetToMeters(15-2.0)))
+            ).raceWith(new IntakeCommand(m_intake, true));
+        }
     }
     
     public RamseteCommand generateRamseteCommand(Trajectory autoTrajectory) {

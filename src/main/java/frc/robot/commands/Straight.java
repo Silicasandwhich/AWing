@@ -7,6 +7,7 @@ import frc.robot.subsystems.Drive;
 public class Straight extends CommandBase {
     Drive m_drive;
     double dist;
+
     public Straight(Drive drive, double dist) {
         addRequirements(drive);
         m_drive = drive;
@@ -21,7 +22,7 @@ public class Straight extends CommandBase {
 
     @Override
     public void execute() {
-        m_drive.feedForwardTank(0.5,0.5);
+        m_drive.feedForwardTank(0.75,0.75);
     }
 
     @Override
