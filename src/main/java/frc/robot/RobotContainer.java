@@ -185,12 +185,16 @@ public class RobotContainer {
         System.out.println("=======================================================================");      
 
         //Run preloaded paths if exists.
-        //todo try catch
-        if(preloadedPaths.containsKey(pathChooser.getSelected())) {
+        try {
             testExMachina();
             System.out.println("===. Auto using path "+pathChooser.getSelected()+ " .===");
-
-            return generateRamseteCommand(preloadedPaths.get(pathChooser.getSelected())).andThen(new StopRobot(m_drive,m_intake));
+            Trajectory traj = preloadedPaths.get(pathChooser.getSelected());
+            if(traj == null) {
+                throw new NullPointerException("No Key Value Pair");
+            }
+            return generateRamseteCommand(traj).andThen(new StopRobot(m_drive,m_intake));
+        } catch (NullPointerException e) {
+            System.out.println("===. Could not preload path .===");
         }
 
         try {
