@@ -43,7 +43,7 @@ public class Camera extends SubsystemBase {
             debugFile.mkdir();
             String file = debugFile.getAbsolutePath() + System.currentTimeMillis() + ".jpg";
             boolean imageSuccess = Imgcodecs.imwrite(file, source);
-            System.out.println(" . . Image Writing Status: "+imageSuccess+" . . ");
+            System.out.println(" . . Image Writing Status: "+file+" ; "+imageSuccess+" . . ");
         }
 
         try {
