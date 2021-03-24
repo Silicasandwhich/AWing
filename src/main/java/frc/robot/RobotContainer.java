@@ -166,52 +166,7 @@ public class RobotContainer {
      */
     public Command getAutonomousCommand() {
         m_drive.resetOdometry(new Pose2d());
-
-
-        if(pathChooser.getSelected().equals("galaxy")) {
-            //Return a galactic search to run with intake command, then stop robot.
-            return (new GalacticSearch(m_drive, m_camera).raceWith(new IntakeCommand(m_intake, true))).andThen(new StopRobot(m_drive, m_intake));
-        }
-
-        System.out.println("=======================================================================");
-        System.out.println("");
-        System.out.println(" ██████╗ ██╗   ██╗███████╗██████╗ ██████╗ ██████╗ ██╗██╗   ██╗███████╗");
-        System.out.println("██╔═══██╗██║   ██║██╔════╝██╔══██╗██╔══██╗██╔══██╗██║██║   ██║██╔════╝");
-        System.out.println("██║   ██║██║   ██║█████╗  ██████╔╝██║  ██║██████╔╝██║██║   ██║█████╗  ");
-        System.out.println("██║   ██║╚██╗ ██╔╝██╔══╝  ██╔══██╗██║  ██║██╔══██╗██║╚██╗ ██╔╝██╔══╝  ");
-        System.out.println("╚██████╔╝ ╚████╔╝ ███████╗██║  ██║██████╔╝██║  ██║██║ ╚████╔╝ ███████╗");
-        System.out.println(" ╚═════╝   ╚═══╝  ╚══════╝╚═╝  ╚═╝╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═══╝  ╚══════╝");
-        System.out.println("");
-        System.out.println("=======================================================================");      
-
-        //Run preloaded paths if exists.
-        try {
-            testExMachina();
-            System.out.println("===. Auto using path "+pathChooser.getSelected()+ " .===");
-            Trajectory traj = preloadedPaths.get(pathChooser.getSelected());
-            if(traj == null) {
-                throw new NullPointerException("No Key Value Pair");
-            }
-            return generateRamseteCommand(traj).andThen(new StopRobot(m_drive,m_intake));
-        } catch (NullPointerException e) {
-            System.out.println("===. Could not preload path .===");
-        }
-
-        try {
-            System.out.println("=== Loading auto path. ===");
-            Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve("paths/" + pathChooser.getSelected());
-            Trajectory autoTrajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
-            System.out.println("=== Auto using path "+pathChooser.getSelected()+ " ===");
-            if(intakeWithAuto.getBoolean(false)){
-                return generateRamseteCommand(autoTrajectory).raceWith(new IntakeCommand(m_intake, true)).andThen(new StopRobot(m_drive,m_intake));
-            }
-            return generateRamseteCommand(autoTrajectory).andThen(new StopRobot(m_drive,m_intake));
-
-        } catch (IOException e) {
-            DriverStation.reportError("Could not find path " + "paths/" + pathChooser.getSelected(), e.getStackTrace());
-        }
         
-        return new StopRobot(m_drive, m_intake);
 
     }
     
