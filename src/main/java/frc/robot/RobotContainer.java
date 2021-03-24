@@ -280,7 +280,7 @@ public class RobotContainer {
 
     public void testExMachina() {
         Rect[] rectangles = m_camera.processFrame();
-        
+
         String path = GalacticSearch.selectPathFromRects(rectangles);
         pathDebugEntry.setString(path);
         System.out.println("Ex Machina Test Results: "+path);
