@@ -181,6 +181,7 @@ public class RobotContainer {
             .andThen(new Straight(m_drive, Units.feetToMeters(15-2.0)))
             ).raceWith(new IntakeCommand(m_intake, true));
         }
+        return new Straight(m_drive, 1);
     }
     
     public RamseteCommand generateRamseteCommand(Trajectory autoTrajectory) {
