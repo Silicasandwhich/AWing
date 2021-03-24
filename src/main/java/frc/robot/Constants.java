@@ -59,7 +59,7 @@ public class Constants {
 
         
 
-		public static double kPL = 3.48; //TODO find correct kPL and kPR
+		public static double kPL = 3.48; //TODO find correct kPL and kPR, maybe zero this?
 		public static double kPR = 3.64;
 
         // TODO: get combined values

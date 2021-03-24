@@ -77,7 +77,7 @@ public class GalacticSearch extends ParallelRaceGroup {
         }
 
         for(int i = 0; i < tris.size(); i++) {
-            for(int r = 0; r < 4; r++) {
+            for(int r = 0; r < 2; r++) {
                 //For each reference triangle, see if it is within tolerance
                 boolean correctPath = triangleWithinTolerance(tris.get(i), Constants.Vision.realTris[r], 1.50);
                 if(!correctPath) {
