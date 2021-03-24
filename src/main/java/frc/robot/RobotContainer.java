@@ -41,6 +41,7 @@ import frc.robot.Constants.DriveConstants;
 import frc.robot.commands.GalacticSearch;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.StopRobot;
+import frc.robot.commands.Straight;
 import frc.robot.commands.TeleopCommand;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Intake;
@@ -165,9 +166,7 @@ public class RobotContainer {
      * @return the command to run in autonomous
      */
     public Command getAutonomousCommand() {
-        m_drive.resetOdometry(new Pose2d());
-        
-
+       return new Straight(m_drive, 1).andThen(new StopRobot(m_drive, m_intake));
     }
     
     public RamseteCommand generateRamseteCommand(Trajectory autoTrajectory) {
