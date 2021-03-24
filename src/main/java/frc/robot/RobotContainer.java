@@ -130,10 +130,10 @@ public class RobotContainer {
         try {
             System.out.println(" = = Preloading Paths = = ");
             System.out.println(" = = Preloading Blue A = = ");
-            Path blueA = Filesystem.getDeployDirectory().toPath().resolve("metermeter/blue a");
+            Path blueA = Filesystem.getDeployDirectory().toPath().resolve("paths/metermeter/output/Galactic Search Blue A.wpilib.json");
             preloadedPaths.put("metermeter/blue a", TrajectoryUtil.fromPathweaverJson(blueA));
             System.out.println(" = = Preloading Blue B= = ");
-            Path blueB = Filesystem.getDeployDirectory().toPath().resolve("metermeter/blue b");
+            Path blueB = Filesystem.getDeployDirectory().toPath().resolve("paths/metermeter/output/Galactic Search Blue B.wpilib.json");
             preloadedPaths.put("metermeter/blue b", TrajectoryUtil.fromPathweaverJson(blueB));
         } catch (IOException e) {
             System.out.println(" = = Could not Preload Paths = = ");
@@ -185,9 +185,10 @@ public class RobotContainer {
         System.out.println("=======================================================================");      
 
         //Run preloaded paths if exists.
+        //todo try catch
         if(preloadedPaths.containsKey(pathChooser.getSelected())) {
             testExMachina();
-            System.out.println("=== Auto using path "+pathChooser.getSelected()+ " ===");
+            System.out.println("===. Auto using path "+pathChooser.getSelected()+ " .===");
 
             return generateRamseteCommand(preloadedPaths.get(pathChooser.getSelected())).andThen(new StopRobot(m_drive,m_intake));
         }
