@@ -13,7 +13,6 @@ package frc.robot;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.HashMap;
-import java.util.Map;
 
 import org.opencv.core.Rect;
 
@@ -30,7 +29,6 @@ import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.controller.RamseteController;
 import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
-import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.trajectory.Trajectory;
@@ -47,7 +45,6 @@ import frc.robot.commands.TeleopCommand;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.camera.Camera;
-import frc.robot.util.TrajectoryLoader;
 
 
 /**
@@ -74,9 +71,9 @@ public class RobotContainer {
     private SendableChooser<String> controlScheme;
 
     private SendableChooser<String> pathChooser;
+    private NetworkTableEntry intakeWithAuto;
     private NetworkTableEntry controlEntry;
-
-    private NetworkTableEntry cameraEntry;
+    private NetworkTableEntry pathDebugEntry;
 
     // Subsystems
     private Drive m_drive = new Drive();
@@ -88,18 +85,8 @@ public class RobotContainer {
     private IntakeCommand intakeForward = new IntakeCommand(m_intake, true);
     private Command intakeOut = new IntakeCommand(m_intake, false);
 
-    private Map<String, String> paths = Map.of(
-            "barrel", "metermeter/output/Barrel Path.wpilib.json",
-            "bounce", "metermeter/output/Bounce Path.wpilib.json",
-            "slalom","metermeter/output/Slalom Path.wpilib.json",
-            "blue a","metermeter/output/Galactic Search Blue A.wpilib.json",
-            "blue b","metermeter/output/Galactic Search Blue B.wpilib.json",
-            "red a","metermeter/output/Galactic Search Red A.wpilib.json",
-            "red b","metermeter/output/Galactic Search Red B.wpilib.json",
-            "wonkey", "metermeter/output/wonkey.wpilib.json"
-        );
-
-    private Map<String, Trajectory> trajectories = new HashMap<String, Trajectory>();
+    //Command Preloader
+    private HashMap<String, Trajectory> preloadedPaths;
 
     private RobotContainer() {
 
@@ -114,20 +101,10 @@ public class RobotContainer {
         controlEntry.addListener(event -> {
             checkControls();
         }, EntryListenerFlags.kNew | EntryListenerFlags.kUpdate);
-        
-        cameraEntry = Shuffleboard.getTab("Vision").add("Vision Debug", false).withWidget(BuiltInWidgets.kToggleButton)
-                .getEntry();
-        cameraEntry.addListener(event -> {
-            if (cameraEntry.getBoolean(false)) {
-                m_camera.startCapture();
-            } else {
-                m_camera.stopCapture();
-            }
-        }, EntryListenerFlags.kNew | EntryListenerFlags.kUpdate);
-
 
         //Path Chooser Stuff
         pathChooser = new SendableChooser<String>();
+        intakeWithAuto = Shuffleboard.getTab("Auto").add("Run With Intake", false).getEntry();
 
         /**
          * Link to each of our paths here. Be sure to put them inside the
@@ -138,34 +115,30 @@ public class RobotContainer {
         pathChooser.setDefaultOption("None", "none");
 
         pathChooser.addOption("Galactic Search", "galaxy");
+        
+        pathChooser.addOption("metermeter/barrel", "metermeter/output/Barrel Path.wpilib.json");
+        pathChooser.addOption("metermeter/bounce", "metermeter/output/Bounce Path.wpilib.json");
+        pathChooser.addOption("metermeter/slalom", "metermeter/output/Slalom Path.wpilib.json");
+        pathChooser.addOption("metermeter/blue a", "metermeter/output/Galactic Search Blue A.wpilib.json");
+        pathChooser.addOption("metermeter/blue b", "metermeter/output/Galactic Search Blue B.wpilib.json");
+        pathChooser.addOption("metermeter/red a",  "metermeter/output/Galactic Search Red A.wpilib.json");
+        pathChooser.addOption("metermeter/red b",  "metermeter/output/Galactic Search Red B.wpilib.json");
+        pathChooser.addOption("metermeter/wonkey", "metermeter/output/wonkey.wpilib.json");
 
-        pathChooser.addOption("Barrel", "barrel");
-        pathChooser.addOption("Bounce", "bounce");
-        pathChooser.addOption("Slalom", "slalom");
-        pathChooser.addOption("Blue A", "blue a");
-        pathChooser.addOption("Blue B", "blue b");
-        pathChooser.addOption("Red A",  "red a");
-        pathChooser.addOption("Red B",  "red b");
-        pathChooser.addOption("Wonkey", "wonkey");
-
-        Map<String, TrajectoryLoader> loaders = new HashMap<String, TrajectoryLoader>();
-
-        paths.keySet().forEach(key -> {
-            String path = paths.get(key.toLowerCase());
-            loaders.put(key, new TrajectoryLoader(path));
-        });
-
-        System.out.println("Loading Trajectories");
-        do {
-            loaders.keySet().forEach(loaderKey -> {
-                try {
-                    System.out.println("Loading Trajectory: "+ loaderKey);
-                    trajectories.put(loaderKey, loaders.get(loaderKey).getTrajectory());
-                } catch (InterruptedException e) {
-                    trajectories.clear();
-                }
-            }); 
-        } while (trajectories.size() == 0);
+        preloadedPaths = new HashMap<String, Trajectory>();
+        
+        try {
+            System.out.println(" = = Preloading Paths = = ");
+            System.out.println(" = = Preloading Blue A = = ");
+            Path blueA = Filesystem.getDeployDirectory().toPath().resolve("paths/metermeter/output/Galactic Search Blue A.wpilib.json");
+            preloadedPaths.put("metermeter/blue a", TrajectoryUtil.fromPathweaverJson(blueA));
+            System.out.println(" = = Preloading Blue B= = ");
+            Path blueB = Filesystem.getDeployDirectory().toPath().resolve("paths/metermeter/output/Galactic Search Blue B.wpilib.json");
+            preloadedPaths.put("metermeter/blue b", TrajectoryUtil.fromPathweaverJson(blueB));
+        } catch (IOException e) {
+            System.out.println(" = = Could not Preload Paths = = ");
+            DriverStation.reportError("Could not preload paths. Please check if these files exist.", e.getStackTrace());
+        }
       
         Shuffleboard.getTab("Auto").add("Auto Command", pathChooser);
         
@@ -194,6 +167,7 @@ public class RobotContainer {
     public Command getAutonomousCommand() {
         m_drive.resetOdometry(new Pose2d());
 
+
         if(pathChooser.getSelected().equals("galaxy")) {
             //Return a galactic search to run with intake command, then stop robot.
             return (new GalacticSearch(m_drive, m_camera).raceWith(new IntakeCommand(m_intake, true))).andThen(new StopRobot(m_drive, m_intake));
@@ -210,16 +184,31 @@ public class RobotContainer {
         System.out.println("");
         System.out.println("=======================================================================");      
 
+        //Run preloaded paths if exists.
+        try {
+            testExMachina();
+            System.out.println("===. Auto using path "+pathChooser.getSelected()+ " .===");
+            Trajectory traj = preloadedPaths.get(pathChooser.getSelected());
+            if(traj == null) {
+                throw new NullPointerException("No Key Value Pair");
+            }
+            return generateRamseteCommand(traj).andThen(new StopRobot(m_drive,m_intake));
+        } catch (NullPointerException e) {
+            System.out.println("===. Could not preload path .===");
+        }
+
         try {
             System.out.println("=== Loading auto path. ===");
-            Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(pathChooser.getSelected());
+            Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve("paths/" + pathChooser.getSelected());
             Trajectory autoTrajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
             System.out.println("=== Auto using path "+pathChooser.getSelected()+ " ===");
-
+            if(intakeWithAuto.getBoolean(false)){
+                return generateRamseteCommand(autoTrajectory).raceWith(new IntakeCommand(m_intake, true)).andThen(new StopRobot(m_drive,m_intake));
+            }
             return generateRamseteCommand(autoTrajectory).andThen(new StopRobot(m_drive,m_intake));
 
         } catch (IOException e) {
-            DriverStation.reportError("Could not find path", e.getStackTrace());
+            DriverStation.reportError("Could not find path " + "paths/" + pathChooser.getSelected(), e.getStackTrace());
         }
         
         return new StopRobot(m_drive, m_intake);
@@ -285,15 +274,10 @@ public class RobotContainer {
 
     public void testExMachina() {
         Rect[] rectangles = m_camera.processFrame();
-        System.out.println(GalacticSearch.selectPathFromRects(rectangles));
-    }
 
-    public Map<String, String> getPaths() {
-        return this.paths;
-    }
-
-    public Map<String, Trajectory> getTrajectories() {
-        return this.trajectories;
+        String path = GalacticSearch.selectPathFromRects(rectangles);
+        pathDebugEntry.setString(path);
+        System.out.println("Ex Machina Test Results: "+path);
     }
 
 }

@@ -1,4 +1,4 @@
-# AWing2021 ![Gradle Daemons Summoned](https://img.shields.io/badge/Daemons%20Summoned-581-red?style=for-the-badge&logo=gradle)
+# AWing2021 ![Gradle Daemons Summoned](https://img.shields.io/badge/Daemons%20Summoned-577-red?style=for-the-badge&logo=gradle)
 ![I'm Gonna Wreck It!](https://media.giphy.com/media/IjD2bKEIiyLfi/giphy.gif)
 
 Robot Code for 2021 A-Wing
