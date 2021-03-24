@@ -11,7 +11,6 @@
 package frc.robot;
 
 import java.io.IOException;
-import java.nio.file.FileSystem;
 import java.nio.file.Path;
 import java.util.HashMap;
 
@@ -30,7 +29,6 @@ import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.controller.RamseteController;
 import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
-import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.trajectory.Trajectory;
@@ -76,8 +74,6 @@ public class RobotContainer {
     private NetworkTableEntry controlEntry;
     private NetworkTableEntry pathDebugEntry;
 
-    private NetworkTableEntry cameraEntry;
-
     // Subsystems
     private Drive m_drive = new Drive();
     private Intake m_intake = new Intake();
@@ -104,17 +100,6 @@ public class RobotContainer {
         controlEntry.addListener(event -> {
             checkControls();
         }, EntryListenerFlags.kNew | EntryListenerFlags.kUpdate);
-        
-        cameraEntry = Shuffleboard.getTab("Vision").add("Vision Debug", false).withWidget(BuiltInWidgets.kToggleButton)
-                .getEntry();
-        cameraEntry.addListener(event -> {
-            if (cameraEntry.getBoolean(false)) {
-                m_camera.startCapture();
-            } else {
-                m_camera.stopCapture();
-            }
-        }, EntryListenerFlags.kNew | EntryListenerFlags.kUpdate);
-
 
         //Path Chooser Stuff
         pathChooser = new SendableChooser<String>();

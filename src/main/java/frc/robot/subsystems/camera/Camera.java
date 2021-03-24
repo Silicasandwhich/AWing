@@ -8,38 +8,25 @@ import org.opencv.core.Rect;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.objdetect.CascadeClassifier;
 
-import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Camera extends SubsystemBase {
 
-    private Thread visionThread;
     private ExMachina cascade;
 
+    //Write Debug Image
     NetworkTableEntry writeImage;
 
     public Camera() {
         CameraServer.getInstance().startAutomaticCapture();
         cascade = new ExMachina();
-        writeImage = Shuffleboard.getTab("Auto").add("Write Debug Image", true).getEntry();
-    }
-
-    public void startCapture() {
-        try {
-            visionThread.start();
-        } catch (IllegalThreadStateException e) {
-            visionThread.interrupt();
-            visionThread.start();
-        }
-    }
-
-    public void stopCapture() {
-        visionThread.interrupt();
+        writeImage = Shuffleboard.getTab("Auto").add("Write Debug Image", true).withWidget(BuiltInWidgets.kBooleanBox).getEntry();
     }
 
     public long getFrame(Mat source) {
@@ -49,7 +36,8 @@ public class Camera extends SubsystemBase {
     public Rect[] processFrame() {
         Mat source = new Mat();
         getFrame(source);
-
+        
+        //If allowed to write debug images for speed purposes.
         if(writeImage.getBoolean(true)) {
             File debugFile = new File(Filesystem.getDeployDirectory().getAbsolutePath()+"cameraDebug");
             debugFile.mkdir();
