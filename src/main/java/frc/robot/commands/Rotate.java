@@ -4,13 +4,13 @@ import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drive;
 
-public class Straight extends CommandBase {
+public class Rotate extends CommandBase {
     Drive m_drive;
     double dist;
-    public Straight(Drive drive, double dist) {
+    public Straight(Drive drive, double rotation) {
         addRequirements(drive);
         m_drive = drive;
-        this.dist = dist;
+        this.dist = rotation;
     }
 
     @Override
@@ -21,13 +21,19 @@ public class Straight extends CommandBase {
 
     @Override
     public void execute() {
-        m_drive.feedForwardTank(0.5,0.5);
+        m_drive.feedForwardTank(0.5,-0.5);
     }
 
     @Override
     public boolean isFinished() {
-        if(m_drive.getPose().getY() >= dist) {
-            return true;
+        if(dist > 0) {
+            if(m_drive.getHeading() >= dist) {
+                return true;
+            }
+        } else  {
+            if(m_drive.getHeading() <= dist) {
+                return true;
+            }
         }
         return false;
     }
