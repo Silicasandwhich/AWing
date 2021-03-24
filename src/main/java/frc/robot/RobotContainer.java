@@ -11,7 +11,9 @@
 package frc.robot;
 
 import java.io.IOException;
+import java.nio.file.FileSystem;
 import java.nio.file.Path;
+import java.util.HashMap;
 
 import org.opencv.core.Rect;
 
@@ -86,6 +88,9 @@ public class RobotContainer {
     private IntakeCommand intakeForward = new IntakeCommand(m_intake, true);
     private Command intakeOut = new IntakeCommand(m_intake, false);
 
+    //Command Preloader
+    private HashMap<String, Trajectory> preloadedPaths;
+
     private RobotContainer() {
 
         //Setup Control Scheme Chooser
@@ -127,11 +132,26 @@ public class RobotContainer {
         pathChooser.addOption("metermeter/barrel", "metermeter/output/Barrel Path.wpilib.json");
         pathChooser.addOption("metermeter/bounce", "metermeter/output/Bounce Path.wpilib.json");
         pathChooser.addOption("metermeter/slalom", "metermeter/output/Slalom Path.wpilib.json");
-        pathChooser.addOption("metermeter/blue a", "none");
-        pathChooser.addOption("metermeter/blue b", "metermeter/output/Galactic Search Blue.wpilib.json");
-        pathChooser.addOption("metermeter/red a",  "none");
-        pathChooser.addOption("metermeter/red b",  "metermeter/output/Galactic Search Red.wpilib.json");
+        pathChooser.addOption("metermeter/blue a", "metermeter/output/Galactic Search Blue A");
+        pathChooser.addOption("metermeter/blue b", "metermeter/output/Galactic Search Blue B.wpilib.json");
+        pathChooser.addOption("metermeter/red a",  "metermeter/output/Galactic Search Red A");
+        pathChooser.addOption("metermeter/red b",  "metermeter/output/Galactic Search Red B.wpilib.json");
         pathChooser.addOption("metermeter/wonkey", "metermeter/output/wonkey.wpilib.json");
+
+        preloadedPaths = new HashMap<String, Trajectory>();
+        
+        try {
+            System.out.println(" = = Preloading Paths = = ");
+            System.out.println(" = = Preloading Blue A = = ");
+            Path blueA = Filesystem.getDeployDirectory().toPath().resolve("metermeter/blue a");
+            preloadedPaths.put("metermeter/blue a", TrajectoryUtil.fromPathweaverJson(blueA));
+            System.out.println(" = = Preloading Blue B= = ");
+            Path blueB = Filesystem.getDeployDirectory().toPath().resolve("metermeter/blue b");
+            preloadedPaths.put("metermeter/blue b", TrajectoryUtil.fromPathweaverJson(blueB));
+        } catch (IOException e) {
+            System.out.println(" = = Could not Preload Paths = = ");
+            DriverStation.reportError("Could not preload paths. Please check if these files exist.", e.getStackTrace());
+        }
       
         Shuffleboard.getTab("Auto").add("Auto Command", pathChooser);
         
@@ -160,6 +180,7 @@ public class RobotContainer {
     public Command getAutonomousCommand() {
         m_drive.resetOdometry(new Pose2d());
 
+
         if(pathChooser.getSelected().equals("galaxy")) {
             //Return a galactic search to run with intake command, then stop robot.
             return (new GalacticSearch(m_drive, m_camera).raceWith(new IntakeCommand(m_intake, true))).andThen(new StopRobot(m_drive, m_intake));
@@ -175,6 +196,14 @@ public class RobotContainer {
         System.out.println(" ╚═════╝   ╚═══╝  ╚══════╝╚═╝  ╚═╝╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═══╝  ╚══════╝");
         System.out.println("");
         System.out.println("=======================================================================");      
+
+        //Run preloaded paths if exists.
+        if(preloadedPaths.containsKey(pathChooser.getSelected())) {
+            testExMachina();
+            System.out.println("=== Auto using path "+pathChooser.getSelected()+ " ===");
+
+            return generateRamseteCommand(preloadedPaths.get(pathChooser.getSelected())).andThen(new StopRobot(m_drive,m_intake));
+        }
 
         try {
             System.out.println("=== Loading auto path. ===");
@@ -251,7 +280,10 @@ public class RobotContainer {
 
     public void testExMachina() {
         Rect[] rectangles = m_camera.processFrame();
-        System.out.println(GalacticSearch.selectPathFromRects(rectangles));
+        
+        String path = GalacticSearch.selectPathFromRects(rectangles);
+        pathDebugEntry.setString(path);
+        System.out.println("Ex Machina Test Results: "+path);
     }
 
 }
