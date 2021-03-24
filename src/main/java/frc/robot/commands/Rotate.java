@@ -7,7 +7,7 @@ import frc.robot.subsystems.Drive;
 public class Rotate extends CommandBase {
     Drive m_drive;
     double dist;
-    public Straight(Drive drive, double rotation) {
+    public Rotate(Drive drive, double rotation) {
         addRequirements(drive);
         m_drive = drive;
         this.dist = rotation;
