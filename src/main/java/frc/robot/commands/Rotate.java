@@ -1,5 +1,7 @@
 package frc.robot.commands;
 
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drive;
@@ -7,7 +9,9 @@ import frc.robot.subsystems.Drive;
 public class Rotate extends CommandBase {
     Drive m_drive;
     double dist;
+    NetworkTableEntry maxSpeed;
     public Rotate(Drive drive, double rotation) {
+        maxSpeed = NetworkTableInstance.getDefault().getTable("Shuffleboard").getSubTable("Teleop").getEntry("Max Speed");
         addRequirements(drive);
         m_drive = drive;
         this.dist = rotation;
@@ -21,7 +25,7 @@ public class Rotate extends CommandBase {
 
     @Override
     public void execute() {
-        m_drive.feedForwardTank(0.75,-0.75);
+        m_drive.feedForwardTank(0.75 * maxSpeed.getDouble(1),-0.75 * maxSpeed.getDouble(1));
     }
 
     @Override

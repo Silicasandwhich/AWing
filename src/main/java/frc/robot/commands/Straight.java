@@ -1,5 +1,8 @@
 package frc.robot.commands;
 
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drive;
@@ -7,6 +10,10 @@ import frc.robot.subsystems.Drive;
 public class Straight extends CommandBase {
     Drive m_drive;
     double dist;
+    NetworkTableInstance n_inst = NetworkTableInstance.getDefault();
+    NetworkTable t_table = n_inst.getTable("Shuffleboard").getSubTable("Teleop");
+
+    NetworkTableEntry maxSpeed = t_table.getEntry("Max Speed");
 
     public Straight(Drive drive, double dist) {
         addRequirements(drive);
@@ -22,7 +29,7 @@ public class Straight extends CommandBase {
 
     @Override
     public void execute() {
-        m_drive.feedForwardTank(0.75,0.75);
+        m_drive.feedForwardTank(0.75 * maxSpeed.getDouble(1) , 0.75 * maxSpeed.getDouble(1));
     }
 
     @Override
