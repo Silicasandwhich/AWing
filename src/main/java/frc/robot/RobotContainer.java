@@ -180,6 +180,18 @@ public class RobotContainer {
             .andThen(new Rotate(m_drive, -90)).andThen(new Straight(m_drive,1)).andThen(new Rotate(m_drive, -90))
             .andThen(new Straight(m_drive, Units.feetToMeters(15-2.0)))
             ).raceWith(new IntakeCommand(m_intake, true));
+        } else if(pathChooser.getSelected().equals("metermeter/blue b")) {
+            return (new Straight(m_drive, Units.feetToMeters(15)).andThen(new Rotate(m_drive, 90).andThen(new Straight(m_drive, Units.feetToMeters(2.5))))
+            // first lemon collected
+            .andThen(new Rotate(m_drive,90)).andThen(new Rotate(m_drive,90))
+            .andThen(new Straight(m_drive, Units.feetToMeters(5))).andThen(new Rotate(m_drive,90))
+            .andThen(new Straight(m_drive, Units.feetToMeters(20-15)))
+            // second lemon collected
+            .andThen(new Straight(m_drive, Units.feetToMeters(5))).andThen(new Rotate(m_drive,90)).andThen(new Straight(m_drive,Units.feetToMeters(5)))
+            // third lemon collected
+            .andThen(new Rotate(m_drive, 180)).andThen(new Straight(m_drive,Units.feetToMeters(2.5))).andThen(new Rotate(m_drive, 90))
+            .andThen(new Straight(m_drive, Units.feetToMeters(3)))
+            ).raceWith(new IntakeCommand(m_intake, true));
         }
         return new Straight(m_drive, 1);
     }
