@@ -123,8 +123,10 @@ public class RobotContainer {
         pathChooser.addOption("metermeter/barrel", "metermeter/output/Barrel Path.wpilib.json");
         pathChooser.addOption("metermeter/bounce", "metermeter/output/Bounce Path.wpilib.json");
         pathChooser.addOption("metermeter/slalom", "metermeter/output/Slalom Path.wpilib.json");
-        pathChooser.addOption("metermeter/blue a", "metermeter/blue a");
-        pathChooser.addOption("metermeter/blue b", "metermeter/blue b");
+        pathChooser.addOption("blue a manual", "metermeter/blue a");
+        pathChooser.addOption("blue b manual", "metermeter/blue b");
+        pathChooser.addOption("blue a pathweaver", "metermeter/output/Galactic Search Blue A.wpilib.json")
+        pathChooser.addOption("blue b pathweaver", "metermeter/output/Galactic Search Blue B.wpilib.json")
         pathChooser.addOption("metermeter/red a",  "metermeter/output/Galactic Search Red A.wpilib.json");
         pathChooser.addOption("metermeter/red b",  "metermeter/output/Galactic Search Red B.wpilib.json");
         pathChooser.addOption("metermeter/wonkey", "metermeter/output/wonkey.wpilib.json");
