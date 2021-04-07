@@ -36,6 +36,7 @@ import edu.wpi.first.wpilibj.trajectory.TrajectoryUtil;
 import edu.wpi.first.wpilibj.util.Units;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
@@ -122,8 +123,8 @@ public class RobotContainer {
         pathChooser.addOption("metermeter/barrel", "metermeter/output/Barrel Path.wpilib.json");
         pathChooser.addOption("metermeter/bounce", "metermeter/output/Bounce Path.wpilib.json");
         pathChooser.addOption("metermeter/slalom", "metermeter/output/Slalom Path.wpilib.json");
-        pathChooser.addOption("metermeter/blue a", "metermeter/output/Galactic Search Blue A.wpilib.json");
-        pathChooser.addOption("metermeter/blue b", "metermeter/output/Galactic Search Blue B.wpilib.json");
+        pathChooser.addOption("metermeter/blue a", "metermeter/blue a");
+        pathChooser.addOption("metermeter/blue b", "metermeter/blue b");
         pathChooser.addOption("metermeter/red a",  "metermeter/output/Galactic Search Red A.wpilib.json");
         pathChooser.addOption("metermeter/red b",  "metermeter/output/Galactic Search Red B.wpilib.json");
         pathChooser.addOption("metermeter/wonkey", "metermeter/output/wonkey.wpilib.json");
@@ -168,18 +169,22 @@ public class RobotContainer {
      * @return the command to run in autonomous
      */
     public Command getAutonomousCommand() {
+        System.out.println(pathChooser.getSelected());
         m_drive.resetOdometry(new Pose2d());
         if(pathChooser.getSelected().equals("metermeter/blue a")) {
-            return (new Straight(m_drive, Units.feetToMeters(15-2.5)).andThen(new Rotate(m_drive, 90).andThen(new Straight(m_drive, 1)))
+            return (new Straight(m_drive, 0.5)).andThen(new Straight(m_drive, -0.2))
+                .andThen(new Straight(m_drive, 4.1)).andThen(new Rotate(m_drive, 50))
+                .andThen(new WaitCommand(0.1))
+                .andThen(new Straight(m_drive, 0.87))
             //First lemon collected
-            .andThen(new Rotate(m_drive,90)).andThen(new Rotate(m_drive,90))
-            .andThen(new Straight(m_drive, 2)).andThen(new Rotate(m_drive,90))
+            .andThen(new WaitCommand(1))
+            .andThen(new Straight(m_drive, -2))/*andThen(new Rotate(m_drive,-90+40))
             .andThen(new Straight(m_drive, 1))
             //second lemon collected
-            .andThen(new Rotate(m_drive,90)).andThen(new Rotate(m_drive,90)).andThen(new Straight(m_drive,1))
-            .andThen(new Rotate(m_drive, -90)).andThen(new Straight(m_drive,1)).andThen(new Rotate(m_drive, -90))
-            .andThen(new Straight(m_drive, Units.feetToMeters(15-2.0)))
-            ).raceWith(new IntakeCommand(m_intake, true));
+            .andThen(new Rotate(m_drive,90-40)).andThen(new Rotate(m_drive,90-40)).andThen(new Straight(m_drive,1))
+            .andThen(new Rotate(m_drive, -90+40)).andThen(new Straight(m_drive,1)).andThen(new Rotate(m_drive, -90+40))
+            .andThen(new Straight(m_drive, Units.feetToMeters(15-2.0)))*/
+            .raceWith(new IntakeCommand(m_intake, true));
         } else if(pathChooser.getSelected().equals("metermeter/blue b")) {
             return (new Straight(m_drive, Units.feetToMeters(15)).andThen(new Rotate(m_drive, 90).andThen(new Straight(m_drive, Units.feetToMeters(2.5))))
             // first lemon collected

@@ -23,21 +23,34 @@ public class Straight extends CommandBase {
 
     @Override
     public void initialize() {
-        m_drive.simpleTank(0,0);
+        System.out.println("Straight: " + dist);
         m_drive.resetOdometry(new Pose2d());
+        m_drive.simpleTank(0,0);
     }
 
     @Override
     public void execute() {
-        m_drive.feedForwardTank(0.75 * maxSpeed.getDouble(1) , 0.75 * maxSpeed.getDouble(1));
+        if( dist > 0) {
+            m_drive.feedForwardTank(0.75 * maxSpeed.getDouble(1) , 0.75 * maxSpeed.getDouble(1));
+        } else {
+            System.out.println("Reverse!");
+            m_drive.feedForwardTank(-0.75 *maxSpeed.getDouble(1), -0.75 * maxSpeed.getDouble(1));
+        }
     }
 
     @Override
     public boolean isFinished() {
-        if(m_drive.getPose().getY() >= dist) {
-            return true;
+        if(dist > 0) {
+            if(m_drive.getPose().getX() >= dist) {
+                return true;
+            }
+            return false;
+        } else {
+            if(m_drive.getPose().getX() <= dist) {
+                return true;
+            }
+            return false;
         }
-        return false;
     }
 
     @Override

@@ -30,6 +30,7 @@ public class Rotate extends CommandBase {
 
     @Override
     public boolean isFinished() {
+        System.out.println(m_drive.getHeading());
         if(dist > 0) {
             if(m_drive.getHeading() >= dist) {
                 return true;

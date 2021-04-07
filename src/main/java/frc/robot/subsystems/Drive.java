@@ -174,7 +174,7 @@ public class Drive extends SubsystemBase {
 
     //Return between -180 and 180
     public double getHeading() {
-        double heading = -m_ahrs.getAngle()%360;
+        double heading = m_ahrs.getAngle()%360;
         if(heading > 180) {
             return heading-360;
         }
@@ -183,7 +183,7 @@ public class Drive extends SubsystemBase {
 
     public Pose2d getPose() {
         //TODO Maybe use the unused m_position?
-        return m_odometry.getPoseMeters();
+        return m_position;
     }
 
 }
