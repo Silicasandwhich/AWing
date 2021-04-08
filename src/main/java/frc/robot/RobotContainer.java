@@ -123,10 +123,10 @@ public class RobotContainer {
         pathChooser.addOption("metermeter/barrel", "metermeter/output/Barrel Path.wpilib.json");
         pathChooser.addOption("metermeter/bounce", "metermeter/output/Bounce Path.wpilib.json");
         pathChooser.addOption("metermeter/slalom", "metermeter/output/Slalom Path.wpilib.json");
-        pathChooser.addOption("blue a manual", "metermeter/blue a");
-        pathChooser.addOption("blue b manual", "metermeter/blue b");
-        pathChooser.addOption("blue a pathweaver", "metermeter/output/Galactic Search Blue A.wpilib.json")
-        pathChooser.addOption("blue b pathweaver", "metermeter/output/Galactic Search Blue B.wpilib.json")
+        pathChooser.addOption("blue a manual", "blue a");
+        pathChooser.addOption("blue b manual", "blue b");
+        pathChooser.addOption("blue a pathweaver", "metermeter/blue a");
+        pathChooser.addOption("blue b pathweaver", "metermeter/blue a");
         pathChooser.addOption("metermeter/red a",  "metermeter/output/Galactic Search Red A.wpilib.json");
         pathChooser.addOption("metermeter/red b",  "metermeter/output/Galactic Search Red B.wpilib.json");
         pathChooser.addOption("metermeter/wonkey", "metermeter/output/wonkey.wpilib.json");
@@ -173,7 +173,7 @@ public class RobotContainer {
     public Command getAutonomousCommand() {
         System.out.println(pathChooser.getSelected());
         m_drive.resetOdometry(new Pose2d());
-        if(pathChooser.getSelected().equals("metermeter/blue a")) {
+        if(pathChooser.getSelected().equals("blue a")) {
             return (new Straight(m_drive, 0.5)).andThen(new Straight(m_drive, -0.2))
                 .andThen(new Straight(m_drive, 4.1)).andThen(new Rotate(m_drive, 50))
                 .andThen(new WaitCommand(0.1))
@@ -187,7 +187,7 @@ public class RobotContainer {
             .andThen(new Rotate(m_drive, -90+40)).andThen(new Straight(m_drive,1)).andThen(new Rotate(m_drive, -90+40))
             .andThen(new Straight(m_drive, Units.feetToMeters(15-2.0)))*/
             .raceWith(new IntakeCommand(m_intake, true));
-        } else if(pathChooser.getSelected().equals("metermeter/blue b")) {
+        } else if(pathChooser.getSelected().equals("blue b")) {
             return (new Straight(m_drive, Units.feetToMeters(15)).andThen(new Rotate(m_drive, 90).andThen(new Straight(m_drive, Units.feetToMeters(2.5))))
             // first lemon collected
             .andThen(new Rotate(m_drive,90)).andThen(new Rotate(m_drive,90))
@@ -199,7 +199,10 @@ public class RobotContainer {
             .andThen(new Rotate(m_drive, 180)).andThen(new Straight(m_drive,Units.feetToMeters(2.5))).andThen(new Rotate(m_drive, 90))
             .andThen(new Straight(m_drive, Units.feetToMeters(3)))
             ).raceWith(new IntakeCommand(m_intake, true));
+        } else if(pathChooser.getSelected() != "none"){
+            return generateRamseteCommand(preloadedPaths.get(pathChooser.getSelected()));
         }
+        
         return new Straight(m_drive, 1);
     }
     

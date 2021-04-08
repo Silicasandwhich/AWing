@@ -176,7 +176,7 @@ public class Drive extends SubsystemBase {
     public double getHeading() {
         double heading = m_ahrs.getAngle()%360;
         if(heading > 180) {
-            return heading-360;
+            return (heading-360);
         }
         return heading;
     }
