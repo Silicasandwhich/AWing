@@ -11,8 +11,6 @@
 
 package frc.robot;
 
-import org.opencv.core.Rect;
-
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.util.Units;
@@ -87,35 +85,6 @@ public class Constants {
         public static final double kMaxAcceleration = 1;
         //Meters Per Second
         public static final double kMaxSpeed = 1.5;
-    }
-
-    public static final class Vision {
-        public static final Rect[][] realTris = {
-            //Path Blue A
-            {
-                new Rect(969,377,37,37),
-                new Rect(762,414, 55,55),
-                new Rect(1456,428, 63,63),
-            },
-            //Path Blue B
-            {
-                new Rect(1172, 364,34,34),
-                new Rect(843, 389,49,49),
-                new Rect(1293,428,63,63)
-            },
-            //path Red A
-            {
-                new Rect(912,633,124,124),
-                new Rect(464,452,62,62),
-                new Rect(1242,466,77,77)
-            },
-            //path Red B
-            {
-                new Rect(537,642,102,102),
-                new Rect(884,416,49,49),
-                new Rect(1362,470,68,68)
-            }
-        };
     }
 }
 

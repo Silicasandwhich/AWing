@@ -40,15 +40,11 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
-import frc.robot.commands.GalacticSearch;
 import frc.robot.commands.IntakeCommand;
-import frc.robot.commands.Rotate;
 import frc.robot.commands.StopRobot;
-import frc.robot.commands.Straight;
 import frc.robot.commands.TeleopCommand;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.camera.Camera;
 
 
 /**
@@ -82,7 +78,6 @@ public class RobotContainer {
     // Subsystems
     private Drive m_drive = new Drive();
     private Intake m_intake = new Intake();
-    private Camera m_camera = new Camera();
 
     // Commands
     private Command teleopCommand = new TeleopCommand(m_drive);
@@ -117,34 +112,6 @@ public class RobotContainer {
          */
 
         pathChooser.setDefaultOption("None", "none");
-
-        pathChooser.addOption("Galactic Search", "galaxy");
-        
-        pathChooser.addOption("metermeter/barrel", "metermeter/output/Barrel Path.wpilib.json");
-        pathChooser.addOption("metermeter/bounce", "metermeter/output/Bounce Path.wpilib.json");
-        pathChooser.addOption("metermeter/slalom", "metermeter/output/Slalom Path.wpilib.json");
-        pathChooser.addOption("blue a manual", "blue a");
-        pathChooser.addOption("blue b manual", "blue b");
-        pathChooser.addOption("blue a pathweaver", "metermeter/blue a");
-        pathChooser.addOption("blue b pathweaver", "metermeter/blue a");
-        pathChooser.addOption("metermeter/red a",  "metermeter/output/Galactic Search Red A.wpilib.json");
-        pathChooser.addOption("metermeter/red b",  "metermeter/output/Galactic Search Red B.wpilib.json");
-        pathChooser.addOption("metermeter/wonkey", "metermeter/output/wonkey.wpilib.json");
-
-        preloadedPaths = new HashMap<String, Trajectory>();
-        
-        try {
-            System.out.println(" = = Preloading Paths = = ");
-            System.out.println(" = = Preloading Blue A = = ");
-            Path blueA = Filesystem.getDeployDirectory().toPath().resolve("paths/metermeter/output/Galactic Search Blue A.wpilib.json");
-            preloadedPaths.put("metermeter/blue a", TrajectoryUtil.fromPathweaverJson(blueA));
-            System.out.println(" = = Preloading Blue B= = ");
-            Path blueB = Filesystem.getDeployDirectory().toPath().resolve("paths/metermeter/output/Galactic Search Blue B.wpilib.json");
-            preloadedPaths.put("metermeter/blue b", TrajectoryUtil.fromPathweaverJson(blueB));
-        } catch (IOException e) {
-            System.out.println(" = = Could not Preload Paths = = ");
-            DriverStation.reportError("Could not preload paths. Please check if these files exist.", e.getStackTrace());
-        }
       
         Shuffleboard.getTab("Auto").add("Auto Command", pathChooser);
         
@@ -173,37 +140,14 @@ public class RobotContainer {
     public Command getAutonomousCommand() {
         System.out.println(pathChooser.getSelected());
         m_drive.resetOdometry(new Pose2d());
-        if(pathChooser.getSelected().equals("blue a")) {
-            return (new Straight(m_drive, 0.5)).andThen(new Straight(m_drive, -0.2))
-                .andThen(new Straight(m_drive, 4.1)).andThen(new Rotate(m_drive, 50))
-                .andThen(new WaitCommand(0.1))
-                .andThen(new Straight(m_drive, 0.87))
-            //First lemon collected
-            .andThen(new WaitCommand(1))
-            .andThen(new Straight(m_drive, -2))/*andThen(new Rotate(m_drive,-90+40))
-            .andThen(new Straight(m_drive, 1))
-            //second lemon collected
-            .andThen(new Rotate(m_drive,90-40)).andThen(new Rotate(m_drive,90-40)).andThen(new Straight(m_drive,1))
-            .andThen(new Rotate(m_drive, -90+40)).andThen(new Straight(m_drive,1)).andThen(new Rotate(m_drive, -90+40))
-            .andThen(new Straight(m_drive, Units.feetToMeters(15-2.0)))*/
-            .raceWith(new IntakeCommand(m_intake, true));
-        } else if(pathChooser.getSelected().equals("blue b")) {
-            return (new Straight(m_drive, Units.feetToMeters(15)).andThen(new Rotate(m_drive, 90).andThen(new Straight(m_drive, Units.feetToMeters(2.5))))
-            // first lemon collected
-            .andThen(new Rotate(m_drive,90)).andThen(new Rotate(m_drive,90))
-            .andThen(new Straight(m_drive, Units.feetToMeters(5))).andThen(new Rotate(m_drive,90))
-            .andThen(new Straight(m_drive, Units.feetToMeters(20-15)))
-            // second lemon collected
-            .andThen(new Straight(m_drive, Units.feetToMeters(5))).andThen(new Rotate(m_drive,90)).andThen(new Straight(m_drive,Units.feetToMeters(5)))
-            // third lemon collected
-            .andThen(new Rotate(m_drive, 180)).andThen(new Straight(m_drive,Units.feetToMeters(2.5))).andThen(new Rotate(m_drive, 90))
-            .andThen(new Straight(m_drive, Units.feetToMeters(3)))
-            ).raceWith(new IntakeCommand(m_intake, true));
-        } else if(pathChooser.getSelected() != "none"){
-            return generateRamseteCommand(preloadedPaths.get(pathChooser.getSelected()));
+        Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve("paths/" + pathChooser.getSelected());
+        try{
+            Trajectory autoTrajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
+            return generateRamseteCommand(autoTrajectory);
+        } catch (IOException e){
+            System.out.println("Trajectory Not Found!");
+            return new StopRobot(m_drive, m_intake);
         }
-        
-        return new Straight(m_drive, 1);
     }
     
     public RamseteCommand generateRamseteCommand(Trajectory autoTrajectory) {
@@ -261,14 +205,6 @@ public class RobotContainer {
     public void stopRobot() {
         Command stop = new StopRobot(m_drive, m_intake);
         stop.schedule();
-    }
-
-    public void testExMachina() {
-        Rect[] rectangles = m_camera.processFrame();
-
-        String path = GalacticSearch.selectPathFromRects(rectangles);
-        pathDebugEntry.setString(path);
-        System.out.println("Ex Machina Test Results: "+path);
     }
 
 }
