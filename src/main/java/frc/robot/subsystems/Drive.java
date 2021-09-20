@@ -9,6 +9,7 @@ import edu.wpi.first.networktables.EntryListenerFlags;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Spark;
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
@@ -27,8 +28,12 @@ public class Drive extends SubsystemBase {
     private AHRS m_ahrs;
     private SimDouble m_gyroAngle;
 
-    private Spark s_left;
-    private Spark s_right;
+    private Spark s_leftFront;
+    private Spark s_leftBack;
+    private Spark s_rightFront;
+    private Spark s_rightBack;
+    private SpeedControllerGroup s_left;
+    private SpeedControllerGroup s_right;
     private DifferentialDrive m_driveBase;
 
     private Encoder e_left;
@@ -53,10 +58,17 @@ public class Drive extends SubsystemBase {
         int dev = SimDeviceDataJNI.getSimDeviceHandle("navX-Sensor[0]");
         m_gyroAngle = new SimDouble(SimDeviceDataJNI.getSimValueHandle(dev, "Yaw"));
 
-        s_left = new Spark(DriveConstants.kLeft);
+        s_leftFront = new Spark(DriveConstants.kLeftFront);
+        s_leftBack = new Spark(DriveConstants.kLeftback);
+        s_left = new SpeedControllerGroup(s_leftFront, s_leftBack);
+        
         s_left.setInverted(DriveConstants.bLeftInverted);
 
-        s_right = new Spark(DriveConstants.kRight);
+        s_rightFront = new Spark(DriveConstants.kRightFront);
+        s_rightBack = new Spark(DriveConstants.kRightBack);
+        s_right = new SpeedControllerGroup(s_rightFront, s_rightBack);
+
+        s_right.setInverted(DriveConstants.bLeftInverted);
 
         m_driveBase = new DifferentialDrive(s_left, s_right);
 
@@ -157,14 +169,7 @@ public class Drive extends SubsystemBase {
 
     public void setRawVoltage(double leftVoltage, double rightVoltage){
         s_left.setVoltage(leftVoltage);
-        if(b_rightInverted.getBoolean(DriveConstants.bRightInverted)){
-            s_right.setVoltage(rightVoltage);
-        } else {
-            s_right.setVoltage(-rightVoltage);
-        }
-
-        s_left.feed();
-        s_right.feed();
+        s_right.setVoltage(rightVoltage);
         m_driveBase.feed();
     }
 

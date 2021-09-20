@@ -27,8 +27,10 @@ public class Constants {
 
 
     public static final class DriveConstants {
-        public static final int kLeft = 0;
-        public static final int kRight = 1;
+        public static final int kLeftFront = 2;
+        public static final int kLeftback = 0;
+        public static final int kRightFront = 3;
+        public static final int kRightBack = 1;
 
         public static final SerialPort.Port kAHRS = SerialPort.Port.kUSB;
 
@@ -73,7 +75,7 @@ public class Constants {
     }
 
     public static final class IntakeConstants {
-        public static final int kIntake = 2;
+        public static final int kIntake = 4;
     }
 
     public static final class AutoConstants {
